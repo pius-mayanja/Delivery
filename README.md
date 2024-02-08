@@ -77,4 +77,20 @@ Implementation steps:
 - Create an Elastic Beanstalk environment for deploying the web application.
 - Configure environment variables and deployment settings within Elastic Beanstalk.
 - Set up a MySQL instance using Amazon RDS and configure the platform to connect to the database.
-- Configure Elastic Load Balancing and Auto Scaling policies to handle incoming traffic efficiently.
+- Configure Elastic Load Balancing and Auto Scaling policies to handle incoming traffic efficiently.  
+
+**(iii) BACKEND AND DATABASES.**   
+The platform will be constructed using Django which is a useful frame-work for database driven applications.   
+Django emphasizes reusability of components, also referred to as DRY (Don't Repeat Yourself), and comes with ready-to-use features like login system, database connection and CRUD operations (Create Read Update Delete).  
+Django follows the MVT design pattern (Model View Template).
+
+- Model - The data you want to present, usually data from a database with well defined fields.  
+- View - A request handler that returns the relevant template and content - based on the request from the user.
+- Template - A text file (like an HTML file) containing the layout of the web page, with logic on how to display the data.   
+
+In addition,building a web platform that shows data from our database, we will need:
+- An RDBMS database program (like MySQL,PostreSQL, etc)
+- A server-side scripting language, like PHP and JavaScript...  
+- To use SQL to get the data you want
+- To use HTML / CSS to style the templates.
+
