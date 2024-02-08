@@ -5,7 +5,7 @@
 Hivemind is a multi-business entirely online platform that brings together a large network for customers and variety of certified businesses across the nation and overseas.
 Business owners are able to register with HIVEMIND by creating accounts on the platform that will enable them to offer their products, services etc. to the target market.
 
-Business owners that are verified by the platform admin will:
+Business owners that are verified by the platform admin will:   
 - Be able to create an account emphasizing their details like, business name and slogan, location(s), contact(s), service(s) and product(s) offered, business descripton among others....
 - Will be able to monitor their products, receive order notifications and feedback from customers, 
 send replies to customers among others through Email APIs configured by the platform developer.
@@ -82,8 +82,8 @@ Implementation steps:
 **(iii) BACKEND AND DATABASES.**   
 The platform will be constructed using Django which is a useful frame-work for database driven applications.   
 Django emphasizes reusability of components, also referred to as DRY (Don't Repeat Yourself), and comes with ready-to-use features like login system, database connection and CRUD operations (Create Read Update Delete).  
-Django follows the MVT design pattern (Model View Template).
 
+Django follows the MVT design pattern (Model View Template).
 - Model - The data you want to present, usually data from a database with well defined fields.  
 - View - A request handler that returns the relevant template and content - based on the request from the user.
 - Template - A text file (like an HTML file) containing the layout of the web page, with logic on how to display the data.   
