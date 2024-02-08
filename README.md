@@ -56,11 +56,11 @@ Setting up Scheduled tasks for sending promotional emails based on predefined cr
 **(ii) CLOUD HOSTING**:   
 The platform shall be hosted on a secure and scalable cloud infrastructure to provide high availability, performance and resilience.
 
-considerations:
+considerations:  
 1.cloud provider: Amazon Web Services, because of it cost efficiency, cutting edge technologies, wide range of services, scalability and availability.
 2.Database:  there shall be utilization of Aazon Relation Database Service in order to host MySQL.
 
-Implementation steps:
+Implementation steps:   
 Set up an AWS account and configure IAM (Identity and Access Management) roles.
 Create an Elastic Beanstalk environment for deploying the web application.
 Configure environment variables and deployment settings within Elastic Beanstalk.
