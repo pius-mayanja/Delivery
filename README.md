@@ -68,7 +68,7 @@ Implementation:
 **(ii) CLOUD HOSTING**:   
 The platform shall be hosted on a secure and scalable cloud infrastructure to provide high availability, performance and resilience.
 
-considerations:  
+considerations:
 - cloud provider: Amazon Web Services, because of it cost efficiency, cutting edge technologies, wide range of services, scalability and availability.
 - Database:  there shall be utilization of Aazon Relation Database Service in order to host MySQL.
 
