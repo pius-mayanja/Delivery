@@ -29,6 +29,17 @@ Hivemind will ensure;
 - Complete product pages
 - Effective customer support system.
 
+**3. ADMIN PANEL FUNCTIONALITY**:   
+The admin panel serves as a powerful tool for overseeing the operations of the platform, facilitating seamless interactions between businesses and customers, to authentic business activities.   
+Here's an overview of how it functions:   
+1.The admin panel allows administrators to manage user accounts, including business owners, customers, delivery personnel, and support staff.    
+2.Admins can oversee the creation, editing, and removal of business listings on the platform.    3.The admin panel provides tools to monitor and manage orders and bookings received through the platform.   
+4.Admin panels often integrate payment processing functionalities, allowing admins to configure payment gateways, monitor transactions, and handle refunds or disputes.    
+5.The admin panel provides access to analytics and reporting tools that offer insights into platform performance, user behavior, sales trends, and other key metrics.    
+6.Admins can facilitate communication between businesses and customers by managing messaging systems, support tickets, and notifications.    
+7.The admin panel allows administrators to configure various platform settings, such as branding elements, customization options, notification preferences, and operational parameters.   
+
+The admin controls the activites in the background by synchronizing the database models with the user input to always provide up-to date info for users enabling them to monitor their records.
 
 **3.TECHNICAL FUNCTIONALITY:**   
 
