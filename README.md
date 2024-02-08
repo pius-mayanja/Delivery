@@ -41,7 +41,7 @@ Here's an overview of how it functions:
 
 The admin controls the activites in the background by synchronizing the database models with the user input to always provide up-to date info for users enabling them to monitor their records.
 
-**3.TECHNICAL FUNCTIONALITY:**   
+**4.TECHNICAL FUNCTIONALITY:**   
 
 **(i) EMAIL API**:  
 This is to allow the platform to send notifications, order confirmations, booking reminders between businesses and customers.  
