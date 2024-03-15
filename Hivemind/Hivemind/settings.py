@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'jumia',
+    'jumia.apps.JumiaConfig',
+    'user.apps.UserConfig',
 ]
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

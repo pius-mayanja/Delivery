@@ -6,7 +6,7 @@
 <div class="grid grid-cols-9 gap-2 p-4">
     {% for item in type %}
     <div>
-        <a href="">
+        <a href="{% url 'jumia:detail' item.id %}">
             <div>
                 <img src="{{item.image.url}}" alt="" class="w-full rounded-t-xl">
             </div>
