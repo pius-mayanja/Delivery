@@ -1,0 +1,16 @@
+{% extends 'user/base.html' %}
+
+{% block title %}Sell{% endblock %}
+
+{% block content %}
+<div class="w-1/2 my-6 mx-auto p-6 bg-gray-300  rounded-xl">
+    <h1 class="mb-6 text-4xl text-center">Product details</h1>
+
+    <form method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+       
+        <button class="py-4 px-8 text-lg bg-green-500 hover:bg-green-700 rounded-xl text-white">Sell</button>
+    </form>
+</div>
+{% endblock %}

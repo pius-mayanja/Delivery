@@ -8,5 +8,5 @@ app_name = 'jumia'
 urlpatterns = [
     path('', items, name='items'),
     path('detail/<int:id>',detail, name= 'detail'),
-    
+
 ]
