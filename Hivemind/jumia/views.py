@@ -11,7 +11,7 @@ def items(request):
     products = Product.objects.all()
     type = Type.objects.all()
 
-    return render(request, 'jumia/items.html', {'categories':categories,
+    return render(request, 'jumia/item.html', {'categories':categories,
                                                 'products': products,
                                                 'type': type})
 @login_required

@@ -29,7 +29,10 @@
             </div>
         {% endif %}
         <br>
-        <a href="#"><p class="font-semibold text-lg hover hover:text-red-500">Forgot password?</p><br></a>
+       <div class="flex justify-between mb-3">
+        <a href="#"><p class="font-semibold text-lg hover hover:text-red-500">Forgot password?</p></a>
+        <a href="{% url 'user:signup' %}" class="font-semibold text-lg hover hover:text-red-500">Don't have an account</a>
+       </div>
         <button class="py-4 px-8 text-lg bg-green-500 hover:bg-green-700 rounded-xl text-white">Login</button>
     </form>
 </div>

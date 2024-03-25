@@ -116,22 +116,25 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="{% url 'jumia:items' %}" class="nav-item nav-link active">Home</a>
                             
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                    <a href="checkout.html" class="dropdown-item">Checkout</a>
-                                    <a href="detail.html" class="dropdown-item">product details</a>
+                                    <a href="#" class="dropdown-item">Shopping Cart</a>
+                                    <a href="#" class="dropdown-item">Checkout</a>
+                                    <a href="#" class="dropdown-item">product details</a>
                                 </div>
                             </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <a href="#" class="nav-item nav-link">Contact</a>
                         </div>
                         {% if request.user.is_authenticated %}
-                        <p>welcome to Hivemind {{user.username}}.upper</p>
+                        <div class="space-x-3">
+                            <a href="{% url 'user:sell' %}" class=" border border-gray-500 rounded-xl px-4 bg-red-200">Sell a product</a>
+                            <a href="{% url 'user:logout' %}" class=" border border-gray-500 rounded-xl px-4 bg-red-200">Log out</a>
+                        </div>
                         {% else %}
-                            <div class="navbar-nav ml-auto py-0">
+                            <div class="navbar-nav ml-auto py-2">
                                 <a href="{% url 'user:login' %}" class="nav-item nav-link">Login</a>
                                 <a href="{% url 'user:signup' %}" class="nav-item nav-link">Register</a>
                             </div>
