@@ -5,7 +5,6 @@ from django.http import HttpResponse
 
 
 
-@login_required
 def items(request):
     categories = Categories.objects.all()
     products = Product.objects.all()

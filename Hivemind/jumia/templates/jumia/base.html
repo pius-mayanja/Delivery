@@ -130,8 +130,7 @@
                         </div>
                         {% if request.user.is_authenticated %}
                         <div class="space-x-3">
-                            <a href="{% url 'user:sell' %}" class=" border border-gray-500 rounded-xl px-4 bg-red-200">Sell a product</a>
-                            <a href="{% url 'user:logout' %}" class=" border border-gray-500 rounded-xl px-4 bg-red-200">Log out</a>
+                            <a href="{% url 'user:logout' %}">Log out</a>
                         </div>
                         {% else %}
                             <div class="navbar-nav ml-auto py-2">
