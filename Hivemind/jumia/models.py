@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-
+from PIL import Image
 
 class Categories(models.Model):
     category_name = models.CharField(max_length=200)
@@ -32,4 +31,5 @@ class Type(models.Model):
 
     def __str__(self):
         return self.name
+    
     
