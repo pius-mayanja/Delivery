@@ -8,7 +8,7 @@ from cart.views import add_cart
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('jumia.urls')),
-    path('accounts', include('user.urls')),
+    path('', include('user.urls')),
     path('cart/', include('cart.urls')),
     path('business/', include('business.urls')),
 

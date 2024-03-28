@@ -7,7 +7,7 @@ app_name = 'jumia'
 
 urlpatterns = [
     path('', items, name='items'),
-    path('carts/', cart, name='cart'),
+    path('cart/', cart, name='cart'),
     path('checkout/', checkout, name='checkout'),
     path('detail/<int:id>',detail, name= 'detail'),
 
