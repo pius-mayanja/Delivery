@@ -63,9 +63,9 @@
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
-                <form action="">
+                <form method='get' action=".">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
+                        <input type="text" class="form-control" placeholder="Search for products" name="query">
                         <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
@@ -117,29 +117,35 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="{% url 'jumia:items' %}" class="nav-item nav-link active">Home</a>
-                            
+                        
+                            {% if request.user.is_authenticated %}
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hi, {{user.username}}</a>
                                 <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="#" class="dropdown-item">Shopping Cart</a>
-                                    <a href="#" class="dropdown-item">Checkout</a>
-                                    <a href="#" class="dropdown-item">product details</a>
+                                    <a href="{% url 'jumia:cart' %}" class="dropdown-item">Shopping Cart</a>
+                                    <a href="{% url 'jumia:checkout' %}" class="dropdown-item">Checkout</a>
+                                    <a href="{% url 'user:sell' %}" class="dropdown-item">Sell product</a>
                                 </div>
                             </div>
-                            <a href="#" class="nav-item nav-link">Contact</a>
+                            {% else %}
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="{% url 'jumia:cart' %}" class="dropdown-item">Shopping Cart</a>
+                                    <a href="{% url 'jumia:checkout' %}" class="dropdown-item">Checkout</a>
+                                    <a href="" class="dropdown-item">Sell product</a>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                         {% if request.user.is_authenticated %}
                         <div class=" flex space-x-6">
                             <a href="{% url 'user:logout' %}">Log out</a>
-                            <p><svg class="w-6 inline-block mb-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                              </svg>
-                              <strong>{{user.username}}</strong></p>
                         </div>
                         {% else %}
                             <div class="navbar-nav ml-auto py-2">
                                 <a href="{% url 'user:login' %}" class="nav-item nav-link">Login</a>
-                                <a href="{% url 'user:signup' %}" class="nav-item nav-link">Register</a>
+                                <a href="{% url 'user:signup' %}" class="nav-item nav-link">Sign up</a>
                             </div>
                         {% endif %}
                     </div>
@@ -183,32 +189,14 @@
     </div>
     <!-- Navbar End -->
 
-
-
-    <!-- Categories Start -->
-    <div class="container-fluid pt-5">
-        <h1 class="text-center py-4 text-3xl font-bold">PRODUCT CATEGORIES</h1>
-        <div class="row px-xl-4 pb-2">
-            {% for c in cat %}
-            <div class="col-lg-2 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="{{c.image.url}}" alt="{{c.category_name}}">
-                    </a>
-                    <h5 class="font-weight-bold m-0">{{c.category_name}}</h5>
-                </div>
-            </div> 
-            {% endfor %}
-        </div>
-    </div>
-    <!-- Categories End -->
     <div class="container">
         {% block content %}
         {% endblock %}
     </div>
+    
     <!-- Footer Start -->
-    <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
-        <div class="row px-xl-5 pt-5">
+    <div class="container-fluid bg-secondary text-dark mt-5 pt-5" style="margin-top: 50px;">
+        <div class="row px-xl-5 pt-5 ">
             <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
                 <a href="" class="text-decoration-none">
                     <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">HIVEMIND</span></h1>
@@ -218,10 +206,10 @@
                 <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+256</p>
             </div>
             <div class="col">About us
-                <li><a href="contact_us.html" target="_blank">About_us</a></li>
-                <li><a href="Terms&condition.html" target="_blank">Terms&condition</a></li>     
-                <li><a href="refund&return policy.html" target="_blank">refund&return policy</a></li><br>
-                   
+                <li><a href="{% url 'business:about' %}" target="_blank">About_us</a></li>
+                <li><a href="" target="_blank">Terms&condition</a></li>     
+                <li><a href="" target="_blank">refund&return policy</a></li>
+            </div>
                     <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
                         <form action="">
@@ -243,8 +231,7 @@
         <div class="row border-top border-light mx-xl-5 py-4">
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-dark">
-                    &copy; <a class="text-dark font-weight-semi-bold" href="#">hivemind</a>.
-                    
+                    &copy; <a class="text-dark font-weight-semi-bold" href="#">hivemind</a>  
                 </p>
             </div>
             <div class="col-md-6 px-xl-0 text-center text-md-right">
@@ -262,6 +249,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
 
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>

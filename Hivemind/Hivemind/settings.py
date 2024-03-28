@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'jumia.apps.JumiaConfig',
     'user.apps.UserConfig',
+    'business.apps.BusinessConfig',
+    'cart.apps.CartConfig',
 ]
 
 LOGIN_REDIRECT_URL = '/'
@@ -72,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'jumia.context_processors.categories',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -132,3 +135,5 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CART_SESSION_AGE = 80000
+CART_SESSION_ID = 'cart'

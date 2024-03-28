@@ -2,6 +2,25 @@
 {% block title%} products {% endblock %}
 
 {% block content %}
+
+ <!-- Categories Start -->
+ <div class="container-fluid pt-5">
+  <h1 class="text-center py-4 text-3xl font-bold">PRODUCT CATEGORIES</h1>
+  <div class="row px-xl-4 pb-2">
+      {% for c in cat %}
+      <div class="col-lg-2 col-md-6 pb-1">
+          <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+              <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                  <img class="img-fluid" src="{{c.image.url}}" alt="{{c.category_name}}">
+              </a>
+              <h5 class="font-weight-bold m-0">{{c.category_name}}</h5>
+          </div>
+      </div> 
+      {% endfor %}
+  </div>
+</div>
+<!-- Categories End -->
+
 <h2 class="text-center py-4 text-5xl font-bold"> Newest items</h2>
 <div class="flex flex-wrap">
     {% for item in type %}

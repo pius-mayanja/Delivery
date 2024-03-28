@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import SignUpForm, SellForm, DetailForm
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 
 def SignUp(request):
     if request.method == 'POST':
@@ -20,6 +21,7 @@ def Logout_view(request):
     logout(request)
     return redirect('/')
 
+@login_required
 def Sell(request):
     if request.method == 'POST':
         form = SellForm(request.POST)
@@ -27,7 +29,7 @@ def Sell(request):
         if form.is_valid():
             form.save()
 
-            return redirect('/details/')
+            return redirect('user:sell_details')
     else:
         form = SellForm()
 

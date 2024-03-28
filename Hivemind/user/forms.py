@@ -51,7 +51,7 @@ class DetailForm(forms.ModelForm):
         model = Type
         fields = '__all__'
 
-    Category = forms.ModelChoiceField(queryset=Categories.objects.all(), widget=design)
+    Category = forms.ModelChoiceField(queryset=Product.objects.all(), widget=design)
 
     name = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',

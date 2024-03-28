@@ -2,13 +2,18 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,get_object_or_404, redirect
 from .models import Categories, Product, Type
 from django.http import HttpResponse
+from django.db.models import Q
 
 
 
 def items(request):
-    categories = Categories.objects.all()
+    categories = Categories.objects.all()[0:8]
     products = Product.objects.all()
     type = Type.objects.all()
+
+    query = request.GET.get('query', '')
+    if query:
+        type = type.filter(Q(name_icontains=query))
 
     return render(request, 'jumia/item.html', {'categories':categories,
                                                 'products': products,
@@ -24,6 +29,12 @@ def detail(request, id):
     })
 
 
+def cart(request):
+    return render(request, 'jumia/cart.html' )
 
+
+
+def checkout(request):
+    return render(request, 'jumia/checkout.html')
                 
 
