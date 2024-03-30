@@ -16,8 +16,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
@@ -124,7 +123,7 @@
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="{% url 'jumia:cart' %}" class="dropdown-item">Shopping Cart</a>
                                     <a href="{% url 'jumia:checkout' %}" class="dropdown-item">Checkout</a>
-                                    <a href="{% url 'user:sell' %}" class="dropdown-item">Sell product</a>
+                                    <a href="{% url 'business:reg' %}" class="dropdown-item">Sell product</a>
                                 </div>
                             </div>
                             {% else %}
@@ -133,7 +132,7 @@
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="{% url 'jumia:cart' %}" class="dropdown-item">Shopping Cart</a>
                                     <a href="{% url 'jumia:checkout' %}" class="dropdown-item">Checkout</a>
-                                    <a href="" class="dropdown-item">Sell product</a>
+                                    <a href="{% url 'business:reg' %}" class="dropdown-item">Sell a product</a>
                                 </div>
                             </div>
                             {% endif %}

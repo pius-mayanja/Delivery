@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from business.models import Business
 
 
 class Categories(models.Model):
@@ -21,6 +21,7 @@ class Product(models.Model):
         return self.name
         
 class Type(models.Model):
+    business = models.ForeignKey(Business, related_name='business', on_delete=models.CASCADE, null=True, blank=True)
     Category = models.ForeignKey(Product, related_name='items',on_delete=models.CASCADE)
     name = models.CharField(max_length = 250)
     description = models.TextField(blank=True, null=True)
