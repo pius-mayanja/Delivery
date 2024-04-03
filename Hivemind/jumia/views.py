@@ -11,9 +11,6 @@ def items(request):
     products = Product.objects.all()
     type = Type.objects.all()
 
-    query = request.GET.get('query', '')
-    if query:
-        type = type.filter(Q(name_icontains=query))
 
     return render(request, 'jumia/item.html', {'categories':categories,
                                                 'products': products,

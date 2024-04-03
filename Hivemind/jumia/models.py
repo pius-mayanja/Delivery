@@ -22,7 +22,7 @@ class Product(models.Model):
         
 class Type(models.Model):
     business = models.ForeignKey(Business, related_name='business', on_delete=models.CASCADE, null=True, blank=True)
-    Category = models.ForeignKey(Product, related_name='items',on_delete=models.CASCADE)
+    Product = models.ForeignKey(Product, related_name='items',on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length = 250)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits = 30, decimal_places=2)
