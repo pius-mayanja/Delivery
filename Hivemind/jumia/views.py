@@ -11,9 +11,6 @@ def items(request):
     products = Product.objects.all()
     type = Type.objects.all()
 
-    query = request.GET.get('query', '')
-    if query:
-        type = type.filter(Q(name_icontains=query))
 
     return render(request, 'jumia/item.html', {'categories':categories,
                                                 'products': products,
@@ -21,7 +18,7 @@ def items(request):
 @login_required
 def detail(request, id):
     item = get_object_or_404(Type, pk=id)
-    related_items = Type.objects.filter(Category=item.Category).exclude(pk=id)
+    related_items = Type.objects.filter(product=item.product).exclude(pk=id)
 
     return render(request, 'jumia/detail.html', {
         'item': item,

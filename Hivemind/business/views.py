@@ -13,7 +13,7 @@ def sell(request):
 
 @login_required
 def business_reg(request):
-    if request.method == 'POST':
+    if request.method == 'POST': 
         form = BusinessForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
