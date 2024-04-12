@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    <title>Dashboard | Hivemind</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 </head>
@@ -17,13 +17,9 @@
             <ul>
                 <li>
                     <a href="#">
-                        <span class="icon">
-                            <ion-icon name="logo-apple"></ion-icon>
-                        </span>
                         {% for busi in business%}
-                            {% if busi.owner == request.user %}
                             <span class="title">{{busi.name}}</span>
-                            {% endif %}
+    
                         {% endfor %}
                     </a>
                 </li>

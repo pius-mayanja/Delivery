@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'jumia.apps.JumiaConfig',
     'user.apps.UserConfig',
     'business.apps.BusinessConfig',
-    'cart.apps.CartConfig',
 ]
+
+AUTH_USER_MODEL = 'user.User'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
@@ -75,7 +76,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'jumia.context_processors.categories',
-                'cart.context_processors.cart',
             ],
         },
     },
