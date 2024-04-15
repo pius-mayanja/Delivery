@@ -1,6 +1,7 @@
-{% extends 'jumia/base.html' %}
+{% extends 'bus/board.html' %}
 
 {% block title %}Sell{% endblock %}
+{% load widget_tweaks %}
 
 {% block content %}
 <div class="w-1/2 my-6 mx-auto p-6 bg-gray-200  rounded-xl">
@@ -9,7 +10,7 @@
     <form method="post" action=".">
         {% csrf_token %}
         {{form.as_p}}
-        
+
         
         <a href="{% url 'user:sell_details' %}">
             <button class="py-1 px-4 text-lg bg-green-500 hover:bg-green-700 rounded-xl text-white">Next</button>

@@ -1,0 +1,28 @@
+{% extends 'bus/board.html' %}
+
+{% block title %}Manage{% endblock %}
+
+{% block content %}
+<div class="container-fluid pt-5">
+    <h1 class="text-center py-4 text-3xl font-bold">YOUR PRODUCTS ON MARKET</h1>
+    <div class="row px-xl-4 pb-2">
+        {% for item in items %}
+        {% if request.user == item.product_by %}
+        <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+            <div class="bg-white rounded-lg shadow-md">
+             
+              <div class="p-4">
+                <a href="{% url 'business:detail' item.id %}">
+                <img src="{{item.image.url}}" alt="Product 1" class="w-full h-auto rounded-md mb-4">
+                </a>
+                <h2 class="text-lg font-semibold text-gray-800 mb-2">{{item.name}}</h2>
+                <p class="text-sm text-gray-600">Price: shs. {{item.price}}</p>
+              </div>
+
+            </div>
+          </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+{% endblock %}

@@ -5,6 +5,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
 from .models import User
+from .decorators import business_required
 from business.forms import BusinessForm, BusinessSignUpForm
 import django.contrib.auth.views as auth_views
 from django.contrib.auth import login
@@ -70,14 +71,13 @@ class LoginView(auth_views.LoginView):
         else:
             return reverse('/login/')
 
-@login_required
+@business_required
 def Sell(request):
     if request.method == 'POST':
         form = SellForm(request.POST)
 
         if form.is_valid():
             form.save()
-
             return redirect('user:sell_details')
     else:
         form = SellForm()
@@ -91,8 +91,7 @@ def Sell_details(request):
 
         if form.is_valid():
             form.save()
-
-            return redirect('/')
+            return redirect('business:manage')
     else:
         form = DetailForm()
 

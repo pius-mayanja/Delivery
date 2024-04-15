@@ -39,8 +39,9 @@ class CustomerSignUpForm(UserCreationForm):
 class SellForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = "__all__"
-    
+        fields = "__all__" #fields are category and product name
+
+
 class design(forms.Select):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
