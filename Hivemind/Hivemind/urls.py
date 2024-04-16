@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('jumia.urls')),
     path('cart/', include('cart.urls', namespace='cart')),
-    path('', include('user.urls')),
+    path('earn/', include('user.urls')),
     path('business/', include('business.urls')),
 
     

@@ -11,6 +11,5 @@ urlpatterns = [
     path("signup/business/",BusinessSignUpView.as_view(), name="reg"),
     path('login/',LoginView.as_view(), name='login'),
     path('logout/', Logout_view , name='logout'),
-    path('sell/', Sell, name='sell' ),
-    path('details/', Sell_details, name='sell_details' ),
+    path('sell/', Sell_details, name='sell_details' ),
 ]

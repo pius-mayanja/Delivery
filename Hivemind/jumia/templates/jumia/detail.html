@@ -35,8 +35,8 @@
             </div>
             <h3 class="font-weight-semi-bold mb-4">shs. {{item.price}}</h3>
             <p class="mb-4">From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
-            <div class="d-flex align-items-center mb-4 pt-2">
-                <form action="{% url 'cart:cart_add' item.id %}" method="post">
+            <div class="flex items-center">
+                <form action="{% url 'cart:cart_add' item.id %}" method="post" class="mr-2">
                     {{ cart_product_form.as_p }}  
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
@@ -61,4 +61,4 @@
     </div>
     {% endfor %}
 </div>
-{% endblock %}
+{% endblock %} 

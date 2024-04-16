@@ -1,22 +1,15 @@
 from django.db import models
 from user.models import User
-
+from django.utils import timezone
 
 class Business(models.Model):
-    owner = models.OneToOneField(User, on_delete= models.CASCADE)
-    business_name = models.CharField(max_length=200, null=True, blank=True)
-    logo = models.ImageField(upload_to='business_images/')
-    description = models.TextField(blank=True, null=True)
-    location = models.CharField(max_length=200)
-    email = models.EmailField(max_length=200)
-    contacts = models.CharField(max_length=200)
-    
+    user = models.OneToOneField(User, on_delete= models.CASCADE)
+    name = models.CharField(max_length=200, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
     
     class Meta():
-        ordering = ['business_name']
+        ordering = ['name']
 
     def __str__(self):
         """Returns a string representation of the business."""
-        return self.business_name if self.business_name else 'Not registered'
-
-    # Your existing Meta class...
+        return self.name if self.name else 'not registered'

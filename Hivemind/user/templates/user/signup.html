@@ -8,6 +8,16 @@
 
     <form method="post" action=".">
         {% csrf_token %}
+        <div class="mb-3">
+            <label class="inline-block mb-2">First Name</label><br>
+            {{ form.first_name }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">Last Name</label><br>
+            {{ form.last_name }}
+        </div>
+
 
         <div class="mb-3">
             <label class="inline-block mb-2">Username</label><br>
@@ -28,6 +38,9 @@
             <label class="inline-block mb-2">Repeat password</label><br>
             {{ form.password2 }}
         </div>
+
+        
+
 
         {% if form.errors or form.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">

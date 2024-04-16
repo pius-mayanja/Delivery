@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.urls import reverse
-from .forms import CustomerSignUpForm, SellForm, DetailForm
+from .forms import CustomerSignUpForm, DetailForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView
@@ -72,17 +72,6 @@ class LoginView(auth_views.LoginView):
             return reverse('/login/')
 
 @business_required
-def Sell(request):
-    if request.method == 'POST':
-        form = SellForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('user:sell_details')
-    else:
-        form = SellForm()
-    return render(request, 'user/sell.html', {'form':form})
-
-
 def Sell_details(request):
     if request.method == 'POST':
         form = DetailForm(request.POST, request.FILES)

@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'jumia.context_processors.categories',
+                'cart.context_processors.cart',
             ],
         },
     },

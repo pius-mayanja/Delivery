@@ -7,11 +7,22 @@ from django.db import transaction
 class BusinessForm(forms.ModelForm):
     class Meta:
         model = Business
-        fields = ['owner', 'business_name', 'logo', 'description', 'location', 'email', 'contacts']
+        fields = '__all__'
 
 
 
 class BusinessSignUpForm(UserCreationForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={
+        'label':'Business Name',
+        'placeholder': 'Your business name',
+        'class': 'w-full py-4 px-6 rounded-xl'
+    }))  
+
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Your username',
+        'class': 'w-full py-4 px-6 rounded-xl'
+    }))
+
     email = forms.EmailField(widget=forms.EmailInput(attrs={
         'placeholder': 'Your email',
         'class': 'w-full py-4 px-6 rounded-xl'
@@ -29,10 +40,7 @@ class BusinessSignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
         
-    username = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'Your username',
-        'class': 'w-full py-4 px-6 rounded-xl'
-    }))
+  
 
     @transaction.atomic
     def save(self, commit=True):
@@ -40,5 +48,5 @@ class BusinessSignUpForm(UserCreationForm):
         user.is_business = True
         if commit:
             user.save()
-        business = Business.objects.create(owner=user)
+        business = Business.objects.create(user=user, name=self.cleaned_data.get('name'),)
         return user

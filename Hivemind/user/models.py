@@ -13,3 +13,7 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     created_at = models.DateTimeField(default=timezone.now)
+    
+    def __str__(self):
+        """Returns a string representation of the business."""
+        return self.first_name if self.first_name else 'not registered'
