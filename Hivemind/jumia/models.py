@@ -3,7 +3,7 @@ from user.models import User
 from business.models import Business
 
 
-class Categories(models.Model):
+class Categories(models.Model):        #these are categories for all products in database
     category_name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='category_images/', blank=True, null=True)
 
