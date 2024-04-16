@@ -1,0 +1,60 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render,get_object_or_404, redirect
+from .models import Categories, Product, Type
+from django.http import HttpResponse
+from django.db.models import Q
+from .forms import SearchForm
+
+
+
+# Create your views here.
+def items(request):
+    categories = Categories.objects.all()[0:8]
+    products = Product.objects.all()
+    type = Type.objects.all()
+
+    query = request.GET.get('query', '')
+    if query:
+        type = type.filter(Q(name_icontains=query))
+
+    return render(request, 'main/item.html', {'categories':categories,
+                                                'products': products,
+                                                'type': type})
+
+
+@login_required
+def detail(request, id):
+    item = get_object_or_404(Type, pk=id)
+    related_items = Type.objects.filter(Category=item.Category).exclude(pk=id)
+
+    return render(request, 'main/detail.html', {
+        'item': item,
+        'related_items': related_items
+    })
+
+
+def cart(request):
+    return render(request, 'main/cart.html' )
+
+
+
+def checkout(request):
+    return render(request, 'main/checkout.html')
+                
+# views.py
+
+
+
+def search(request):
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            # Fix the lookup here
+            results = Product.objects.filter(name__icontains=query)
+            results = Categories.objects.filter(name__icontains=query)
+            results = Type.objects.filter(name__icontains=query)
+            return render(request, 'results.html', {'results': results, 'query': query})
+    else:
+        form = SearchForm()
+    return render(request, 'search.html', {'form': form})
