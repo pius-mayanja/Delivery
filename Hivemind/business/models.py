@@ -8,7 +8,7 @@ class Business(models.Model):
     logo = models.ImageField(upload_to='business_images/')
     description = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=200)
-    email = models.EmailField(max_length=200, unique=True)
+    email = models.EmailField(max_length=200)
     contacts = models.CharField(max_length=200)
     
     
