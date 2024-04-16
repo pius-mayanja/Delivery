@@ -1,0 +1,28 @@
+{% extends 'jumia/base.html'%}
+{% block title%} {{item.name}} {% endblock %}
+{% block content %}
+<h1 class="text-center py-4 text-5xl font-bold">Search results</h1>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    {% if results %}
+        {% for result in results %}
+            <div class="p-4">
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="p-4">
+                        <a href="{% url 'jumia:detail' result.id %}">
+                            <img src="{{ result.image.url }}" alt="{{ result.name }}" class="w-full h-auto rounded-md mb-4">
+                        </a>
+                        <h2 class="text-lg font-semibold text-gray-800 mb-2">{{ result.name }}</h2>
+                        <p class="text-sm text-gray-600">Price: sh.{{ result.price }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-span-full">
+            <h1 class="text-center py-4 text-3xl font-semibold">No results found for "{{ query }}".</h1>
+            <p class="text-center py-4 text-2xl font-bold">Thanks for choosing Hivemind.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %} 

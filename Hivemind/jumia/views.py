@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from user.decorators import customer_required,business_required
 from django.db.models import Q
 from cart.forms import CartAddProductForm
+from .forms import SearchForm
 
 
 def items(request):
@@ -28,11 +29,19 @@ def detail(request, id):
     })
 
 
-
-
-
-
 def checkout(request):
     return render(request, 'jumia/checkout.html')
-                
 
+@login_required               
+def search(request):
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            # Fix the lookup here
+            results = Categories.objects.filter(category_name__icontains=query)
+            results = Type.objects.filter(name__icontains=query)
+            return render(request, 'jumia/search.html', {'results': results, 'query': query})
+    else:
+        form = SearchForm()
+    return render(request, 'jumia/items.html', {'form': form})
