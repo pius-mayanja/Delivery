@@ -48,7 +48,7 @@ class BusinessSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('/login')
+        return redirect('/login/')
 
 def Logout_view(request):
     logout(request)
@@ -75,25 +75,21 @@ class LoginView(auth_views.LoginView):
 def Sell(request):
     if request.method == 'POST':
         form = SellForm(request.POST)
-
         if form.is_valid():
             form.save()
             return redirect('user:sell_details')
     else:
         form = SellForm()
-
     return render(request, 'user/sell.html', {'form':form})
 
 
 def Sell_details(request):
     if request.method == 'POST':
         form = DetailForm(request.POST, request.FILES)
-
         if form.is_valid():
             form.save()
             return redirect('business:manage')
     else:
         form = DetailForm()
-
     return render(request, 'user/sell_details.html', {'form':form})
 

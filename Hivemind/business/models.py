@@ -16,5 +16,7 @@ class Business(models.Model):
         ordering = ['business_name']
 
     def __str__(self):
-        return self.business_name
+        """Returns a string representation of the business."""
+        return self.business_name if self.business_name else 'Not registered'
 
+    # Your existing Meta class...

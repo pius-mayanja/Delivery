@@ -9,9 +9,17 @@
 
     <form method="post" action=".">
         {% csrf_token %}
-        {{form.as_p}}
+        <div>
+            <label for="categories" class="form-label">Product Cateory</label>
+            {% render_field form.categories class='form-control' %}
+        </div>
+        <br>
+        <div>
+            <label for="name" class="form-label">Product Name</label>
+            {% render_field form.name class='form-control' %}
+        </div>
 
-        
+        <br>
         <a href="{% url 'user:sell_details' %}">
             <button class="py-1 px-4 text-lg bg-green-500 hover:bg-green-700 rounded-xl text-white">Next</button>
         </a>

@@ -10,6 +10,7 @@ class Categories(models.Model):
     class Meta:
         ordering = ['category_name',]
         verbose_name_plural = 'Categories'
+        
     def __str__(self):
         return self.category_name
     
