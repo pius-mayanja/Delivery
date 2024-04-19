@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import BusinessForm
 from .models import Business
 from jumia.models import Type
-
+from orders.models import OrderItem, Order
 
 def about(request):
     return render(request, 'bus/about.html' )
@@ -31,6 +31,7 @@ def manage(request):
     items = Type.objects.all()
     return render(request, 'user/manage.html', {'items': items} )
 
+
 @business_required
 @login_required
 def detail(request, id):
@@ -41,3 +42,8 @@ def detail(request, id):
         'item': item,
         'related_items': related_items,
     })
+
+def ordered(request):
+    orders = Order.objects.all()
+    product = OrderItem.objects.all()
+    return render(request, 'bus/ordered.html', {'orders':orders, 'product':product})

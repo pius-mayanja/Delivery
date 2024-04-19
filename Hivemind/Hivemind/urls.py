@@ -7,8 +7,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('jumia.urls')),
-    path('cart/', include('cart.urls', namespace='cart')),
-    path('earn/', include('user.urls')),
+    path('cart/', include('cart.urls')),
+    path('', include('user.urls')),
+    path('order/', include('orders.urls')),
     path('business/', include('business.urls')),
 
     

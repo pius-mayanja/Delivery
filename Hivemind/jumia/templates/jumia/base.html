@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %} | Hivemind</title>
     {% load static %}
+    {% load humanize %}
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <!-- Favicon -->
     <link href="/img/favicon.ico" rel="icon">
@@ -108,7 +109,7 @@
                     <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
                         <div class="nav-item dropdown">
                             {% for c in cat %}
-                            <a href="#" class="nav-link" data-toggle="dropdown">{{c.category_name}}</a>
+                            <a href="{% url 'jumia:category' c.id %}" class="nav-link">{{c.category_name}}</a>
                             {% endfor %}
                         </div>
                     </div>   
@@ -132,7 +133,7 @@
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="{% url 'cart:cart_detail' %}" class="dropdown-item">Shopping Cart</a>
                                     <a href="{% url 'jumia:checkout' %}" class="dropdown-item">Checkout</a>
-                                    <a href="" class="dropdown-item">View Orders</a>
+                                    <a href="{% url 'orders:order' %}" class="dropdown-item">View Orders</a>
                                 </div>
                             </div>
                             {% else %}

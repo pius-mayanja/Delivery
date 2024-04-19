@@ -37,10 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'jumia.apps.JumiaConfig',
     'cart.apps.CartConfig',
     'user.apps.UserConfig',
     'business.apps.BusinessConfig',
+    'orders.apps.OrdersConfig',
+    'crispy_forms',
+    "crispy_bootstrap4",
     'widget_tweaks',
 ]
 
@@ -147,3 +151,9 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CART_SESSION_ID = 'cart'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

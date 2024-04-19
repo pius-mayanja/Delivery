@@ -15,6 +15,12 @@ def items(request):
 
     return render(request, 'jumia/item.html', {'categories':categories,'type': type,})
 
+def categories(request, id):
+    category = get_object_or_404(Categories, pk=id)
+    type = Type.objects.filter(category_id=id)
+    return render(request, 'jumia/categories.html', {'type': type,
+                                                     'category':category})
+
 
 @customer_required
 def detail(request, id):
@@ -32,7 +38,7 @@ def detail(request, id):
 def checkout(request):
     return render(request, 'jumia/checkout.html')
 
-@login_required               
+
 def search(request):
     if request.method == 'GET':
         form = SearchForm(request.GET)

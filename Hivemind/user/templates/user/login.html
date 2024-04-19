@@ -4,7 +4,10 @@
 
 {% block content %}
 <div class="w-1/2 my-6 mx-auto p-6 bg-gray-300  rounded-xl">
-    <h1 class="mb-6 text-4xl text-center">Login</h1>
+    <h1 class="mb-6 text-4xl text-center"><svg class="w-12 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+      </svg>
+       Login</h1>
 
     <form method="post" action=".">
         {% csrf_token %}
@@ -29,10 +32,11 @@
             </div>
         {% endif %}
         <br>
-       <div class="flex justify-between mb-3">
-        <a href="#"><p class="font-semibold text-lg hover hover:text-red-500">Forgot password?</p></a>
+       <div class="flex justify-between">
+        <a href=""><p class="font-semibold text-lg hover hover:text-red-500">Forgot password?</p></a>
         <a href="{% url 'user:signup' %}" class="font-semibold text-lg hover hover:text-red-500">Don't have an account</a>
        </div>
+       <br>
         <button class="py-4 px-8 text-lg bg-green-500 hover:bg-green-700 rounded-xl text-white">Login</button>
     </form>
 </div>

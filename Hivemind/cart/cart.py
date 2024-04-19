@@ -4,7 +4,7 @@ from jumia.models import Type
 
 
 
-class Cart: #dennis ivy
+class Cart: 
     def __init__(self, request):           
         self.session = request.session        
         cart = self.session.get(settings.CART_SESSION_ID)        

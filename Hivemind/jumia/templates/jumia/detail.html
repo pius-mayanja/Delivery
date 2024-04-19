@@ -1,6 +1,7 @@
 {% extends 'jumia/base.html'%}
 {% block title%} {{item.name}} {% endblock %}
 {% block content %}
+{% load humanize %}
 <h1 class="text-center py-4 text-5xl font-bold">PRODUCT DETAILS</h1>
 <div class="container-fluid py-5">
     <div class="row px-xl-5">
@@ -13,16 +14,10 @@
                    
                     
                 </div>
-                <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                    <i class="fa fa-2x fa-angle-left text-dark"></i>
-                </a>
-                <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                    <i class="fa fa-2x fa-angle-right text-dark"></i>
-                </a>
             </div>
         </div>
         <div class="col-lg-8 pb-5">
-            <h3 class="font-weight-semi-bold">{{item.name}}</h3>
+            <h3 class="font-weight-semi-bold text-4xl">{{item.name}}</h3>
             <div class="d-flex mb-3">
                 <div class="text-primary mr-2">
                     <small class="fas fa-star"></small>
@@ -33,12 +28,18 @@
                 </div>
                 <small class="pt-1">(50 Reviews)</small>
             </div>
-            <h3 class="font-weight-semi-bold mb-4">shs. {{item.price}}</h3>
+            <h3 class="font-weight-semi-bold mb-4">shs. {{item.price|intcomma}}</h3>
             <p class="mb-4">From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
             <div class="flex items-center">
-                <form action="{% url 'cart:cart_add' item.id %}" method="post" class="mr-2">
-                    {{ cart_product_form.as_p }}  
+                <div class="quantity-controls inline-block">
+                    <button type="button" class="btn btn-primary" onclick="decreaseQuantity()">-</button>
+                    <span id="quantityDisplay" class="mr-2 ml-2">1</span>  <!-- Display the quantity -->
+                    <button type="button" class="btn btn-primary" onclick="increaseQuantity()">+</button>
+                </div>
+                <form action="{% url 'cart:cart_add' item.id %}" method="post" class="ml-3 inline-block">
                     {% csrf_token %}
+                    <input type="hidden" name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
+                    <input type="hidden" name="override" value="False">
                     <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                 </form>
             </div>
@@ -61,4 +62,23 @@
     </div>
     {% endfor %}
 </div>
+<script>
+    function decreaseQuantity() {
+        var quantityDisplay = document.getElementById('quantityDisplay');
+        var quantityInput = document.getElementById('quantity');
+        var currentValue = parseInt(quantityDisplay.innerText);
+        if (currentValue > 1) {
+            quantityDisplay.innerText = currentValue - 1;
+            quantityInput.value = currentValue - 1;  // Update the hidden input field
+        }
+    }
+
+    function increaseQuantity() {
+        var quantityDisplay = document.getElementById('quantityDisplay');
+        var quantityInput = document.getElementById('quantity');
+        var currentValue = parseInt(quantityDisplay.innerText);
+        quantityDisplay.innerText = currentValue + 1;
+        quantityInput.value = currentValue + 1;  // Update the hidden input field
+    }
+</script>
 {% endblock %} 

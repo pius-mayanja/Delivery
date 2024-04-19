@@ -4,11 +4,39 @@
 {% block content %}
 <div class="w-1/2 my-6 mx-auto p-6 bg-gray-300 rounded-xl">
     <h1 class="text-3xl flex justify-center">Register a business account to start selling.</h1>
-        <form method="post" enctype="multipart/form-data" class="w-1/2 my-2 mx-auto p-6" action="{%url 'user:reg' %}">
+    <br>
+    <hr class="mb-2">
+    <br>
+        <form method="post" enctype="multipart/form-data" action="{%url 'user:reg' %}">
             {% csrf_token %}
-            {{form.as_div}}
-            <input type="submit" value="Submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            <a href="{% url 'business:sell' %}" class="mt-4 text-xl text-blue-500 hover:text-blue-700 block">Already registered</a>
+           
+        <div class="mb-3">
+            <label class="inline-block mb-2">Business Name</label><br>
+            {{ form.name }}
+        </div>
+
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">Username</label><br>
+            {{ form.username }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">Email</label><br>
+            {{ form.email }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">Password</label><br>
+            {{ form.password1 }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">Repeat password</label><br>
+            {{ form.password2 }}
+        </div>
+            <input type="submit" value="Sign Up" class="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <a href="{% url 'user:login' %}" class="mt-4 text-xl text-blue-500 hover:text-blue-700 block">Already registered</a>
         </form>
         
 </div>

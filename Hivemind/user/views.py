@@ -10,6 +10,9 @@ from business.forms import BusinessForm, BusinessSignUpForm
 import django.contrib.auth.views as auth_views
 from django.contrib.auth import login
 from user.forms import LoginForm
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth import views as auth_views
+
 
 def SignUp(request):
     if request.method == 'POST':
@@ -69,16 +72,17 @@ class LoginView(auth_views.LoginView):
             elif user.is_business:
                 return reverse('business:sell')
         else:
-            return reverse('/login/')
+            return reverse('user:login')
 
 @business_required
+@login_required
 def Sell_details(request):
     if request.method == 'POST':
-        form = DetailForm(request.POST, request.FILES)
+        user = request.user
+        form = DetailForm(request.POST, request.FILES,user=request.user)
         if form.is_valid():
             form.save()
             return redirect('business:manage')
     else:
         form = DetailForm()
     return render(request, 'user/sell_details.html', {'form':form})
-

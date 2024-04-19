@@ -1,0 +1,9 @@
+{% extends 'jumia/base.html' %}
+{% block title%} products {% endblock %}
+
+{% block content %}
+<h2 class="text-center py-4 text-5xl font-bold">Our Order</h2>
+<hr>
+<h1 class="text-center py-4 text-3xl font-semibold">Thank you for choosing Hivemind <i class="fas fa-heart text-primary"></i></h1>  
+<p class="text-center py-4 text-2xl font-semibold">Your order has been successfully completed. Your order number is <strong>{{ order.id }}</strong>.</p> 
+{% endblock %}

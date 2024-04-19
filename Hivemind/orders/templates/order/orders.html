@@ -1,0 +1,44 @@
+{% extends 'jumia/base.html' %}
+
+{% block title %} Orders {% endblock %}
+
+{% block content %}
+<div class="container-fluid pt-5">
+    <h1 class="text-center py-4 text-3xl font-bold">Ordered Products</h1>
+    <hr>
+    <div class="row px-xl-4 pb-2">
+      {% if order %}
+      <table class="table table-bordered text-center mb-0">
+        <thead class="bg-secondary text-dark">
+            <tr>      
+              <th>Date of Order</th>
+                <th>First Name</th>        
+                <th>Last Name</th>      
+                <th>Email</th>  
+                <th>Address</th>                 
+                <th>Status</th> 
+            </tr>
+        </thead>
+        <tbody class="align-middle"> 
+          
+          {% for item in orders %}       
+          <tr>
+              <td>{{item.created}}</td>
+              <td>{{item.first_name}}</td>
+              <td>{{item.last_name}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.address}}</td>
+              <td><a href="{% url 'orders:detail' item.id%}">
+                <button class="rounded-full btn btn-primary px-4 border border-red-900 text-bold">Pending</button>
+              </a></td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    </div>
+    <h3 class="text-center py-4 text-xl">You have orders yet. <strong><a href="{% url 'jumia:items' %}">Shop Here</a></strong></h3>
+    <h3 class="text-center py-4 text-xl">Thank you for choosing Hivemind <i class="fas fa-heart text-primary"></i></h1>
+  {% endif %}
+  </div>
+{% endblock %}
