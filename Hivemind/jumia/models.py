@@ -18,7 +18,7 @@ class Type(models.Model):
     name = models.CharField(max_length = 250)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits = 30, decimal_places=2)
-    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    image = models.ImageField(upload_to='uploads/', null=True)
     is_available = models.BooleanField(default=True)
     product_by = models.ForeignKey(User,on_delete=models.CASCADE, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

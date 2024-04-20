@@ -132,7 +132,7 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hi, {{user.username}}</a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="{% url 'cart:cart_detail' %}" class="dropdown-item">Shopping Cart</a>
-                                    <a href="{% url 'jumia:checkout' %}" class="dropdown-item">Checkout</a>
+                                    <a href="{% url 'orders:order_create' %}" class="dropdown-item">Checkout</a>
                                     <a href="{% url 'orders:order' %}" class="dropdown-item">View Orders</a>
                                 </div>
                             </div>

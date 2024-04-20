@@ -26,8 +26,9 @@ def order_create(request):
         
 
 def orders(request):
-    orders = Order.objects.filter(user=request.user)
-    return render(request, 'order/orders.html', {'orders':orders})
+    if request.user.is_authenticated:
+        orders = Order.objects.filter(user=request.user)
+        return render(request, 'order/orders.html', {'orders':orders})
 
 def order_details(request, id):
     orders = Order.objects.filter(id=id).filter(user=request.user).first()
