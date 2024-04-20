@@ -27,9 +27,10 @@
 </head>
 <body>
     <!-- Topbar Start -->
+    <!-- Topbar Start -->
     <div class="container-fluid">
         <div class="row bg-secondary py-2 px-xl-5">
-            <div class="col-lg-6 d-none d-lg-block">
+            <div class="col-lg-6 col-12 d-flex justify-content-center justify-content-lg-start mb-2 mb-lg-0">
                 <div class="d-inline-flex align-items-center">
                     <a class="text-dark" href="">FAQs</a>
                     <span class="text-muted px-2">|</span>
@@ -38,7 +39,7 @@
                     <a class="text-dark" href="">Support</a>
                 </div>
             </div>
-            <div class="col-lg-6 text-center text-lg-right">
+            <div class="col-lg-6 col-12 d-flex justify-content-center justify-content-lg-end">
                 <div class="d-inline-flex align-items-center">
                     <a class="text-dark px-2" href="">
                         <i class="fab fa-facebook-f"></i>
@@ -58,43 +59,10 @@
                 </div>
             </div>
         </div>
-        <div class="row align-items-center py-3 px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
-                <a href="" class="text-decoration-none">
-                    <h1 class="text-3xl font-semi-bold font-sans">HIVEMIND</h1>
-                </a>
-            </div>
-            <div class="col-lg-6 col-6 text-left">
-                <form method='get' action="{%url 'jumia:search' %}">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products" name="query">
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <button type="submit">Search</button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">Thanks for choosing us</span>
-                </a>
-                <a href="{% url 'cart:cart_detail' %}" class="btn border">
-                    <i class="fas fa-shopping-cart text-primary"></i> <p class="inline-block"> Cart: 
-                        {% with total_items=cart|length %}    
-                        {% if total_items > 0 %}             
-                            {{ total_items }} item{{ total_items|pluralize }}      
-                        {% else %}      
-                        0   
-                        {% endif %}  
-                        {% endwith %} 
-                    </p>
-                </a>
-            </div>
-        </div>
+    <!-- Rest of the top bar content -->
     </div>
+<!-- Topbar End -->
+
     <!-- Topbar End -->
 
     <!-- Navbar Start -->
@@ -141,7 +109,7 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                     <a href="#" class="dropdown-item">Shopping Cart</a>
-                                    <a href="{% url 'jumia:checkout' %}" class="dropdown-item">Checkout</a>
+                                    <a href="{% url 'orders:order_create' %}" class="dropdown-item">Checkout</a>
                                     <a href="{% url 'user:reg' %}" class="dropdown-item">Sell a product</a>
                                 </div>
                             </div>

@@ -3,11 +3,13 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="w-1/2 my-6 mx-auto p-6 bg-gray-300  rounded-xl">
-    <h1 class="mb-6 text-4xl text-center"><svg class="w-12 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-      </svg>
-       Login</h1>
+<div class="w-full sm:w-1/2 my-6 mx-auto p-6 bg-gray-300 rounded-xl">
+    <h1 class="mb-6 text-3xl sm:text-4xl text-center">
+        <svg class="w-10 sm:w-12 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        </svg>
+        Login
+    </h1>
 
     <form method="post" action=".">
         {% csrf_token %}
@@ -23,21 +25,29 @@
         </div>
 
         {% if form.errors or form.non_field_errors %}
-            <div class="mb-3 p-6 bg-red-100 rounded-xl">
-                {% for field in form %}
-                    {{ field.errors }}
-                {% endfor %}
+        <div class="mb-3 p-3 bg-red-100 rounded-xl">
+            {% for field in form %}
+            {{ field.errors }}
+            {% endfor %}
 
-                {{ form.non_field_errors }}
-            </div>
+            {{ form.non_field_errors }}
+        </div>
         {% endif %}
-        <br>
-       <div class="flex justify-between">
-        <a href=""><p class="font-semibold text-lg hover hover:text-red-500">Forgot password?</p></a>
-        <a href="{% url 'user:signup' %}" class="font-semibold text-lg hover hover:text-red-500">Don't have an account</a>
-       </div>
-       <br>
-        <button class="py-4 px-8 text-lg bg-green-500 hover:bg-green-700 rounded-xl text-white">Login</button>
+
+        <div class="flex justify-between">
+            <a href=""><p class="font-semibold text-base sm:text-lg hover hover:text-red-500">Forgot password?</p></a>
+            <a href="{% url 'user:signup' %}" class="font-semibold text-base sm:text-lg hover hover:text-red-500">Don't have an account</a>
+        </div>
+
+        <button class="py-3 px-6 text-base sm:text-lg bg-green-500 hover:bg-green-700 rounded-xl text-white w-full mt-4">Login</button>
     </form>
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="block mt-4">
+        <button class="flex items-center justify-center py-3 px-6 text-base sm:text-lg bg-blue-500 hover:bg-blue-700 rounded-xl text-white w-full">
+            <svg class="w-6 mr-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M20.283 10.356h-8.327v3.451h4.792c-.446 2.193-2.313 3.453-4.792 3.453a5.27 5.27 0 0 1-5.279-5.28 5.27 5.27 0 0 1 5.279-5.279c1.259 0 2.397.447 3.29 1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233a8.908 8.908 0 0 0-8.934 8.934 8.907 8.907 0 0 0 8.934 8.934c4.467 0 8.529-3.249 8.529-8.934 0-.528-.081-1.097-.202-1.625z"></path>
+            </svg>
+            Login with Google
+    </button>
+    </a>
 </div>
 {% endblock %}

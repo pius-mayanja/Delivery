@@ -21,41 +21,43 @@
 <!-- Cart Start -->
 <div class="container-fluid pt-5">
     <div class="row px-xl-5">
-        <div class="col-lg-8 table-responsive mb-5">
-            <table class="table table-bordered text-center mb-0">
-                <thead class="bg-secondary text-dark">
-                    <tr>      
-                        <th>Image</th>
-                        <th>Product</th>        
-                        <th>Quantity</th>        
-                        <th>Remove</th>        
-                        <th>Unit price</th>        
-                        <th>Price</th> 
-                    </tr>
-                </thead>
-                <tbody class="align-middle"> 
-                    {% for item in cart %}        
-                        {% with product=item.product %}
-                        <tr class="font-semibold text-lg font-sans">
-                            <td><img src="{{product.image.url}}" alt="{{product.name}}" style="max-width: 100px;max-height: 100px"></td>
-                            <td class="align-middle">{{product.name}}</td>
-                            <td class="align-middle">{{item.quantity}}</td>
-                            <td class="align-middle">
-                                <form action="{% url 'cart:cart_remove' product.id %}" method="post">                
-                                    <input type="submit" value="Remove" class="px-3 rounded">                
-                                    {% csrf_token %}              
-                                </form>
-                            </td>
-                            <td class="align-middle">shs. {{product.price|intcomma}}</td>
-                            <td class="align-middle">shs. {{item.total_price|intcomma}}</td>
+        <div class="col-lg-8 mb-5">
+            <div class="table-responsive">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
+                        <tr>      
+                            <th>Image</th>
+                            <th>Product</th>        
+                            <th>Quantity</th>        
+                            <th>Remove</th>        
+                            <th>Unit price</th>        
+                            <th>Price</th> 
                         </tr>
-                        {% endwith %}      
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="align-middle"> 
+                        {% for item in cart %}        
+                            {% with product=item.product %}
+                            <tr class="font-semibold text-lg font-sans">
+                                <td><img src="{{product.image.url}}" alt="{{product.name}}" style="max-width: 100px;max-height: 100px"></td>
+                                <td class="align-middle">{{product.name}}</td>
+                                <td class="align-middle">{{item.quantity}}</td>
+                                <td class="align-middle">
+                                    <form action="{% url 'cart:cart_remove' product.id %}" method="post">                
+                                        <input type="submit" value="Remove" class="px-3 rounded">                
+                                        {% csrf_token %}              
+                                    </form>
+                                </td>
+                                <td class="align-middle">shs. {{product.price|intcomma}}</td>
+                                <td class="align-middle">shs. {{item.total_price|intcomma}}</td>
+                            </tr>
+                            {% endwith %}      
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="col-lg-4">
-            <form class="mb-5" action="">
+            <form class="mb-3" action="">
                 <div class="input-group">
                     <input type="text" class="form-control p-4" placeholder="Coupon Code">
                     <div class="input-group-append">
@@ -63,7 +65,7 @@
                     </div>
                 </div>
             </form>
-            <div class="card border-secondary mb-5">
+            <div class="card border-secondary mb-3">
                 <div class="card-header bg-secondary border-0">
                     <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
                 </div>
@@ -85,5 +87,3 @@
 </div>
 <!-- Cart End -->
 {% endblock %}
-
-

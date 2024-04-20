@@ -43,7 +43,8 @@ def detail(request, id):
         'related_items': related_items,
     })
 
+@business_required
 def ordered(request):
     orders = Order.objects.all()
-    product = OrderItem.objects.all()
-    return render(request, 'bus/ordered.html', {'orders':orders, 'product':product})
+    ordered_product = OrderItem.objects.all()
+    return render(request, 'bus/ordered.html', {'orders':orders, 'ordered_product':ordered_product})

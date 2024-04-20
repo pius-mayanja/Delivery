@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'social_django',
     'jumia.apps.JumiaConfig',
     'cart.apps.CartConfig',
     'user.apps.UserConfig',
@@ -119,6 +120,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2'
+                           ]
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '541224881871-q2df8focf2b2c8k6kvt715st9g47dnub.apps.googleusercontent.com' # Google Client ID 
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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' # Google Client Secret
 
 
 # Internationalization
