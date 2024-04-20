@@ -51,7 +51,7 @@ class BusinessSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('/login/')
+        return redirect('user:login')
 
 def Logout_view(request):
     logout(request)
