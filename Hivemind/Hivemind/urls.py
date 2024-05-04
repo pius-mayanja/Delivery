@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('jumia.urls')),
+    path('inbox/', include('chart.urls')),
     path('cart/', include('cart.urls')),
     path('', include('user.urls')),
     path('order/', include('orders.urls')),

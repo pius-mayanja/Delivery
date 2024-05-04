@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'jumia.apps.JumiaConfig',
     'cart.apps.CartConfig',
+    'chart.apps.ChartConfig',
     'user.apps.UserConfig',
     'business.apps.BusinessConfig',
     'orders.apps.OrdersConfig',
@@ -51,7 +52,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'user.User'
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = '/login/'
+LOGIN_URL = 'login'
 
 LOGOUT_URL = '/logout/'
 LOGOUT_REDIRECT_URL = 'items'

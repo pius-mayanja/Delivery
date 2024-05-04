@@ -134,6 +134,7 @@
                                     <a href="{% url 'cart:cart_detail' %}" class="dropdown-item">Shopping Cart</a>
                                     <a href="{% url 'orders:order_create' %}" class="dropdown-item">Checkout</a>
                                     <a href="{% url 'orders:order' %}" class="dropdown-item">View Orders</a>
+                                    <a href="{% url 'chart:inbox' %}" class="dropdown-item">Your Inbox</a>
                                 </div>
                             </div>
                             {% else %}
@@ -149,7 +150,9 @@
                         </div>
                         {% if request.user.is_authenticated %}
                         <div class=" flex space-x-6">
-                            <a href="{% url 'user:logout' %}">Log out</a>
+                            <a href="{% url 'user:logout' %}"><svg class="w-5 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+                              </svg> Log out</a>
                         </div>
                         {% else %}
                             <div class="navbar-nav ml-auto py-2">

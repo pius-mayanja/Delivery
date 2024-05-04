@@ -4,7 +4,7 @@
 {% block content %}
 
 <!-- Page Header Start -->
-<div class="container-fluid bg-secondary mb-5">
+<div class="container-fluid bg-blue-300 mb-5">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
         <h1 class="font-weight-semi-bold text-uppercase mb-3 text-5xl">Checkout</h1>
         <div class="d-inline-flex">
@@ -59,33 +59,35 @@
                     </div>
                     <br>
                     <hr>
-                    <button type="submit" class="btn btn-block btn-primary my-3 py-3 font-semibold">Place Order</button>
+                    <button type="submit" class="btn btn-block btn-success my-3 py-3 font-semibold">Place Order</button>
                 </form>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="card border-secondary mb-5">
-                <div class="card-header bg-secondary border-0">
+                <div class="card-header bg-blue-200 border-0">
                     <h4 class="font-weight-semi-bold m-0">Order Total</h4>
                 </div>
                 <div class="card-body">
                     <h5 class="font-weight-medium mb-3">Products</h5>
                     {% for item in cart %}
                     <div class="d-flex justify-content-between">
-                        <p>{{item.product.name}}</p>
+                        <p class="font-weight-medium">{{item.product.name}}</p>
                         <p>shs. {{item.total_price|intcomma}}</p>
                     </div>
                     {% endfor %}
                     <hr class="mt-2">
                     <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">delivery</h6>
-                        <h6 class="font-weight-medium">shs. 10,000</h6>
+                        <p class="font-weight-medium">Delivery</p>
+                        <p>shs. {{cart.delivery|intcomma}}</p>
                     </div>
+                    
+                    
                 </div>
                 <div class="card-footer border-secondary bg-transparent">
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">shs. {{cart.get_total_price|intcomma}}</h5>
+                        <h5 class="font-weight-bold">shs. {{cart.cost|intcomma}}</h5>
                     </div>
                 </div>
             </div>

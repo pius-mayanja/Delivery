@@ -1,5 +1,6 @@
-from django.shortcuts import render 
+from django.shortcuts import render,get_object_or_404, redirect
 from .models import OrderItem , Order
+from django.http import HttpResponseBadRequest
 from .forms import OrderCreateForm 
 from cart.cart import Cart
 from django.contrib.auth.decorators import login_required
@@ -24,6 +25,17 @@ def order_create(request):
         else:        
             form = OrderCreateForm()    
         return render(request, 'jumia/checkout.html',{'cart': cart,'form': form})
+
+@login_required
+def delete_order(request,id):
+    delete_order = get_object_or_404(Order, id=id)
+
+    if delete_order.user != request.user:
+        return HttpResponseBadRequest("You do not have permission to delete this order.")
+
+    if request.method == 'POST':
+        delete_order.delete()
+        return redirect('orders:order')
         
 @customer_required
 def orders(request):

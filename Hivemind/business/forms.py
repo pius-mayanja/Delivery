@@ -3,6 +3,7 @@ from .models import Business
 from django.contrib.auth.forms import UserCreationForm
 from user.models import User
 from django.db import transaction
+from chart.models import ConversationMessage
 
 class BusinessForm(forms.ModelForm):
     class Meta:
@@ -50,3 +51,13 @@ class BusinessSignUpForm(UserCreationForm):
             user.save()
         business = Business.objects.create(user=user, name=self.cleaned_data.get('name'),)
         return user
+    
+class ConversationMessageForm(forms.ModelForm):
+    class Meta:
+        model = ConversationMessage
+        fields = ('content',)
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'class': 'w-full py-4 px-6 rounded-xl border'
+            })
+        }

@@ -11,4 +11,6 @@ urlpatterns = [
     path('detail/<int:id>',detail, name= 'detail'),
     path('ordered/',ordered, name= 'ordered'),
     path('products/', business_reg, name='reg'),
+    path('',inbox, name='inbox'),
+    path('<int:pk>/',cdetail, name='cdetail'),
 ]

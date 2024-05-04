@@ -32,16 +32,17 @@
             <p class="mb-4">From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
             <div class="flex items-center">
                 <div class="quantity-controls inline-block">
-                    <button type="button" class="btn btn-primary" onclick="decreaseQuantity()">-</button>
+                    <button type="button" class="btn btn-success" onclick="decreaseQuantity()">-</button>
                     <span id="quantityDisplay" class="mr-2 ml-2">1</span>  <!-- Display the quantity -->
-                    <button type="button" class="btn btn-primary" onclick="increaseQuantity()">+</button>
+                    <button type="button" class="btn btn-success" onclick="increaseQuantity()">+</button>
                 </div>
                 <form action="{% url 'cart:cart_add' item.id %}" method="post" class="ml-3 inline-block">
                     {% csrf_token %}
-                    <input type="hidden" name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
+                    <input type="hidden"  name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
                     <input type="hidden" name="override" value="False">
-                    <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                    <button type="submit" class="btn btn-danger px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                 </form>
+                <a href="{% url 'chart:new' item.id %}"><button class="btn btn-success px-4 border ml-2 text-bold">Contact Seller</button></a>
             </div>
         </div>
     </div>
@@ -55,7 +56,7 @@
         <div class="p-4">
           <img src="{{item.image.url}}" alt="Product 1" class="w-full h-auto rounded-md mb-4">
           <h2 class="text-lg font-semibold text-gray-800 mb-2">{{item.name}}</h2>
-          <p class="text-sm text-gray-600">Price: sh.{{item.price}}</p>
+          <p class="text-sm text-gray-600">Price: shs.{{item.price}}</p>
         </div>
        </a>
       </div>

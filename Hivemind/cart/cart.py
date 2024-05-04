@@ -1,4 +1,4 @@
-from decimal import Decimal 
+from decimal import Decimal,ROUND_HALF_UP
 from django.conf import settings 
 from jumia.models import Type
 
@@ -49,6 +49,14 @@ class Cart:
     
     def get_total_price(self):
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+    
+    def delivery(self):        
+        total = self.get_total_price()
+        delivery_cost = total * Decimal('0.008')
+        return delivery_cost.quantize(Decimal('0.01'),rounding=ROUND_HALF_UP)
+    
+    def cost(self):        
+        return self.delivery() + self.get_total_price()
     
     def clear(self):
         del self.session[settings.CART_SESSION_ID]

@@ -1,11 +1,13 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from user.decorators import customer_required, business_required
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import BusinessForm
 from .models import Business
 from jumia.models import Type
 from orders.models import OrderItem, Order
+from .forms import ConversationMessageForm
+from chart.models import Conversation
+from user.models import User
 
 def about(request):
     return render(request, 'bus/about.html' )
@@ -43,8 +45,41 @@ def detail(request, id):
         'related_items': related_items,
     })
 
+@login_required
 @business_required
 def ordered(request):
-    orders = Order.objects.all()
     ordered_product = OrderItem.objects.all()
-    return render(request, 'bus/ordered.html', {'orders':orders, 'ordered_product':ordered_product})
+    return render(request, 'bus/ordered.html', {'ordered_product':ordered_product})
+
+
+@login_required
+def inbox(request):
+    conversations = Conversation.objects.filter(members__in=[request.user.id])
+
+    return render(request, 'bus/inbox.html', {
+        'conversations': conversations
+    })
+
+@login_required
+def cdetail(request, pk):
+    conversation = Conversation.objects.filter(members__in=[request.user.id]).get(pk=pk)
+
+    if request.method == 'POST':
+        form = ConversationMessageForm(request.POST)
+
+        if form.is_valid():
+            conversation_message = form.save(commit=False)
+            conversation_message.conversation = conversation
+            conversation_message.created_by = request.user
+            conversation_message.save()
+
+            conversation.save()
+
+            return redirect('business:cdetail', pk=pk)
+    else:
+        form = ConversationMessageForm()
+
+    return render(request, 'bus/cdetail.html', {
+        'conversation': conversation,
+        'form': form
+    })

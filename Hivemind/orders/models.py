@@ -1,11 +1,12 @@
 from django.db import models 
 from jumia.models import Type
 from user.models import User
-from django.contrib.auth import get_user_model
+from decimal import Decimal, ROUND_HALF_UP
+from business.models import Business
 
 
 
-class Order(models.Model):    
+class Order(models.Model):  
     user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=50)    
     last_name = models.CharField(max_length=50)    
@@ -29,7 +30,15 @@ class Order(models.Model):
     def get_total_cost(self):        
         return sum(item.get_cost() for item in self.orders.all())
     
-
+    def delivery(self):        
+        total = self.get_total_cost()
+        delivery_cost = total * Decimal('0.008')
+        return delivery_cost.quantize(Decimal('0.01'),rounding=ROUND_HALF_UP)
+    
+    def cost(self):        
+        return self.delivery() + self.get_total_cost()
+    
+        
 class OrderItem(models.Model):    
     order = models.ForeignKey(Order,related_name='orders',on_delete=models.CASCADE)    
     product = models.ForeignKey(Type,related_name='items',on_delete=models.CASCADE)    
@@ -41,3 +50,5 @@ class OrderItem(models.Model):
     
     def get_cost(self):        
         return self.price * self.quantity
+    
+    

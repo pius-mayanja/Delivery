@@ -25,7 +25,7 @@
         <tbody class="align-middle"> 
           
           {% for item in product %}    
-          <tr class="font-semibold text-lg font-sans">
+          <tr class="font-semibold font-sans">
               <td><img src="{{item.product.image.url}}" alt="" style="max-width: 100px;max-height: 100px"></td>  
               <td>{{item.product.name}}</td>
               <td>{{item.quantity}}</td>
@@ -33,25 +33,40 @@
               <td>{{item.order.address}}</td>
               <td>{{item.order.email}}</td>
               <td><a href="">
-                <button class="rounded-full btn btn-primary px-4 border border-red-900 text-bold">Pending</button>
+                <button class="rounded-full btn btn-info px-4 border border-red-900 text-bold">Pending</button>
               </a></td>
-            </tr>
+          </tr>
           {% endfor %}
-      </tbody>
-    </table>
-    <br>
-    <br>
-    <div class="card border-secondary mb-5 mt-8">
-      <div class="card-header bg-secondary border-0">
-          <h4 class="font-weight-semi-bold m-0">Order Summary</h4>
-      </div>
-      <div class="card-footer border-secondary bg-transparent">
-          <div class="d-flex justify-content-between space-x-8 mt-2">
-              <h5 class="font-weight-bold">Total</h5>
-              <h5 class="font-weight-bold">shs. {{orders.get_total_cost|intcomma}}</h5>
+        </tbody>
+      </table>
+        <br>
+        <br>
+      <div class="col-lg-4">
+        <div class="card border-secondary mt-5">
+          <div class="card-header bg-blue-200 border-0">
+              <h4 class="font-weight-semi-bold m-0 text-center">Order Total</h4>
           </div>
+          <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <p>Total: </p>
+            <p>shs. {{orders.get_total_cost|intcomma}}</p> 
+          </div> 
+          <div class="d-flex justify-content-between">
+            <p>Delivery: </p>
+            <p>shs. {{orders.delivery|intcomma}}</p> 
+          </div> 
+          <hr class="mt-2">
+          <div class="d-flex justify-content-between">
+           <strong><p>Cost: </p></strong>
+           <strong>shs. {{orders.cost|intcomma}}</strong>
+          </div> 
+          <form action="{% url 'orders:delete_order' orders.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-block btn-danger my-3 py-2 font-semibold">Delete Order</button>
+          </form>
+          </div>
+        </div>
       </div>
-  </div>
-  </div>
+    </div>
 </div>
 {% endblock %}

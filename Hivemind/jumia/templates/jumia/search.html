@@ -1,5 +1,6 @@
 {% extends 'jumia/base.html'%}
 {% block title%} {{item.name}} {% endblock %}
+{% load humanize %}
 {% block content %}
 <h1 class="text-center py-4 text-5xl font-bold">Search results</h1>
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -12,7 +13,7 @@
                             <img src="{{ result.image.url }}" alt="{{ result.name }}" class="w-full h-auto rounded-md mb-4">
                         </a>
                         <h2 class="text-lg font-semibold text-gray-800 mb-2">{{ result.name }}</h2>
-                        <p class="text-sm text-gray-600">Price: sh.{{ result.price }}</p>
+                        <p class="text-sm text-gray-600">Price: shs. {{ result.price|intcomma }}</p>
                     </div>
                 </div>
             </div>
