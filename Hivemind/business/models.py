@@ -5,7 +5,9 @@ from django.utils import timezone
 class Business(models.Model):
     user = models.OneToOneField(User, on_delete= models.CASCADE)
     name = models.CharField(max_length=200, null=True, blank=True)
+    logo = models.ImageField(upload_to='logos/', null=True)
     created_at = models.DateTimeField(default=timezone.now)
+    
     
     class Meta():
         ordering = ['name']

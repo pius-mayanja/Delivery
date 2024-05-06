@@ -21,19 +21,19 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle"> 
-                    {% for item in orders %}       
-                    <tr>
-                        <td>{{ item.created }}</td>
-                        <td>{{ item.first_name }}</td>
-                        <td>{{ item.last_name }}</td>
-                        <td>{{ item.email }}</td>
-                        <td>{{ item.address }}</td>
-                        <td>
-                            <a href="{% url 'orders:detail' item.id %}">
-                                <button class="rounded-full btn btn-primary px-4 border border-red-900 text-bold">Pending</button>
-                            </a>
-                        </td>
-                    </tr>
+                    {% for item in orders %}
+                        <tr>
+                            <td>{{ item.created }}</td>
+                            <td>{{ item.first_name }}</td>
+                            <td>{{ item.last_name }}</td>
+                            <td>{{ item.email }}</td>
+                            <td>{{ item.address }}</td>
+                            <td>
+                                <a href="{% url 'orders:detail' item.id %}">
+                                    <button class="rounded-full btn btn-primary px-4 border border-red-900 text-bold">Pending</button>
+                                </a>
+                            </td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>

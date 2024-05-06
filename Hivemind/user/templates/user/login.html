@@ -42,4 +42,14 @@
         <button class="py-3 px-6 text-base sm:text-lg bg-green-500 hover:bg-green-700 rounded-xl text-white w-full mt-4">Login</button>
     </form>
 </div>
+<script>
+    document.getElementById("showPassword").addEventListener("change", function() {
+        var passwordField = document.getElementById("password");
+        if (this.checked) {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    });
+</script>
 {% endblock %}
