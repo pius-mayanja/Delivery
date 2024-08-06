@@ -1,3 +1,5 @@
+Link to website is: https://hivemindgroup7.pythonanywhere.com
+
 **FUNCTIONAL AND TECHNOLOGICAL SPECIFICATIONS FOR OUR PROJECT;**
 
 **1.BUSINESS FUNCTIONALITY for "Hivemind"**
