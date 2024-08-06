@@ -3,7 +3,8 @@
 {% block title %}Conversation{% endblock %}
 
 {% block content %}
-<h1 class="text-center py-4 text-3xl font-bold">Your Chart</h1>
+<h1 class="text-start mt-5 text-4xl font-bold">Your Chart</h1>
+<hr class="mt-2 mb-4">
 
 <div class="space-y-6">
     {% for message in conversation.messages.all %}
@@ -21,6 +22,6 @@
 
     {{ form.as_p }}
 
-    <button class="btn btn-block btn-success my-3 py-3 font-semibold">Send</button>
+    <button class="btn btn-block btn-success my-3 py-3 font-semibold rounded-full">Send</button>
 </form>
 {% endblock %}

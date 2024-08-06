@@ -1,55 +1,59 @@
-{% extends 'user/user_base.html' %}
+{% extends 'user/base.html' %}
 
-{% block title %}Login{% endblock %}
-
+{% block title %}Login {% endblock %}
+{% load static %}
 {% block content %}
-<div class="w-full sm:w-1/2 my-6 mx-auto p-6 bg-gray-300 rounded-xl">
-    <h1 class="mb-6 text-3xl sm:text-4xl text-center">
-        <svg class="w-10 sm:w-12 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        </svg>
-        Login
-    </h1>
+<br>
+<br>
+<br>
+<section class="sign-in">
+    <div class="container">
+        <div class="signin-content">
+            <div class="signin-image">
+                <figure><img src="{%static 'reg/images/signin-image.jpg' %}" alt="sing up image"></figure>
+                <a href="{%url 'user:signup' %}" class="signup-image-link">Create an account</a>
+            </div>
 
-    <form method="post" action=".">
-        {% csrf_token %}
+            <div class="signin-form">
+                <h2 class="form-title">Login</h2>
+                <form method="POST" class="register-form" id="login-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        {{form.username}}
+                    </div>
+                    <div class="form-group">
+                        <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                        {{form.password}}
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                        <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                    </div>
+                    <div class="form-group form-button">
+                        <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                    </div>
+                    {% if form.errors or form.non_field_errors %}
+                    <div class="mb-3 p-3 bg-red-100 rounded-xl">
+                        {% for field in form %}
+                        {{ field.errors }}
+                        {% endfor %}
 
-        <div class="mb-3">
-            <label class="inline-block mb-2">Username</label><br>
-            {{ form.username }}
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+                </form>
+                <div class="social-login">
+                    <span class="social-label">Or login with</span>
+                    <ul class="socials">
+                        <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                        <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                        <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
+    </div>
+</section>
 
-        <div class="mb-3">
-            <label class="inline-block mb-2">Password</label><br>
-            {{ form.password }}
-        </div>
-
-        {% if form.errors or form.non_field_errors %}
-        <div class="mb-3 p-3 bg-red-100 rounded-xl">
-            {% for field in form %}
-            {{ field.errors }}
-            {% endfor %}
-
-            {{ form.non_field_errors }}
-        </div>
-        {% endif %}
-
-        <div class="flex justify-between">
-            <a href=""><p class="font-semibold text-base sm:text-lg hover hover:text-red-500">Forgot password?</p></a>
-            <a href="{% url 'user:signup' %}" class="font-semibold text-base sm:text-lg hover hover:text-red-500">Don't have an account</a>
-        </div>
-
-        <button class="py-3 px-6 text-base sm:text-lg bg-green-500 hover:bg-green-700 rounded-xl text-white w-full mt-4">Login</button>
-    </form>
-</div>
-<script>
-    document.getElementById("showPassword").addEventListener("change", function() {
-        var passwordField = document.getElementById("password");
-        if (this.checked) {
-            passwordField.type = "text";
-        } else {
-            passwordField.type = "password";
-        }
-    });
-</script>
 {% endblock %}

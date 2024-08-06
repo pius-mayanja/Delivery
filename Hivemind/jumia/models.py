@@ -1,6 +1,5 @@
 from django.db import models
 from user.models import User
-from business.models import Business
 
 
 class Categories(models.Model):        #these are categories for all products in database

@@ -1,60 +1,62 @@
-{% extends 'user/user_base.html' %}
+{% extends 'user/base.html' %}
 
 {% block title %}Sign up{% endblock %}
-
+{% load static %}
 {% block content %}
-<div class="w-full sm:w-1/2 my-6 mx-auto p-6 bg-gray-300 rounded-xl">
-    <h1 class="mb-6 text-2xl sm:text-3xl text-center">Sign up as a customer to start shopping.</h1>
-    <hr class="mb-2">
-
-    <form method="post" action=".">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label class="inline-block mb-2">First Name</label><br>
-            {{ form.first_name }}
-        </div>
-
-        <div class="mb-3">
-            <label class="inline-block mb-2">Last Name</label><br>
-            {{ form.last_name }}
-        </div>
-
-        <div class="mb-3">
-            <label class="inline-block mb-2">Username</label><br>
-            {{ form.username }}
-        </div>
-
-        <div class="mb-3">
-            <label class="inline-block mb-2">Email</label><br>
-            {{ form.email }}
-        </div>
-
-        <div class="mb-3">
-            <label class="inline-block mb-2">Password</label><br>
-            {{ form.password1 }}
-        </div>
-
-        <div class="mb-3">
-            <label class="inline-block mb-2">Repeat password</label><br>
-            {{ form.password2 }}
-        </div>
-
-        {% if form.errors or form.non_field_errors %}
-        <div class="mb-3 p-3 bg-red-100 rounded-xl">
-            {% for field in form %}
-            {{ field.errors }}
-            {% endfor %}
-
-            {{ form.non_field_errors }}
-        </div>
-        {% endif %}
-
-        <div class="flex justify-between">
-            <a href="{% url 'user:reg' %}" class="font-semibold text-base sm:text-lg hover hover:text-red-500">I want to sell.</a>
-            <a href="{% url 'user:login' %}" class="font-semibold text-base sm:text-lg hover hover:text-red-500">I have an account</a>
-        </div>
-        <br>
-        <button class="py-3 px-6 text-base sm:text-lg bg-green-500 hover:bg-green-700 rounded-xl text-white w-full mt-4">Sign Up</button>
-    </form>
-</div>
+<br>
+<br>
+<br>
+<section class="signup">
+  <div class="container">
+      <div class="signup-content">
+          <div class="signup-form">
+              <h2 class="form-title">Sign up</h2>
+              <form action=" . " method="POST" class="register-form" id="register-form">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="fname"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                  {{form.first_name}}
+                </div>
+                  <div class="form-group">
+                    <label for="lname"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                    {{form.last_name}}
+                  </div>
+                  <div class="form-group">
+                    <label for="lname"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                    {{form.username}}
+                  </div>
+                  <div class="form-group">
+                      <label for="email"><i class="zmdi zmdi-email"></i></label>
+                      {{form.email}}
+                  </div>
+                  <div class="form-group">
+                    <label for="name"><i class="zmdi zmdi-phone"></i></label>
+                    {{form.phone_number}}
+                  </div>
+                  <div class="form-group">
+                      <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                      {{form.password1}}
+                  </div>
+                  <div class="form-group">
+                      <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                      {{form.password2}}
+                  </div>
+                  <div class="form-group">
+                      <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                      <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                  </div>
+                  <div class="form-group">
+                    <a href="#">I have an account</a>
+                  </div>
+                  <div class="form-group form-button">
+                      <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                  </div>
+              </form>
+          </div>
+          <div class="signup-image">
+              <figure><img src="{%static 'reg/images/signup-image.jpg' %}" alt="sing up image"></figure>
+          </div>
+      </div>
+  </div>
+</section>
 {% endblock %}

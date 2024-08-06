@@ -2,18 +2,14 @@ from django.db import models
 from jumia.models import Type
 from user.models import User
 from decimal import Decimal, ROUND_HALF_UP
-from business.models import Business
-
 
 
 class Order(models.Model):  
     user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=50)    
     last_name = models.CharField(max_length=50)    
-    email = models.EmailField()    
-    address = models.CharField(max_length=250)    
-    phone_number = models.CharField(max_length=20)    
-    city = models.CharField(max_length=100)    
+    address = models.CharField(max_length=250) 
+    phone_number = models.CharField(max_length=20) 
     created = models.DateTimeField(auto_now_add=True)    
     updated = models.DateTimeField(auto_now=True)    
     paid = models.BooleanField(default=False)
@@ -50,5 +46,4 @@ class OrderItem(models.Model):
     
     def get_cost(self):        
         return self.price * self.quantity
-    
     

@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    # 'django.contrib.gis',
+    # 'leaflet',
     'jumia.apps.JumiaConfig',
     'cart.apps.CartConfig',
     'chart.apps.ChartConfig',
@@ -141,7 +143,9 @@ STATIC_ROOT = BASE_DIR/'staticfiles'
 STATICFILES_DIR = [
     'jumia/static',
     'business/static',
+    'user/static',
 ]
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_ROOT = BASE_DIR/'media'
@@ -155,3 +159,10 @@ CART_SESSION_ID = 'cart'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (0, 0),
+    'DEFAULT_ZOOM': 2,
+    'MIN_ZOOM': 1,
+    'MAX_ZOOM': 20,
+    'SCALE': 'both',
+}

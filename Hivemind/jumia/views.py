@@ -9,7 +9,7 @@ from .forms import SearchForm
 
 
 def items(request):
-    type = Type.objects.all()
+    type = Type.objects.all()[:10]
     return render(request, 'jumia/item.html', {'type': type,})
 
 def categories(request, id):
@@ -19,7 +19,6 @@ def categories(request, id):
                                                      'category':category})
 
 
-@customer_required
 def detail(request, id):
     item = get_object_or_404(Type, pk=id)
     related_items = Type.objects.filter(category=item.category).exclude(pk=id)
