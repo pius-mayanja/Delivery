@@ -1,45 +1,57 @@
 {% extends 'jumia/base.html' %}
-{% block title%} Checkout {% endblock %}
+{% block title %} Checkout {% endblock %}
 {% load humanize %}
 {% block content %}
 
-<h2 class="flex justify-start mt-5 text-4xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 inline-block">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-  </svg>
-   Checkout Now</h2>
+<h2 class="flex justify-start mt-5 text-4xl font-bold">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 inline-block">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+    </svg>
+    Checkout Now
+</h2>
 <hr class="mt-2">
 
 <div class="container-fluid pt-4">
     <div class="row px-xl-5">
         <div class="col-lg-8">
             <div class="w-full mb-2 mx-auto rounded-xl">
-                <div>
-                    <form action="" method="post">
-                        {% csrf_token %} 
-                        <div class="mb-3">
-                            <label class="inline-block mb-2">First Name</label><br>
-                            {{ form.first_name }}
-                        </div>
-                
-                        <div class="mb-3">
-                            <label class="inline-block mb-2">Last Name</label><br>
-                            {{ form.last_name }}
-                        </div>
-                
-                        <div class="mb-3">
-                            <label class="inline-block mb-2">Address</label><br>
-                        </div>
-                
-                        <div class="mb-3">
-                            <label class="inline-block mb-2">Mobile</label><br>
-                            {{ form.phone_number }}
-                        </div>
+                <form action="{% url 'orders:order_create' %}" method="post">
+                    {% csrf_token %}
 
-                        <button type="submit" class="btn btn-block btn-success rounded-xl my-3 py-3 font-semibold">Place Order</button>
-                    </form>
-                </div>
+                    <div class="mb-3">
+                        <label for="id_first_name" class="inline-block mb-2">First Name</label>
+                        {{ form.first_name }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_last_name" class="inline-block mb-2">Last Name</label>
+                        {{ form.last_name }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="inline-block mb-2">Address</label>
+                        {{form.address}}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_phone_number" class="inline-block mb-2">Mobile</label>
+                        {{ form.phone_number }}
+                    </div>
+
+                    {% if form.errors or form.non_field_errors %}
+                        <div class="mb-3 p-3 bg-red-100 rounded-xl">
+                            {% for field in form %}
+                                {{ field.errors }}
+                            {% endfor %}
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <button type="submit" class="btn btn-block btn-success rounded-xl my-3 py-3 font-semibold">Place Order</button>
+                </form>
             </div>
         </div>
+
         <div class="col-lg-4">
             <div class="card border-secondary mb-5">
                 <div class="card-header bg-blue-200 border-0">
@@ -48,27 +60,161 @@
                 <div class="card-body">
                     <h5 class="font-weight-medium mb-3">Products</h5>
                     {% for item in cart %}
-                    <div class="d-flex justify-content-between">
-                        <p class="font-weight-medium">{{item.product.name}}</p>
-                        <p>shs. {{item.total_price|intcomma}}</p>
-                    </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="font-weight-medium">{{ item.product.name }}</p>
+                            <p>shs. {{ item.total_price|intcomma }}</p>
+                        </div>
                     {% endfor %}
                     <hr class="mt-2">
                     <div class="d-flex justify-content-between">
                         <p class="font-weight-medium">Delivery</p>
-                        <p>shs. {{cart.delivery|intcomma}}</p>
+                        <p>shs. {{ cart.delivery|intcomma }}</p>
                     </div>
-                    
-                    
                 </div>
                 <div class="card-footer border-secondary bg-transparent">
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">shs. {{cart.cost|intcomma}}</h5>
+                        <h5 class="font-weight-bold">shs. {{ cart.cost|intcomma }}</h5>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function addressAutocomplete(inputElement, callback) {
+    const MIN_ADDRESS_LENGTH = 3;
+    const DEBOUNCE_DELAY = 300;
+
+    let currentTimeout;
+    let currentPromiseReject;
+    let focusedItemIndex;
+
+    inputElement.addEventListener("input", function(e) {
+        const currentValue = this.value;
+        closeDropDownList();
+
+        if (currentTimeout) {
+            clearTimeout(currentTimeout);
+        }
+
+        if (currentPromiseReject) {
+            currentPromiseReject({
+                canceled: true
+            });
+        }
+
+        if (!currentValue || currentValue.length < MIN_ADDRESS_LENGTH) {
+            return false;
+        }
+
+        currentTimeout = setTimeout(() => {
+            currentTimeout = null;
+            const promise = new Promise((resolve, reject) => {
+                currentPromiseReject = reject;
+
+                const apiKey = "a29d956305bd4b3288f90b68c5063650";
+                const url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(currentValue)}&format=json&limit=5&apiKey=${apiKey}`;
+
+                fetch(url)
+                    .then(response => {
+                        currentPromiseReject = null;
+                        if (response.ok) {
+                            response.json().then(data => resolve(data));
+                        } else {
+                            response.json().then(data => reject(data));
+                        }
+                    });
+            });
+
+            promise.then((data) => {
+                const autocompleteItemsElement = document.createElement("div");
+                autocompleteItemsElement.setAttribute("class", "autocomplete-items");
+                inputElement.parentNode.appendChild(autocompleteItemsElement);
+
+                data.results.forEach((result, index) => {
+                    const itemElement = document.createElement("div");
+                    itemElement.innerHTML = result.formatted;
+                    autocompleteItemsElement.appendChild(itemElement);
+
+                    itemElement.addEventListener("click", function(e) {
+                        inputElement.value = data.results[index].formatted;
+                        callback(data.results[index]);
+                        closeDropDownList();
+                    });
+                });
+
+            }, (err) => {
+                if (!err.canceled) {
+                    console.log(err);
+                }
+            });
+        }, DEBOUNCE_DELAY);
+    });
+
+    inputElement.addEventListener("keydown", function(e) {
+        const autocompleteItemsElement = inputElement.parentNode.querySelector(".autocomplete-items");
+        if (autocompleteItemsElement) {
+            const itemElements = autocompleteItemsElement.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                e.preventDefault();
+                focusedItemIndex = focusedItemIndex !== itemElements.length - 1 ? focusedItemIndex + 1 : 0;
+                setActive(itemElements, focusedItemIndex);
+            } else if (e.keyCode == 38) {
+                e.preventDefault();
+                focusedItemIndex = focusedItemIndex !== 0 ? focusedItemIndex - 1 : focusedItemIndex = (itemElements.length - 1);
+                setActive(itemElements, focusedItemIndex);
+            } else if (e.keyCode == 13) {
+                e.preventDefault();
+                if (focusedItemIndex > -1) {
+                    closeDropDownList();
+                }
+            }
+        } else {
+            if (e.keyCode == 40) {
+                var event = document.createEvent('Event');
+                event.initEvent('input', true, true);
+                inputElement.dispatchEvent(event);
+            }
+        }
+    });
+
+    function setActive(items, index) {
+        if (!items || !items.length) return false;
+
+        for (var i = 0; i < items.length; i++) {
+            items[i].classList.remove("autocomplete-active");
+        }
+
+        items[index].classList.add("autocomplete-active");
+        inputElement.value = items[index].innerText;
+        callback(currentItems[index]);
+    }
+
+    function closeDropDownList() {
+        const autocompleteItemsElement = inputElement.parentNode.querySelector(".autocomplete-items");
+        if (autocompleteItemsElement) {
+            inputElement.parentNode.removeChild(autocompleteItemsElement);
+        }
+        focusedItemIndex = -1;
+    }
+
+    document.addEventListener("click", function(e) {
+        if (e.target !== inputElement) {
+            closeDropDownList();
+        } else if (!inputElement.parentNode.querySelector(".autocomplete-items")) {
+            var event = document.createEvent('Event');
+            event.initEvent('input', true, true);
+            inputElement.dispatchEvent(event);
+        }
+    });
+}
+
+addressAutocomplete(document.getElementById("address"), (data) => {
+    console.log("Selected option: ", data);
+    document.getElementById("address").value = data.formatted;
+});
+
+</script>
 {% endblock %}
