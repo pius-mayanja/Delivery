@@ -95,17 +95,17 @@
                             <input type="text" class="form-control rounded-2xl rounded-r-none" placeholder="Search for products" name="query">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-success rounded-2xl rounded-l-none">Search</button>
-                            </div>
+                            </div> 
                         </div>
                     </form>
                 </div>
                 <div class="col-lg-3 col-6 text-right">
                     {% if request.user.is_authenticated %}
+                    <button class="btn btn-secondary rounded-xl px-2 py-2 m-1"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 inline-block text-success" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform:msFilter;"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg></button>
                     <a href="{% url 'jumia:items' %}">
                         <h1 class="btn btn-secondary hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                          </svg>
-                           Home</h1>
+                        </svg> Home</h1>
                     </a>
                     <div class="btn-group">
                         <button type="button" class="focus:ring-none foucs:outline-none btn btn-secondary rounded-2xl dropdown-toggle text-xl font-semibold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hi, {{user.username}}</button>

@@ -4,7 +4,7 @@
 {% load humanize %}
 {% block content %}
 <div class="container-fluid pt-5">
-    <h1 class="text-center py-4 text-3xl font-bold">Order Details.</h1>
+    <h1 class="text-start py-4 text-3xl font-bold">Order Details.</h1>
     <hr>
     <br>
     <br>
@@ -17,8 +17,7 @@
                 <th>Product Name</th>        
                 <th>Quantity</th>      
                 <th>Price</th>  
-                <th>Address</th>    
-                <th>Email Address</th>          
+                <th>Delivery Address</th>            
                 <th>Status</th> 
             </tr>
         </thead>
@@ -31,10 +30,9 @@
               <td>{{item.quantity}}</td>
               <td>{{item.get_cost|intcomma}}</td>
               <td>{{item.order.address}}</td>
-              <td>{{item.order.email}}</td>
-              <td><a href="">
+              <td>
                 <button class="rounded-full btn btn-info px-4 border border-red-900 text-bold">Pending</button>
-              </a></td>
+              </td>
           </tr>
           {% endfor %}
         </tbody>
@@ -60,13 +58,76 @@
            <strong><p>Cost: </p></strong>
            <strong>shs. {{orders.cost|intcomma}}</strong>
           </div> 
+          <form id="paymentForm" action="{% url 'orders:payment' orders.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" id="submitButton" class="btn btn-block btn-success my-3 py-2 font-semibold rounded-lg">Pay for Order</button>
+        </form>        
           <form action="{% url 'orders:delete_order' orders.id %}" method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-block btn-danger my-3 py-2 font-semibold">Delete Order</button>
+            <button type="submit" class="btn btn-block btn-danger my-3 py-2 font-semibold rounded-lg">Delete Order</button>
           </form>
           </div>
         </div>
       </div>
     </div>
 </div>
+<!-- Modal Structure -->
+<div id="paymentModal" class="modal justify-center align-center" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered rounded-full" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-lg font-semibold">Payment Status</h5>
+      </div>
+      <div class="modal-body">
+        <p id="paymentMessage">Processing your payment...</p>
+        <div id="loadingSpinner" class="spinner-border text-success" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#paymentForm').on('submit', function(e) {
+    e.preventDefault();
+
+    // Show the modal
+    $('#paymentModal').modal('show');
+
+    // Disable the form submission button to prevent multiple requests
+    $('#submitButton').attr('disabled', true);
+
+    // Send the AJAX request
+    $.ajax({
+      url: $(this).attr('action'),  // The payment URL
+      method: 'POST',
+      data: $(this).serialize(),
+      success: function(response) {
+        if (response.success) {
+          // Update modal with success message
+          $('#paymentMessage').text('Payment successful!');
+          $('#loadingSpinner').hide();
+        } else {
+          // Handle errors
+          $('#paymentMessage').text(response.errormsg || 'An error occurred.');
+          $('#loadingSpinner').hide();
+        }
+      },
+      error: function() {
+        // Handle general errors
+        $('#paymentMessage').text('An error occurred. Please try again.');
+        $('#loadingSpinner').hide();
+      },
+      complete: function() {
+        // Re-enable the form submission button
+        $('#submitButton').attr('disabled', false);
+      }
+    });
+  });
+});
+</script>
 {% endblock %}

@@ -7,6 +7,15 @@ from django.contrib.auth.decorators import login_required
 from user.decorators import customer_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from twilio.rest import Client
+import requests
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from .models import Payment, Order
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from .models import Payment
+import re 
 
 @customer_required
 def order_create(request):  
@@ -18,7 +27,13 @@ def order_create(request):
             if form.is_valid():
                 order = form.save(commit=False)
                 order.user = request.user  
-                order = form.save()            
+                order = form.save()     
+                # accountSID = 'ACe6d928ec56d8f0c7bce4f4301f592d45'
+                # authToken = '59519c547005d51047167550327627e5'
+                # twilioCli = Client(accountSID, authToken)
+                # myTwilioNumber = '+13345083970'
+                # myCellPhone = '+256761420297'
+                # message = twilioCli.messages.create(body=f'Order was created by {user.first_name}', from_=myTwilioNumber, to=myCellPhone)
                 for item in cart:                
                     OrderItem.objects.create(order=order, product=item['product'], price=item['price'],quantity=item['quantity'])        
                 cart.clear()
@@ -50,4 +65,62 @@ def order_details(request, id):
     return render(request, 'order/order_details.html', {'orders':orders, 'product':product})
 
 
+def initiate_payment(request, order_id):
+    phone_exp = re.compile(r'(0)(/d{9})')
+    if request.method == 'POST':
+        
+        url = 'https://www.easypay.co.ug/api/'
+        secret = 'd58fadc8a79ed090'
+        client_id = '317caec39c6e050c'
+        
+        order = get_object_or_404(Order, id=order_id)
+        amount = int(order.cost())
+        # if order.phone_number == phone_exp.findall():
+            
+        try:
+            payload = {
+                "username": client_id,
+                "password": secret,
+                "action":"mmdeposit",
+                'amount': amount,
+                'currency': 'UGX',
+                'phone': str(order.phone_number),
+                'reference': f'order_{order.id}'
+            }
+            headers = {
+                'Content-Type': 'application/json'
+            }
+
+            response = requests.post(url, json=payload, headers=headers)
+
+            data = response.json()
+            if response.status_code == 200 and data.get('success'):
+                Payment.objects.create(order=order, amount=amount, status='Pending', transaction_id=data['transaction_id'])
+                return JsonResponse({'status': 'success', 'transaction_id': data['transaction_id']})
+            else:
+                error_message = data.get('errormsg', 'Unknown error occurred')
+                return JsonResponse({'status': 'error', 'message': error_message})
+        except Exception as e:
+            return JsonResponse({'success': False, 'errormsg': str(e)})
+    return JsonResponse({'success': False, 'errormsg': 'Invalid request method'})
+
+    
+@csrf_exempt
+def payment_callback(request):
+    if request.method == 'POST':
+        data = request.json()
+        transaction_id = data.get('transaction_id')
+        status = data.get('status')
+
+        payment = Payment.objects.get(transaction_id=transaction_id)
+        payment.status = status
+        payment.save()
+
+        if status == 'Completed':
+            # Update order status, notify customer, etc.
+            pass
+
+        return JsonResponse({'status': 'success'})
+
+    return JsonResponse({'status': 'error'}, status=400)
 

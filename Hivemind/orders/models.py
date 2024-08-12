@@ -47,3 +47,17 @@ class OrderItem(models.Model):
     def get_cost(self):        
         return self.price * self.quantity
     
+    
+class Payment(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20)
+    transaction_id = models.CharField(max_length=100, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Payment'
+        verbose_name_plural = 'Payments'
+        
+    def __str__(self):
+        return f'Payment for order {self.order.id}.'
