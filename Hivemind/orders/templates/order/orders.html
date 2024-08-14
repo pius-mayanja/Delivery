@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container py-5">
-    <h1 class="flex text-start text-4xl font-bold text-gray-800 mb-3">Your Orders</h1>
+    <h1 class="flex text-start text-2xl lg:text-4xl font-bold text-gray-800 mb-3">Your Orders</h1>
     <hr class="mb-8">
 
     <div class="row px-2">
@@ -29,12 +29,12 @@
             {% endfor %}
         </div>
         {% else %}
-        <div class="col-12 text-center">
-            <h3 class="py-4 text-2xl text-gray-700">You don't have any orders yet.</h3>
-            <h3 class="py-4 text-2xl text-gray-700">
+        <div class="col-12 text-center font-mono">
+            <h3 class="py-2 text-lg lg:text-2xl text-gray-700">No orders from you yet!!</h3>
+            <h3 class="py-2 text-xl lg:text-2xl text-gray-700">
                 <strong><a href="{% url 'jumia:items' %}" class="text-green-500 hover:text-green-700">Shop Here</a></strong>
             </h3>
-            <h3 class="py-4 text-2xl text-gray-700">Thank you for choosing Hivemind <i class="fas fa-heart text-red-500"></i></h3>
+            <h3 class="py-2 text-xl lg:text-2xl text-gray-700">Thank you for choosing us <i class="fas fa-heart text-red-500"></i></h3>
         </div>
         {% endif %}
     </div>
