@@ -3,13 +3,13 @@
 {% block content %}
 {% load humanize %}
 
-<h1 class="text-justify-start mt-5 text-4xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 inline-block ">
+<h1 class="text-justify-start mt-5 text-2xl lg:text-4xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 inline-block ">
   <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
 </svg>
  PRODUCT DETAILS</h1>
  <hr class="mt-2">
 
-<div class="container-fluid py-5">
+<div class="container-fluid py-4">
     <div class="row px-xl-5">
         <div class="col-lg-4 pb-5">
             <div class="rounded-2xl overflow-hidden shadow-md relative">
@@ -30,7 +30,7 @@
             </div>
             <h3 class="font-weight-semi-bold mb-4">shs. {{item.price|intcomma}}</h3>
             <p class="mb-4">From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
-            <div class="flex justify-start space-x-8">
+            <!-- <div class="flex justify-start space-x-8">
               <div class="block mb-3">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.0" stroke="currentColor" class="w-10">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
@@ -43,42 +43,44 @@
                 </svg>
                 <h1 class="font-bold text-lg text-center">10-20'</h1>   
               </div>
-            </div>
-            <div class="flex items-center">
-                <div class="quantity-controls inline-block">
+            </div> -->
+            <div class="block lg:flex lg:items-center">
+                <div class="quantity-controls inline-block flex justify-center items-center lg:mt-3">
                     <button type="button" class="btn btn-success rounded" onclick="decreaseQuantity()">-</button>
-                    <span id="quantityDisplay" class="mr-2 ml-2">1</span>  <!-- Display the quantity -->
+                    <span id="quantityDisplay" class="mr-5 ml-5">1</span>  <!-- Display the quantity -->
                     <button type="button" class="btn btn-success rounded" onclick="increaseQuantity()">+</button>
                 </div>
-                <form action="{% url 'cart:cart_add' item.id %}" method="post" class="ml-3 inline-block">
+                <div class="mt-3">
+                  <form action="{% url 'cart:cart_add' item.id %}" method="post" class="ml-3 inline-block">
                     {% csrf_token %}
                     <input type="hidden"  name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
                     <input type="hidden" name="override" value="False">
                     <button type="submit" class="btn btn-danger px- rounded-xl"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                 </form>
                 <a href="{% url 'chart:new' item.id %}"><button class="btn btn-success px-4 border ml-2 text-bold rounded-xl">Contact Seller</button></a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<h2 class="text-center py-4 text-3xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 inline-block mb-1">
+<h2 class="text-center py-3 text-2xl lg:text-3xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 inline-block mb-1">
     <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
   </svg>
    Related items</h2>
-<div class="grid grid-cols-4 gap-3">
+<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
     {% for item in related_items %}
     <div class="mt-2 relative">
-      <div class="rounded-2xl overflow-hidden shadow-md relative">
+      <div class="overflow-hidden shadow-md relative transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
         <a href="{%url 'jumia:detail' item.pk %}" class="transition ease-in-out duration-700"><img src="{{item.image.url}}" alt="" class="w-full h-48 object-cover mt-2 rounded-2xl transition duration-150 ease-in-out"></a>
-        <div class="bg-yellow-300 text-secondary-200 text-sm uppercase font-bold rounded-t-none rounded-b-2xl p-2 absolute top-0 right-0 mb-2 mr-2">
+        <!-- <div class="bg-yellow-300 text-secondary-200 text-sm uppercase font-bold rounded-t-none rounded-b-2xl p-2 absolute top-0 right-0 mb-2 mr-2">
           <span>-40%</span>
-        </div>
+        </div> -->
         <div class="text-white font-bold bg-gray-900 bg-opacity-50 px-3 rounded-lg absolute bottom-0 left-0 mb-2 m-2">
           <span>{{item.category}}</span>
         </div>
       </div>
       <div>
-        <h5 class="text-xl font-bold mt-2">{{item.name}}</h5>
+        <h5 class="text-lg lg:text-xl font-bold lg:mt-2">{{item.name}}</h5>
       </div>
     </div>
     {% endfor %}

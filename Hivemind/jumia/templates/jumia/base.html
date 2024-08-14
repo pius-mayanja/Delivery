@@ -29,7 +29,6 @@
     <script src="https://unpkg.com/leaflet-search/dist/leaflet-search.min.js"></script>
     <!-- <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css"  rel="stylesheet" /> -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
-
     <style>
         .autocomplete-container {
             margin-bottom: 20px;
@@ -80,73 +79,144 @@
     </style>
 </head>
 <body>
-    <nav class="navbar-expand-lg sticky-top py-3 bg-light shadow-sm">
+    <nav class="navbar navbar-expand-lg sticky-top py-3 bg-light shadow-sm">
         <div class="container-fluid">
-            <div class="row align-items-center py-3 px-xl-5">
-                <div class="col-lg-3 d-none d-lg-block">
-                    <a href="{% url 'jumia:items' %}" class="text-decoration-none">
-                        <h1 class="text-3xl font-bold font-sans">Micheal <span class="text-success">& Yolanda</span></h1>
-                        <h5 class="font-semibold">Fast Delivery Services</h5>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-6 text-left">
-                    <form method="get" action="{% url 'jumia:search' %}">
+            <a href="{% url 'jumia:items' %}" class="navbar-brand text-decoration-none">
+                <h1 class="text-2xl lg:text-3xl font-bold">Micheal <span class="text-success">& Yolanda</span></h1>
+                <h5 class="font-semibold">Fast Delivery Services</h5>
+            </a>
+    
+            <a class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                  </svg>                  
+            </a>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="navbar-nav ml-auto">
+                    <form method="get" action="{% url 'jumia:search' %}" class="form-inline mt-2">
                         <div class="input-group">
                             <input type="text" class="form-control rounded-2xl rounded-r-none" placeholder="Search for products" name="query">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-success rounded-2xl rounded-l-none">Search</button>
-                            </div> 
+                            </div>
                         </div>
                     </form>
-                </div>
-                <div class="col-lg-3 col-6 text-right">
                     {% if request.user.is_authenticated %}
-                    <button class="btn btn-secondary rounded-xl px-2 py-2 m-1"><svg xmlns="http://www.w3.org/2000/svg" class="w-6 inline-block text-success" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform:msFilter;"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path></svg></button>
-                    <a href="{% url 'jumia:items' %}">
-                        <h1 class="btn btn-secondary hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                        </svg> Home</h1>
-                    </a>
-                    <div class="btn-group">
-                        <button type="button" class="focus:ring-none foucs:outline-none btn btn-secondary rounded-2xl dropdown-toggle text-xl font-semibold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hi, {{user.username}}</button>
-                        <div class="dropdown-menu">
-                            <a href="{% url 'cart:cart_detail' %}" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                              </svg> Cart</a>
-                            <a href="{% url 'orders:order_create' %}" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-                              </svg> Checkout</a>
-                            <a href="{% url 'orders:order' %}" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" />
-                              </svg> View Orders</a>
-                            <a href="{% url 'chart:inbox' %}" class="dropdown-item"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                              </svg> Your Inbox</a>
-                            <a href="{% url 'user:logout' %}">
-                            <div class="text-center">
-                                <button type="button" class="bg-green-100 hover:bg-green-600 hover:text-white rounded-full px-4 py-2 m-2 text-md font-semibold"><svg class="w-5 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
-                                    </svg> LogOut</button>
-                                </a>
-                            </div>
+                    <div class="flex justify-center items-center gap-4">
+                        <a href="{% url 'jumia:items' %}" class="btn btn-secondary hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                            </svg> Home
+                        </a>
+                        <div class="btn-group">
+                            <a class="btn btn-secondary rounded-2xl dropdown-toggle text-xl font-semibold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Hi, {{user.username}}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a href="{% url 'cart:cart_detail' %}" class="dropdown-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                    </svg> Cart</a>
+                                </li>
+                                <li><a href="{% url 'orders:order_create' %}" class="dropdown-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                                    </svg> Checkout</a>
+                                </li>
+                                <li><a href="{% url 'orders:order' %}" class="dropdown-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125H7.5m0-10.5v-3c0-.621.504-1.125 1.125-1.125h7.5c.621 0 1.125.504 1.125 1.125v3M10.5 12v3m3-3v3m-6.75 3.75H4.5a.75.75 0 0 1 0-1.5h12a.75.75 0 0 1 0 1.5h-2.25m-7.5 0V21a.75.75 0 0 0 .75.75h3a.75.75 0 0 0 .75-.75v-1.5m-4.5 0h4.5" />
+                                    </svg> Orders</a>
+                                </li>
+                                <li><a href="{% url 'user:logout' %}" class="dropdown-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.75A2.25 2.25 0 0 0 13.5 3.5h-9a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 4.5 21.5h9a2.25 2.25 0 0 0 2.25-2.25V15m3-6 3 3m0 0-3 3m3-3H9" />
+                                    </svg> Logout</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     {% else %}
-                    <a href="{% url 'user:login' %}">
-                        <button type="button" class="bg-green-100 hover:bg-green-600 hover:text-white rounded-full px-4 py-2 m-2 text-xl font-semibold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                        </svg> Login</button>
-                    </a>
-                    <a href="{% url 'user:signup' %}">
-                        <button type="button" class="bg-green-100 hover:bg-green-600 hover:text-white rounded-full px-4 py-2 m-2 text-xl font-semibold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                        </svg> SignUp</button>
-                    </a>
+                    <a href="{% url 'user:login' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">Login</a>
+                    <a href="{% url 'user:signup' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">Signup</a>
                     {% endif %}
                 </div>
             </div>
         </div>
     </nav>
+    
+    <!-- <nav class="navbar navbar-expand-lg sticky-top py-3 bg-light shadow-sm">
+        <div class="container-fluid">
+            <div class="row align-items-center py-3 px-xl-5 w-100">
+                <div class="col-lg-3 col-6">
+                    <a href="{% url 'jumia:items' %}" class="navbar-brand text-decoration-none">
+                        <h1 class="text-3xl font-bold font-sans">Micheal <span class="text-success">& Yolanda</span></h1>
+                        <h5 class="font-semibold">Fast Delivery Services</h5>
+                    </a>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <form method="get" action="{% url 'jumia:search' %}" class="d-flex">
+                        <input type="text" class="form-control rounded-2xl rounded-right-0" placeholder="Search for products" name="query">
+                        <button type="submit" class="btn btn-success rounded-2xl rounded-left-0">Search</button>
+                    </form>
+                </div>
+                <div class="col-lg-3 col-6 text-end">
+                    {% if request.user.is_authenticated %}
+                    <button class="btn btn-secondary rounded-xl px-2 py-2 m-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 inline-block text-success" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform:msFilter;">
+                            <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path>
+                        </svg>
+                    </button>
+                    <a href="{% url 'jumia:items' %}" class="btn btn-secondary hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg> Home
+                    </a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary rounded-2xl dropdown-toggle text-xl font-semibold" data-bs-toggle="dropdown" aria-expanded="false">
+                            Hi, {{user.username}}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a href="{% url 'cart:cart_detail' %}" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                </svg> Cart</a>
+                            </li>
+                            <li><a href="{% url 'orders:order_create' %}" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                                </svg> Checkout</a>
+                            </li>
+                            <li><a href="{% url 'orders:order' %}" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125H7.5m0-10.5v-3c0-.621.504-1.125 1.125-1.125h7.5c.621 0 1.125.504 1.125 1.125v3M10.5 12v3m3-3v3m-6.75 3.75H4.5a.75.75 0 0 1 0-1.5h12a.75.75 0 0 1 0 1.5h-2.25m-7.5 0V21a.75.75 0 0 0 .75.75h3a.75.75 0 0 0 .75-.75v-1.5m-4.5 0h4.5" />
+                                </svg> Orders</a>
+                            </li>
+                            <li><a href="{% url 'user:logout' %}" class="dropdown-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.75A2.25 2.25 0 0 0 13.5 3.5h-9a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 4.5 21.5h9a2.25 2.25 0 0 0 2.25-2.25V15m3-6 3 3m0 0-3 3m3-3H9" />
+                                </svg> Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div class="btn-group">
+                        <a href="{% url 'user:signup' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.75A2.25 2.25 0 0 0 13.5 3.5h-9a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 4.5 21.5h9a2.25 2.25 0 0 0 2.25-2.25V15m3-6 3 3m0 0-3 3m3-3H9" />
+                            </svg> Signup
+                        </a>
+                        <a href="{% url 'user:login' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.75A2.25 2.25 0 0 0 13.5 3.5h-9a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 4.5 21.5h9a2.25 2.25 0 0 0 2.25-2.25V15m3-6 3 3m0 0-3 3m3-3H9" />
+                            </svg> Login
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>     -->
 
     <div class="container">
         {% block content %}
