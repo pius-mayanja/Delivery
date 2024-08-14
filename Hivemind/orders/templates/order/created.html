@@ -2,8 +2,8 @@
 {% block title%} products {% endblock %}
 
 {% block content %}
-<h2 class="text-center py-4 text-5xl font-bold">Our Order</h2>
+<h2 class="text-center pt-5 text-2xl lg:text-5xl font-bold">Your Order</h2>
 <hr>
-<p class="text-center py-4 text-2xl font-semibold">Your order has been successfully completed. Your order number is <strong><a href="{% url 'orders:order' %}">View Ordes here</a></strong>.</p> 
-<h1 class="text-center py-4 text-3xl font-semibold">Thank you for choosing us <i class="fas fa-heart text-primary"></i></h1>
+<p class="text-center py-4 text-lg lg:text-2xl font-semibold">Your order has been placed. <strong class="text-success block"><a href="{% url 'orders:order' %}">View Ordes here</a></strong>.</p> 
+<h1 class="text-center py-4 text-xl lg:text-3xl font-semibold">Thank you for choosing us <i class="fas fa-heart text-danger"></i></h1>
 {% endblock %}
