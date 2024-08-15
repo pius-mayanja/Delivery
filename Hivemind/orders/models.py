@@ -1,6 +1,6 @@
 from django.db import models 
 from jumia.models import Type
-from user.models import User
+from user.models import User, Customer
 from decimal import Decimal, ROUND_HALF_UP
 
 
@@ -61,3 +61,6 @@ class Payment(models.Model):
         
     def __str__(self):
         return f'Payment for order {self.order.id}.'
+    
+
+    

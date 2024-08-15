@@ -10,7 +10,7 @@
     Checkout Now
 </h2>
 <hr class="mt-2">
-
+<h1></h1>
 <div class="container-fluid pt-4">
     <div class="row px-xl-5">
         <div class="col-lg-8">
@@ -68,13 +68,13 @@
                     <hr class="mt-2">
                     <div class="d-flex justify-content-between">
                         <p class="font-weight-medium">Delivery</p>
-                        <p>shs. {{ cart.delivery|intcomma }}</p>
+                        <p>UGX {{ cart.delivery|intcomma }}</p>
                     </div>
                 </div>
                 <div class="card-footer border-secondary bg-transparent">
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">shs. {{ cart.cost|intcomma }}</h5>
+                        <h5 class="font-weight-bold">UGX {{ cart.cost|intcomma }}</h5>
                     </div>
                 </div>
             </div>

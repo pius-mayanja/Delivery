@@ -3,71 +3,126 @@
 {% block content %}
 {% load humanize %}
 
-<h1 class="text-justify-start mt-5 text-2xl lg:text-4xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 inline-block ">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
-</svg>
- PRODUCT DETAILS</h1>
- <hr class="mt-2">
-
-<div class="container-fluid py-4">
-    <div class="row px-xl-5">
-        <div class="col-lg-4 pb-5">
-            <div class="rounded-2xl overflow-hidden shadow-md relative">
-                <a href="{%url 'jumia:detail' item.pk %}" class="transition ease-in-out duration-700"><img src="{{item.image.url}}" alt="" class="w-full h-3/4 object-cover mt-2 rounded-2xl transition duration-150 ease-in-out"></a>
-              </div>
+<div class="container-fluid">
+  <div class="lg:grid lg:grid-cols-12 gap-5 mt-5">
+    <div class="lg:col-span-3 pb-5">
+        <div class="rounded-2xl overflow-hidden shadow-md relative">
+            <img src="{{item.image.url}}" alt="" class="w-full object-contain mt-2 rounded-2xl transition duration-150 ease-in-out">
         </div>
-        <div class="col-lg-8 pb-5">
-            <h3 class="font-weight-semi-bold text-4xl">{{item.name}}</h3>
-            <div class="d-flex mb-3">
-                <div class="text-primary mr-2">
-                    <small class="fas fa-star"></small>
-                    <small class="fas fa-star"></small>
-                    <small class="fas fa-star"></small>
-                    <small class="fas fa-star-half-alt"></small>
-                    <small class="far fa-star"></small>
-                </div>
-                <small class="pt-1">(50 Reviews)</small>
+    </div>
+    <div class="lg:col-span-4">
+        <p class="mb-3">From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
+        <h3 class="text-lg"><strong>{{item.name}} </strong>| <a href="{% url 'jumia:category' item.category.id%}" class="hover:text-success">{{item.category}}</a></h3>
+        <h3 class="font-semibold text-xl">UGX {{item.price|intcomma}}</h3>
+        <div class="d-flex">
+          <div class="text-success mr-2">
+              <small class="fas fa-star"></small>
+              <small class="fas fa-star"></small>
+              <small class="fas fa-star"></small>
+              <small class="fas fa-star-half-alt"></small>
+              <small class="far fa-star"></small>
+          </div>
+          <small class="pt-1">(50 Reviews)</small>
+      </div>
+        <!-- <div class="flex justify-start space-x-8">
+          <div class="block mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.0" stroke="currentColor" class="w-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
+            </svg>
+            <h1 class="font-bold text-lg text-center">88%</h1>                
+          </div>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.0" stroke="currentColor" class="w-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <h1 class="font-bold text-lg text-center">10-20'</h1>   
+          </div>
+        </div> -->
+        <div class="block lg:flex lg:items-center flex space-x-8 inline-block">
+            <div class="quantity-controls inline-block flex justify-center items-center mt-3 lg:mt-3">
+                <button type="button" class="btn btn-success rounded" onclick="decreaseQuantity()">-</button>
+                <span id="quantityDisplay" class="mx-4">1</span>  <!-- Display the quantity -->
+                <button type="button" class="btn btn-success rounded" onclick="increaseQuantity()">+</button>
             </div>
-            <h3 class="font-weight-semi-bold mb-4">shs. {{item.price|intcomma}}</h3>
-            <p class="mb-4">From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
-            <!-- <div class="flex justify-start space-x-8">
-              <div class="block mb-3">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.0" stroke="currentColor" class="w-10">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
-                </svg>
-                <h1 class="font-bold text-lg text-center">88%</h1>                
-              </div>
-              <div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.0" stroke="currentColor" class="w-10">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-                <h1 class="font-bold text-lg text-center">10-20'</h1>   
-              </div>
-            </div> -->
-            <div class="block lg:flex lg:items-center">
-                <div class="quantity-controls inline-block flex justify-center items-center lg:mt-3">
-                    <button type="button" class="btn btn-success rounded" onclick="decreaseQuantity()">-</button>
-                    <span id="quantityDisplay" class="mr-5 ml-5">1</span>  <!-- Display the quantity -->
-                    <button type="button" class="btn btn-success rounded" onclick="increaseQuantity()">+</button>
-                </div>
-                <div class="mt-3 ml-2 flex justify-between items-center lg:inline-block"">
-                  <form action="{% url 'cart:cart_add' item.id %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden"  name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
-                    <input type="hidden" name="override" value="False">
-                    <button type="submit" class="btn btn-danger px- rounded-xl"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
-                </form>
-                <a href="{% url 'chart:new' item.id %}"><button class="btn btn-success px-4 border ml-2 text-bold rounded-xl">Contact Seller</button></a>
-                </div>
+            <div class="mt-3">
+              <form action="{% url 'cart:cart_add' item.id %}" method="post">
+                {% csrf_token %}
+                <input type="hidden"  name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
+                <input type="hidden" name="override" value="False">
+                <button type="submit" class="btn btn-danger px- rounded-xl w-full"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+            </form>
             </div>
         </div>
     </div>
+    <div class="col-span-5 mt-3 lg:ml-5 lg:h-48 border bg-white rounded-xl p-3 shadow-sm">
+      <h1 class="text-center font-semibold text-xl">Order for product now</h1>
+      <hr class="w-full">
+      <p>For only UGX 2,000 on Delivery fees, estimated delivery time is within the next 30mins. Our delivery agent will contact you as soon as they reach your location.</p>
+      <div class="grid grid-cols-5 inline-block gap-2">
+        <div class="col-span-2">
+          <a href="" class="justify-center text-center w-full mt-3 btn btn-success lg:px-4 border ml-2 text-bold rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" inline-block w-6 mb-1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+          </svg>
+          seller
+          </a>
+        </div>
+        <!-- <div class="col-span-4">
+          <a href="{% url 'chart:new' item.id %}"><button class="w-full mt-3 btn btn-success px-4 border ml-2 text-bold rounded-xl">Send message</button></a>
+        </div> -->
+        <div class="col-span-3">
+          <a class="w-full mt-3 btn btn-success lg:px-4 border ml-2 text-bold rounded-xl" data-toggle="modal" data-target="#exampleModal"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-6 mb-1">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+          </svg>
+           Choose location</a>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center text-xl font-semibold" id="exampleModalLabel">Choose Delivery Location</h5>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="flex justify-content-between">
+                      <h1 class="font-semibold text-xl">Product: </h1>
+                      <h1 class="font-bold text-xl">{{item.name}}</h1>
+                    </div>
+                    <div class="flex justify-content-between">
+                      <h1 class="font-semibold text-xl">Order Total: </h1>
+                      <h1 class="font-bold text-xl">UGX {{item.price}}</h1>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                      <label for="id_phone_number" class="inline-block mb-2">Mobile</label>
+                      {{ form.phone_number }}
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="inline-block mb-2">Address</label>
+                      {{form.address}}
+                    </div>
+    
+                    <div class="flex justify-end">
+                      <button type="submit" class="btn btn-success rounded-lg">Order now...</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
-<h2 class="text-center py-3 text-2xl lg:text-3xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 inline-block mb-1">
+</div>
+
+<h2 class="text-center mt-5 text-2xl lg:text-3xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 inline-block mb-1">
     <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
-  </svg>
-   Related items</h2>
-<div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
+  </svg>Similar products</h2>
+<div class="ml-3 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
     {% for item in related_items %}
     <div class="mt-2 relative">
       <div class="overflow-hidden shadow-md relative transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
@@ -84,7 +139,8 @@
       </div>
     </div>
     {% endfor %}
-  </div>
+</div>
+</div>
 <script>
     function decreaseQuantity() {
         var quantityDisplay = document.getElementById('quantityDisplay');
@@ -103,5 +159,141 @@
         quantityDisplay.innerText = currentValue + 1;
         quantityInput.value = currentValue + 1;  // Update the hidden input field
     }
+</script>
+
+<script>
+  function addressAutocomplete(inputElement, callback) {
+  const MIN_ADDRESS_LENGTH = 3;
+  const DEBOUNCE_DELAY = 300;
+
+  let currentTimeout;
+  let currentPromiseReject;
+  let focusedItemIndex;
+
+  inputElement.addEventListener("input", function(e) {
+      const currentValue = this.value;
+      closeDropDownList();
+
+      if (currentTimeout) {
+          clearTimeout(currentTimeout);
+      }
+
+      if (currentPromiseReject) {
+          currentPromiseReject({
+              canceled: true
+          });
+      }
+
+      if (!currentValue || currentValue.length < MIN_ADDRESS_LENGTH) {
+          return false;
+      }
+
+      currentTimeout = setTimeout(() => {
+          currentTimeout = null;
+          const promise = new Promise((resolve, reject) => {
+              currentPromiseReject = reject;
+
+              const apiKey = "a29d956305bd4b3288f90b68c5063650";
+              const url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(currentValue)}&format=json&limit=5&apiKey=${apiKey}`;
+
+              fetch(url)
+                  .then(response => {
+                      currentPromiseReject = null;
+                      if (response.ok) {
+                          response.json().then(data => resolve(data));
+                      } else {
+                          response.json().then(data => reject(data));
+                      }
+                  });
+          });
+
+          promise.then((data) => {
+              const autocompleteItemsElement = document.createElement("div");
+              autocompleteItemsElement.setAttribute("class", "autocomplete-items");
+              inputElement.parentNode.appendChild(autocompleteItemsElement);
+
+              data.results.forEach((result, index) => {
+                  const itemElement = document.createElement("div");
+                  itemElement.innerHTML = result.formatted;
+                  autocompleteItemsElement.appendChild(itemElement);
+
+                  itemElement.addEventListener("click", function(e) {
+                      inputElement.value = data.results[index].formatted;
+                      callback(data.results[index]);
+                      closeDropDownList();
+                  });
+              });
+
+          }, (err) => {
+              if (!err.canceled) {
+                  console.log(err);
+              }
+          });
+      }, DEBOUNCE_DELAY);
+  });
+
+  inputElement.addEventListener("keydown", function(e) {
+      const autocompleteItemsElement = inputElement.parentNode.querySelector(".autocomplete-items");
+      if (autocompleteItemsElement) {
+          const itemElements = autocompleteItemsElement.getElementsByTagName("div");
+          if (e.keyCode == 40) {
+              e.preventDefault();
+              focusedItemIndex = focusedItemIndex !== itemElements.length - 1 ? focusedItemIndex + 1 : 0;
+              setActive(itemElements, focusedItemIndex);
+          } else if (e.keyCode == 38) {
+              e.preventDefault();
+              focusedItemIndex = focusedItemIndex !== 0 ? focusedItemIndex - 1 : focusedItemIndex = (itemElements.length - 1);
+              setActive(itemElements, focusedItemIndex);
+          } else if (e.keyCode == 13) {
+              e.preventDefault();
+              if (focusedItemIndex > -1) {
+                  closeDropDownList();
+              }
+          }
+      } else {
+          if (e.keyCode == 40) {
+              var event = document.createEvent('Event');
+              event.initEvent('input', true, true);
+              inputElement.dispatchEvent(event);
+          }
+      }
+  });
+
+  function setActive(items, index) {
+      if (!items || !items.length) return false;
+
+      for (var i = 0; i < items.length; i++) {
+          items[i].classList.remove("autocomplete-active");
+      }
+
+      items[index].classList.add("autocomplete-active");
+      inputElement.value = items[index].innerText;
+      callback(currentItems[index]);
+  }
+
+  function closeDropDownList() {
+      const autocompleteItemsElement = inputElement.parentNode.querySelector(".autocomplete-items");
+      if (autocompleteItemsElement) {
+          inputElement.parentNode.removeChild(autocompleteItemsElement);
+      }
+      focusedItemIndex = -1;
+  }
+
+  document.addEventListener("click", function(e) {
+      if (e.target !== inputElement) {
+          closeDropDownList();
+      } else if (!inputElement.parentNode.querySelector(".autocomplete-items")) {
+          var event = document.createEvent('Event');
+          event.initEvent('input', true, true);
+          inputElement.dispatchEvent(event);
+      }
+  });
+}
+
+addressAutocomplete(document.getElementById("address"), (data) => {
+  console.log("Selected option: ", data);
+  document.getElementById("address").value = data.formatted;
+});
+
 </script>
 {% endblock %} 

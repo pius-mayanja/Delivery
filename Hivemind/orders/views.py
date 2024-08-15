@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from .models import OrderItem , Order
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponse, HttpResponseBadRequest
 from .forms import OrderCreateForm
 from cart.cart import Cart
 from django.contrib.auth.decorators import login_required
@@ -16,13 +16,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import Payment
 import re 
+from user.models import Customer
+from jumia.models import Type
 
 @customer_required
 def order_create(request):  
     user = request.user
     if user.is_authenticated:
         cart = Cart(request)
-        if request.method == 'POST':        
+        if request.method == 'POST':      
             form = OrderCreateForm(request.POST)
             if form.is_valid():
                 order = form.save(commit=False)
@@ -123,4 +125,3 @@ def payment_callback(request):
         return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error'}, status=400)
-

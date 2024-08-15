@@ -4,77 +4,91 @@
 {% load humanize %}
 {% block content %}
 
-<h2 class="flex justify-start mt-5 text-2xl lg:text-4xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 lg:w-10 inline-block mb-1 pr-1">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-  </svg>
-   Your Cart</h2>
-<hr class="mt-2">
-<!-- Cart Start -->
-<div class="container-fluid pt-4">
-    <div class="row px-xl-5">
-        <div class="col-lg-8 mb-5">
-            <div class="table-responsive">
-                <table class="table table-bordered text-center mb-0">
-                    <thead class="bg-blue-200 text-black-">
-                        <tr>      
-                            <th>Image</th>
-                            <th>Product</th>        
-                            <th>Quantity</th>        
-                            <th>Remove</th>        
-                            <th>Unit price</th>        
-                            <th>Price</th> 
-                        </tr>
-                    </thead>
-                    <tbody class="align-middle"> 
-                        {% for item in cart %}        
-                            {% with product=item.product %}
-                            <tr class="font-semibold text-lg font-sans">
-                                <td><img src="{{product.image.url}}" alt="{{product.name}}" style="max-width: 100px;max-height: 100px"></td>
-                                <td class="align-middle">{{product.name}}</td>
-                                <td class="align-middle">{{item.quantity}}</td>
-                                <td class="align-middle">
-                                    <form action="{% url 'cart:cart_remove' product.id %}" method="post">                
-                                        <input type="submit" value="Remove" class="px-3 rounded btn btn-secondary">                
-                                        {% csrf_token %}              
-                                    </form>
-                                </td>
-                                <td class="align-middle">shs. {{product.price|intcomma}}</td>
-                                <td class="align-middle">shs. {{item.total_price|intcomma}}</td>
-                            </tr>
-                            {% endwith %}      
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <form class="mb-3" action="">
-                <div class="input-group">
-                    <input type="text" class="form-control p-2 lg:p-4" placeholder="Coupon Code">
-                    <div class="input-group-append">
-                        <button class="border px-1 lg:p-1 bg-green-500 text-white rounded-l-none lg:rounded-l-none rounded-xl lg:rounded-xl">Apply Coupon</button>
+
+{% if cart %}
+<div class="lg:grid lg:grid-cols-12 gap-5 mt-4">
+    <div class="lg:col-span-9 border shadow-md">
+        <h1 class="text-start text-2xl font-bold p-3">Cart 
+            {% with total_items=cart|length %}
+            {% if total_items > 0 %}
+                ({{ total_items }})     
+            {% else %}      
+                (0)
+            {% endif %}  
+            {% endwith %} 
+        </h1>
+        <hr class="w-full">
+            {% for item in cart %}        
+                {% with product=item.product %}
+                <div class="p-3 flex flex-col lg:flex-row justify-between">
+                    <div class="flex inline-block">
+                        <img class="mt-4 rounded-lg" src="{{product.image.url}}" alt="{{product.name}}" style="max-width: 100px;max-height: 100px">
+                        <div class="block">
+                            <h1 class="text-md lg:text-lg mt-3 px-3">{{product.name}}</h1>
+                            <h1 class="text-sm lg:text-lg px-3">{{product.category}}</h1>
+                            <h1 class="text-sm lg:text-lg px-3">Quantity: {{item.quantity}}</h1>
+                            <div class="block lg:hidden">
+                                <h1 class="text-lg font-bold px-3">UGX {{product.price|intcomma}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden lg:flex lg:justify-end">
+                        <h1 class="text-lg font-semibold lg:text-xl mt-3">UGX {{product.price|intcomma}}</h1>
+                    </div>
+                </div>                
+                <div class="px-3 flex justify-content-between inline-block mb-2">
+                    <form action="{% url 'cart:cart_remove' product.id %}" method="post">               
+                        <button type="submit" class="px-3 rounded btn btn-secondary">Remove</button>
+                        {% csrf_token %}              
+                    </form>
+                    <div class="block lg:flex lg:items-center flex items-end lg:space-x-8 inline-block">
+                      <a href="{% url 'jumia:detail' product.id %}"><button class="px-3 rounded btn btn-danger">Update Quantity</button></a>
                     </div>
                 </div>
-            </form>
-            <div class="card border-secondary mb-3">
-                <div class="card-header bg-blue-200 border">
-                    <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
-                </div>
-                <div class="card-footer border-secondary bg-transparent">
-                    <div class="d-flex justify-content-between mt-2">
-                        <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">shs. {{ cart.get_total_price|intcomma }}</h5>
-                    </div>
-                    <a href="{% url 'orders:order_create' %}">
-                        <button class="btn btn-block rounded-xl btn-success my-3 py-2 lg:py-3">Proceed To Checkout</button>
-                    </a>
-                    <a href="{% url 'jumia:items' %}">
-                        <button class="btn btn-block rounded-xl btn-danger my-3 py-2 lg:py-3">Continue Shopping</button>
-                    </a>
-                </div>
-            </div>
-        </div>
+                {% endwith %}      
+            {% endfor %}
     </div>
+    <div class="lg:hidden">
+        <a href="{% url 'orders:order_create' %}" class="btn btn-block rounded-lg text-xl btn-success my-3 py-2 lg:py-3 w-full">Checkout (UGX {{ cart.get_total_price|intcomma }})</a>
+    </div>
+    <div class="hidden lg:block lg:col-span-3 lg:mt-4 border shadow-md p-3 h-48">
+        <h1 class="text-start font-bold text-xl">CART SUMMARY</h1>
+        <hr>
+        <div class="flex justify-between p-3 font-semibold">
+            <p class="text-xl">Total: </p>
+            <h1 class="text-2xl">UGX {{ cart.get_total_price|intcomma }}</h1>
+        </div>
+        <hr>
+        <a href="{% url 'orders:order_create' %}" class="btn btn-block rounded-lg text-xl btn-success my-3 py-2 lg:py-3 w-full">Checkout</a>
+    </div>    
 </div>
-<!-- Cart End -->
+{% else %}
+    <div class="col-12 text-center font-mono mt-5">
+        <h3 class="py-2 text-lg lg:text-2xl text-gray-700">You Cart is empty!!</h3>
+        <h3 class="py-2 text-xl lg:text-2xl text-gray-700">
+            <strong><a href="{% url 'jumia:items' %}" class="text-green-500 hover:text-green-700">Browse our categories and discover the best prosucts for you.</a></strong>
+        </h3>
+    </div>
+{% endif %}
+
+<script>
+    function decreaseQuantity() {
+        var quantityDisplay = document.getElementById('quantityDisplay');
+        var quantityInput = document.getElementById('quantity');
+        var currentValue = parseInt(quantityDisplay.innerText);
+        if (currentValue > 1) {
+            quantityDisplay.innerText = currentValue - 1;
+            quantityInput.value = currentValue - 1;  // Update the hidden input field
+        }
+    }
+
+    function increaseQuantity() {
+        var quantityDisplay = document.getElementById('quantityDisplay');
+        var quantityInput = document.getElementById('quantity');
+        var currentValue = parseInt(quantityDisplay.innerText);
+        quantityDisplay.innerText = currentValue + 1;
+        quantityInput.value = currentValue + 1;  // Update the hidden input field
+    }
+</script>
 {% endblock %}
+
