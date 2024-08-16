@@ -77,8 +77,26 @@
         }
 
     </style>
+    <style>
+        /* Keyframes for the bounce animation */
+        @keyframes bounce {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Animation class for the SVG icon */
+        .bounce {
+            animation: bounce 0.5s;
+        }
+    </style>
 </head>
-<body class="">
+<body class="bg-gray-100 lg:bg-white flex flex-col min-h-screen">
     <nav class="navbar navbar-expand-lg sticky-top py-3 bg-light shadow-sm">
         <div class="container-fluid">
             <a href="{% url 'jumia:items' %}" class="navbar-brand text-decoration-none">
@@ -91,29 +109,50 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                   </svg>                  
             </a>
+
             <div class="collapse navbar-collapse" id="navbarContent">
-                <div class="navbar-nav ml-auto">
-                    <form method="get" action="{% url 'jumia:search' %}" class="form-inline mt-2">
-                        <div class="input-group">
-                            <input type="text" class="form-control rounded-2xl rounded-r-none" placeholder="Search for products" name="query">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-success rounded-2xl rounded-l-none">Search</button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="navbar-nav">
+                    {% if request.user.is_authenticated %}
+                    <ul class="flex justify-between mt-2">
+                        <li><a href="{% url 'chart:inbox' %}" class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                            </svg> Inbox</a>
+                        </li>
+                        <li><a href="{% url 'orders:order_create' %}" class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                            </svg> Checkout</a>
+                        </li>
+                        <li><a href="{% url 'user:logout' %}" class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.75A2.25 2.25 0 0 0 13.5 3.5h-9a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 4.5 21.5h9a2.25 2.25 0 0 0 2.25-2.25V15m3-6 3 3m0 0-3 3m3-3H9" />
+                            </svg> Logout</a>
+                        </li>
+                    </ul>
+                    {% else %}
+                    <div class="flex space-x-4 justify-center items-center mt-3 lg:hidden">
+                        <a href="{% url 'user:login' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">Login</a>
+                        <a href="{% url 'user:signup' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">Signup</a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="navbar-nav ml-auto hidden lg:inline-block">
                     {% if request.user.is_authenticated %}
                     <div class="flex justify-center items-center gap-4">
-                        <a href="{% url 'jumia:items' %}" class="btn btn-secondary hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
+                        <a href="{% url 'jumia:items' %}" class="hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                            </svg> Home
+                            </svg>Home
                         </a>
-                        <div class="btn-group">
-                            <a class="btn btn-secondary rounded-2xl dropdown-toggle text-xl font-semibold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Hi, {{user.username}}
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a href="{% url 'cart:cart_detail' %}" class="dropdown-item">
+                        <div class="">
+                            <ul class="flex">
+                                <li><a href="{% url 'chart:inbox' %}" class="dropdown-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                                    </svg>Inbox</a>
+                                </li>
+                                <li><a href="{% url 'cart:cart_detail' %}" class="dropdown-item hidden lg:block">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                                     </svg> Cart</a>
@@ -123,7 +162,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
                                     </svg> Checkout</a>
                                 </li>
-                                <li><a href="{% url 'orders:order' %}" class="dropdown-item">
+                                <li><a href="{% url 'orders:order' %}" class="dropdown-item hidden">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125H7.5m0-10.5v-3c0-.621.504-1.125 1.125-1.125h7.5c.621 0 1.125.504 1.125 1.125v3M10.5 12v3m3-3v3m-6.75 3.75H4.5a.75.75 0 0 1 0-1.5h12a.75.75 0 0 1 0 1.5h-2.25m-7.5 0V21a.75.75 0 0 0 .75.75h3a.75.75 0 0 0 .75-.75v-1.5m-4.5 0h4.5" />
                                     </svg> Orders</a>
@@ -144,90 +183,69 @@
             </div>
         </div>
     </nav>
-    
-    <!-- <nav class="navbar navbar-expand-lg sticky-top py-3 bg-light shadow-sm">
-        <div class="container-fluid">
-            <div class="row align-items-center py-3 px-xl-5 w-100">
-                <div class="col-lg-3 col-6">
-                    <a href="{% url 'jumia:items' %}" class="navbar-brand text-decoration-none">
-                        <h1 class="text-3xl font-bold font-sans">Micheal <span class="text-success">& Yolanda</span></h1>
-                        <h5 class="font-semibold">Fast Delivery Services</h5>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-12">
-                    <form method="get" action="{% url 'jumia:search' %}" class="d-flex">
-                        <input type="text" class="form-control rounded-2xl rounded-right-0" placeholder="Search for products" name="query">
-                        <button type="submit" class="btn btn-success rounded-2xl rounded-left-0">Search</button>
-                    </form>
-                </div>
-                <div class="col-lg-3 col-6 text-end">
-                    {% if request.user.is_authenticated %}
-                    <button class="btn btn-secondary rounded-xl px-2 py-2 m-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 inline-block text-success" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform:msFilter;">
-                            <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path>
-                        </svg>
-                    </button>
-                    <a href="{% url 'jumia:items' %}" class="btn btn-secondary hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                        </svg> Home
-                    </a>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-secondary rounded-2xl dropdown-toggle text-xl font-semibold" data-bs-toggle="dropdown" aria-expanded="false">
-                            Hi, {{user.username}}
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a href="{% url 'cart:cart_detail' %}" class="dropdown-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                                </svg> Cart</a>
-                            </li>
-                            <li><a href="{% url 'orders:order_create' %}" class="dropdown-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-                                </svg> Checkout</a>
-                            </li>
-                            <li><a href="{% url 'orders:order' %}" class="dropdown-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125H7.5m0-10.5v-3c0-.621.504-1.125 1.125-1.125h7.5c.621 0 1.125.504 1.125 1.125v3M10.5 12v3m3-3v3m-6.75 3.75H4.5a.75.75 0 0 1 0-1.5h12a.75.75 0 0 1 0 1.5h-2.25m-7.5 0V21a.75.75 0 0 0 .75.75h3a.75.75 0 0 0 .75-.75v-1.5m-4.5 0h4.5" />
-                                </svg> Orders</a>
-                            </li>
-                            <li><a href="{% url 'user:logout' %}" class="dropdown-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.75A2.25 2.25 0 0 0 13.5 3.5h-9a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 4.5 21.5h9a2.25 2.25 0 0 0 2.25-2.25V15m3-6 3 3m0 0-3 3m3-3H9" />
-                                </svg> Logout</a>
-                            </li>
-                        </ul>
-                    </div>
-                    {% else %}
-                    <div class="btn-group">
-                        <a href="{% url 'user:signup' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.75A2.25 2.25 0 0 0 13.5 3.5h-9a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 4.5 21.5h9a2.25 2.25 0 0 0 2.25-2.25V15m3-6 3 3m0 0-3 3m3-3H9" />
-                            </svg> Signup
-                        </a>
-                        <a href="{% url 'user:login' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.75A2.25 2.25 0 0 0 13.5 3.5h-9a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 4.5 21.5h9a2.25 2.25 0 0 0 2.25-2.25V15m3-6 3 3m0 0-3 3m3-3H9" />
-                            </svg> Login
-                        </a>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </nav>     -->
 
+    <nav class="lg:hidden bg-white shadow-lg fixed bottom-0 left-0 right-0 z-10">
+        <div class="container mx-auto px-4">
+            <ul class="nav nav-tabs justify-between">
+                <li class="nav-item flex-1 text-center">
+                    <a href="{% url 'jumia:items' %}" class="nav-link hover:text-green-500 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-6 h-6 mx-auto mb-1 transform hover:scale-110 transition-all duration-300">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg>
+                        <span class="text-xs">Home</span>
+                    </a>
+                </li>
+                <li class="nav-item flex-1 text-center">
+                    <a href="{% url 'cart:cart_detail' %}" class="nav-link hover:text-green-500 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-6 h-6 mx-auto mb-1 transform hover:scale-110 transition-all duration-300">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                        </svg>
+                        <span class="text-xs">Cart</span>
+                    </a>
+                </li>
+                <li class="nav-item flex-1 text-center">
+                    <a href="{% url 'orders:order' %}" class="nav-link hover:text-green-500 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-6 h-6 mx-auto mb-1 transform hover:scale-110 transition-all duration-300">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125H7.5m0-10.5v-3c0-.621.504-1.125 1.125-1.125h7.5c.621 0 1.125.504 1.125 1.125v3M10.5 12v3m3-3v3m-6.75 3.75H4.5a.75.75 0 0 1 0-1.5h12a.75.75 0 0 1 0 1.5h-2.25m-7.5 0V21a.75.75 0 0 0 .75.75h3a.75.75 0 0 0 .75-.75v-1.5m-4.5 0h4.5" />
+                        </svg>
+                        <span class="text-xs">Orders</span>
+                    </a>
+                </li>
+                <li class="nav-item flex-1 text-center">
+                    <a class="nav-link hover:text-green-500 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-6 h-6 mx-auto mb-1 transform hover:scale-110 transition-all duration-300">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                        <span class="text-xs">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
     <div class="container">
         {% block content %}
         {% endblock %}
     </div>
     
-    <!-- Footer Start -->
      <br>
      <br>
      <br>
-    <div class="container-fluid bg-gray-100 text-dark pt-2 mt-8">
+    <div class="container-fluid bg-gray-200 text-dark pt-2 mt-8">
         <div class="row px-xl-5 pt-3">
             <div class="col-lg-4 col-md-12 mb-5 pr-3">
                 <a href="{% url 'jumia:items' %}" class="navbar-brand text-decoration-none">
@@ -266,10 +284,7 @@
             </div>
         </div>
     </div>
-    <!-- Footer End -->
-    
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-success back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <a href="#" class="btn btn-success back-to-top mb-20"><i class="fa fa-angle-double-up"></i></a>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

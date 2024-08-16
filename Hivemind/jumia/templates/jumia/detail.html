@@ -3,15 +3,15 @@
 {% block content %}
 {% load humanize %}
 
-<div class="container-fluid">
+<div class="">
   <div class="lg:grid lg:grid-cols-12 gap-5 mt-5">
-    <div class="lg:col-span-3 pb-5">
+    <div class="lg:col-span-3 pb-3 lg:pb-5">
         <div class="rounded-2xl overflow-hidden shadow-md relative">
             <img src="{{item.image.url}}" alt="" class="w-full object-contain mt-2 rounded-2xl transition duration-150 ease-in-out">
         </div>
     </div>
     <div class="lg:col-span-4">
-        <p class="mb-3">From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
+        <p class="hidden lg:block mb-3">From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
         <h3 class="text-lg"><strong>{{item.name}} </strong>| <a href="{% url 'jumia:category' item.category.id%}" class="hover:text-success">{{item.category}}</a></h3>
         <h3 class="font-semibold text-xl">UGX {{item.price|intcomma}}</h3>
         <div class="d-flex">
@@ -23,6 +23,11 @@
               <small class="far fa-star"></small>
           </div>
           <small class="pt-1">(50 Reviews)</small>
+      </div>
+      <div class="lg:hidden border shadow-md p-2 mt-3 bg-white">
+        <h1 class="text-start font-bold text-lg">Description</h1>
+        <hr class="pb-2">
+        <p>From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
       </div>
         <!-- <div class="flex justify-start space-x-8">
           <div class="block mb-3">
@@ -38,32 +43,47 @@
             <h1 class="font-bold text-lg text-center">10-20'</h1>   
           </div>
         </div> -->
-        <div class="block lg:flex lg:items-center flex space-x-8 inline-block">
-            <div class="quantity-controls inline-block flex justify-center items-center mt-3 lg:mt-3">
+        <div class="lg:hidden block lg:flex lg:items-center  flex justify-center items-center space-x-8 inline-block boder mx-0 shadow-md bg-white p-2 mt-1 rounded-xl">
+            <div class="quantity-controls inline-block flex justify-center items-center lg:mt-3">
                 <button type="button" class="btn btn-success rounded" onclick="decreaseQuantity()">-</button>
                 <span id="quantityDisplay" class="mx-4">1</span>  <!-- Display the quantity -->
                 <button type="button" class="btn btn-success rounded" onclick="increaseQuantity()">+</button>
             </div>
-            <div class="mt-3">
+            <div class="">
               <form action="{% url 'cart:cart_add' item.id %}" method="post">
                 {% csrf_token %}
                 <input type="hidden"  name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
                 <input type="hidden" name="override" value="False">
-                <button type="submit" class="btn btn-danger px- rounded-xl w-full"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                <button type="submit" class="btn btn-danger rounded-xl w-full"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
             </form>
             </div>
         </div>
+        <div class="hidden block lg:flex lg:items-center space-x-8 inline-block">
+          <div class="quantity-controls inline-block flex justify-center items-center lg:mt-3">
+              <button type="button" class="btn btn-success rounded" onclick="decreaseQuantity()">-</button>
+              <span id="quantityDisplay" class="mx-4">1</span>  <!-- Display the quantity -->
+              <button type="button" class="btn btn-success rounded" onclick="increaseQuantity()">+</button>
+          </div>
+          <div class="mt-3">
+            <form action="{% url 'cart:cart_add' item.id %}" method="post">
+              {% csrf_token %}
+              <input type="hidden"  name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
+              <input type="hidden" name="override" value="False">
+              <button type="submit" class="btn btn-danger rounded-xl w-full"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+          </form>
+          </div>
+      </div>
     </div>
-    <div class="col-span-5 mt-3 lg:ml-5 lg:h-48 border bg-white rounded-xl p-3 shadow-sm">
-      <h1 class="text-center font-semibold text-xl">Order for product now</h1>
+    <div class="col-span-5 mt-2 lg:ml-5 lg:h-48 border bg-white rounded-xl p-2 shadow-sm">
+      <h1 class="text-center font-semibold text-lg lg:text-xl">Order for product now</h1>
       <hr class="w-full">
-      <p>For only UGX 2,000 on Delivery fees, estimated delivery time is within the next 30mins. Our delivery agent will contact you as soon as they reach your location.</p>
+      <p class="text-sm lg:text-lg">For only UGX 2,000 on Delivery fees, estimated delivery time is within the next 30mins. Our delivery agent will contact you as soon as they reach your location.</p>
       <div class="grid grid-cols-5 inline-block gap-2">
         <div class="col-span-2">
-          <a href="" class="justify-center text-center w-full mt-3 btn btn-success lg:px-4 border ml-2 text-bold rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" inline-block w-6 mb-1">
+          <a href="" class="justify-center text-center w-full mt-3 btn btn-success lg:px-4 border lg:ml-2 text-bold rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" inline-block w-5 lg:w-6 mb-1">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
           </svg>
-          seller
+          Seller
           </a>
         </div>
         <!-- <div class="col-span-4">
@@ -77,7 +97,7 @@
            Choose location</a>
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-rounded" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title text-center text-xl font-semibold" id="exampleModalLabel">Choose Delivery Location</h5>
@@ -119,14 +139,14 @@
 </div>
 </div>
 
-<h2 class="text-center mt-5 text-2xl lg:text-3xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 inline-block mb-1">
+<h2 class="text-start lg:text-center mt-5 text-xl lg:text-3xl font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 lg:w-10 inline-block mb-1">
     <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
   </svg>Similar products</h2>
-<div class="ml-3 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
+<div class="ml-2 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5">
     {% for item in related_items %}
     <div class="mt-2 relative">
       <div class="overflow-hidden shadow-md relative transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-        <a href="{%url 'jumia:detail' item.pk %}" class="transition ease-in-out duration-700"><img src="{{item.image.url}}" alt="" class="w-full h-48 object-cover mt-2 rounded-2xl transition duration-150 ease-in-out"></a>
+        <a href="{%url 'jumia:detail' item.pk %}" class="transition ease-in-out duration-700"><img src="{{item.image.url}}" alt="" class="w-full h-48 object-cover mt-2 rounded-xl transition duration-150 ease-in-out"></a>
         <!-- <div class="bg-yellow-300 text-secondary-200 text-sm uppercase font-bold rounded-t-none rounded-b-2xl p-2 absolute top-0 right-0 mb-2 mr-2">
           <span>-40%</span>
         </div> -->
