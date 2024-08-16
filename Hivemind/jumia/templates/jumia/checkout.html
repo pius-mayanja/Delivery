@@ -3,41 +3,40 @@
 {% load humanize %}
 {% block content %}
 
-<h2 class="flex justify-start mt-5 text-2xl lg:text-4xl font-bold">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 lg:w-10 inline-block">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-    </svg>
-    Checkout Now
-</h2>
-<hr class="mt-2">
-<h1></h1>
-<div class="container-fluid pt-4">
-    <div class="row px-xl-5">
-        <div class="col-lg-8">
-            <div class="w-full mb-2 mx-auto rounded-xl">
-                <form action="{% url 'orders:order_create' %}" method="post">
+<div class="row px-xl-5">
+    <div class="col-lg-8 lg:mt-4">
+        <div class="w-full mb-2 mx-auto rounded-xl">
+            <div class="font-semibold mt-3 lg:mt-3">
+                <h1 class="text-md">CUSTOMER DETAILS</h1>
+            </div>
+            <div class="flex justify-content-between border lg:rounded-xl lg:shadow-sm shadow-md p-2 mt-1 bg-white">
+                <h1 class="text-md font-semibold">Name</h1>
+                <p class="font-bold text-md">{{customer.first_name}} {{customer.last_name}}</p>
+            </div>
+            <div class="lg:hidden font-semibold mt-3">
+                <h1 class="text-md">Order summary</h1>
+            </div>
+            <div class="border shadow-sm p-2 rounded-lg lg:rounded-xl mt-2 bg-white lg:hidden">
+                <h1 class="flex justify-between font-semibold">Items Total: <span>UGX {{cart.get_total_price|intcomma}}</span></h1>
+                <h1 class="flex justify-between font-semibold pt-2 pb-1">Delivery: <span>UGX {{cart.delivery|intcomma}}</span></h1>
+                <hr>
+                <h1 class="flex justify-between font-bold pt-3">Total: <span class="text-xl">UGX {{cart.cost|intcomma}}</span></h1>
+            </div>
+            <div class="border shadow-sm p-2 rounded-lg lg:rounded-xl mt-2 bg-white">
+                <h1 class="text-xl font-semibold">Delivery Details</h1>
+                <hr>
+
+                <form action="{% url 'orders:order_create' %}" method="post" class="mt-3">
                     {% csrf_token %}
-
                     <div class="mb-3">
-                        <label for="id_first_name" class="inline-block mb-2">First Name</label>
-                        {{ form.first_name }}
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="id_last_name" class="inline-block mb-2">Last Name</label>
-                        {{ form.last_name }}
+                        <label for="id_phone_number" class="inline-block mb-2">Mobile</label>
+                        {{ form.phone_number }}
                     </div>
 
                     <div class="mb-3">
                         <label class="inline-block mb-2">Address</label>
                         {{form.address}}
                     </div>
-
-                    <div class="mb-3">
-                        <label for="id_phone_number" class="inline-block mb-2">Mobile</label>
-                        {{ form.phone_number }}
-                    </div>
-
                     {% if form.errors or form.non_field_errors %}
                         <div class="mb-3 p-3 bg-red-100 rounded-xl">
                             {% for field in form %}
@@ -47,40 +46,53 @@
                         </div>
                     {% endif %}
 
-                    <button type="submit" class="btn btn-block btn-success rounded-xl my-3 py-2 lg:py-3 font-semibold">Place Order</button>
+                    <button type="submit" class="btn btn-block btn-success rounded-xl my-3 py-2 lg:py-3 font-semibold">Confirm Order</button>
                 </form>
             </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="card border-secondary mb-5">
-                <div class="card-header bg-blue-200 border-0">
-                    <h4 class="font-weight-semi-bold m-0">Order Total</h4>
-                </div>
-                <div class="card-body">
-                    <h5 class="font-weight-medium mb-3">Products</h5>
-                    {% for item in cart %}
-                        <div class="d-flex justify-content-between">
-                            <p class="font-weight-medium">{{ item.product.name }}</p>
-                            <p>shs. {{ item.total_price|intcomma }}</p>
-                        </div>
-                    {% endfor %}
-                    <hr class="mt-2">
-                    <div class="d-flex justify-content-between">
-                        <p class="font-weight-medium">Delivery</p>
-                        <p>UGX {{ cart.delivery|intcomma }}</p>
-                    </div>
-                </div>
-                <div class="card-footer border-secondary bg-transparent">
-                    <div class="d-flex justify-content-between mt-2">
-                        <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">UGX {{ cart.cost|intcomma }}</h5>
-                    </div>
-                </div>
+            <div class="lg:hidden">
+                <h1 class="pt-2 font-semibold">Payment Method</h1>
+                <h1 class="text-sm rounded-lg shadow-sm p-2 bg-white mt-2">!!!! Note that by confirming order, payment will be done on delivery.
+                    Payment for the specific order will have to be intiated by our AGENT upon reaching specified delivery address.
+                </h1>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-4 hidden lg:inline-block lg:mt-5">
+        <div class="card border-secondary mb-5">
+            <div class="card-header bg-blue-200 border-0">
+                <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+            </div>
+            <div class="card-body">
+                <h5 class="font-weight-medium mb-3">Products</h5>
+                {% for item in cart %}
+                    <div class="d-flex justify-content-between">
+                        <p class="font-weight-medium">{{ item.product.name }}</p>
+                        <p>shs. {{ item.total_price|intcomma }}</p>
+                    </div>
+                {% endfor %}
+                <hr class="mt-2">
+                <div class="d-flex justify-content-between">
+                    <p class="font-weight-medium">Delivery</p>
+                    <p>UGX {{ cart.delivery|intcomma }}</p>
+                </div>
+            </div>
+            <div class="card-footer border-secondary bg-transparent">
+                <div class="d-flex justify-content-between mt-2">
+                    <h5 class="font-weight-bold">Total</h5>
+                    <h5 class="font-weight-bold">UGX {{ cart.cost|intcomma }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="hidden lg:block">
+            <h1 class="font-semibold">Payment Method</h1>
+            <h1 class="text-sm rounded-lg shadow-sm p-2 bg-white mt-2">!!!! Note that by confirming order, payment will be done on delivery.
+                Payment for the specific order will have to be intiated by our AGENT upon reaching specified delivery address.
+            </h1>
+        </div>
+    </div>
 </div>
+
 
 <script>
     function addressAutocomplete(inputElement, callback) {

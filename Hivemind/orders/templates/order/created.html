@@ -2,8 +2,18 @@
 {% block title%} products {% endblock %}
 
 {% block content %}
-<h2 class="text-center pt-5 text-2xl lg:text-5xl font-bold">Your Order</h2>
-<hr>
-<p class="text-center py-4 text-lg lg:text-2xl font-semibold">Your order has been placed. <strong class="text-success block"><a href="{% url 'orders:order' %}">View Ordes here</a></strong>.</p> 
-<h1 class="text-center py-4 text-xl lg:text-3xl font-semibold">Thank you for choosing us <i class="fas fa-heart text-danger"></i></h1>
+<div class="shadow-md border rounded-lg mt-5 p-3 bg-white max-w-lg mx-auto flex flex-col text-start">
+    <h2 class="lg:text-xl text-md font-semibold text-green-600 mb-1">
+        <i class="fas fa-check-circle mr-2"></i>Order has been created successfully.
+    </h2>
+    <hr class="my-4 w-full">
+    <p class="text-gray-700 lg:text-md text-sm">
+        You'll be notified via a call when the product reaches you. Thank you!
+    </p>
+    <hr class="my-2 w-full">
+    <p class="text-gray-700">
+        Orders created can be viewed on the 
+        <a href="{% url 'orders:orders' %}" class="text-blue-600 hover:text-blue-800">orders page</a>.
+    </p>
+</div>
 {% endblock %}

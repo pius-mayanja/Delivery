@@ -2,7 +2,7 @@
 {% block title%} {{category.category_name}} {% endblock %}
 {% block content %}
 {% load humanize %}
-<h1 class="text-justify-start pt-4 lg:py-4 text-2xl lg:text-4xl font-bold">{{category.category_name}} Collections.</h1>
+<h1 class="text-justify-start pt-4 lg:py-4 text-xl lg:text-2xl lg:text-4xl font-bold">{{category.category_name}} Collections.</h1>
 <hr>
 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
     {% if type %}
@@ -26,8 +26,8 @@
         {% endfor %}
     {% else %}
         <div class="col-span-full">
-            <h1 class="text-center py-4 text-3xl font-semibold">No available product for "{{ category.category_name }}" yet.</h1>
-            <p class="text-center py-4 text-2xl font-bold">Thanks for choosing Hivemind.</p>
+            <h1 class="text-center py-4 text-lg lg:text-3xl font-semibold">No available product for "{{ category.category_name }}" yet.</h1>
+            <p class="text-center py-4 text-lg lg:text-2xl font-bold">Thanks for choosing us.</p>
         </div>
     {% endif %}
 </div>

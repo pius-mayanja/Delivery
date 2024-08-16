@@ -122,9 +122,8 @@
 {% else %}
     <div class="col-12 text-center font-mono mt-5">
         <h3 class="py-2 text-lg lg:text-2xl text-gray-700">You Cart is empty!!</h3>
-        <h3 class="py-2 text-xl lg:text-2xl text-gray-700">
-            <strong><a href="{% url 'jumia:items' %}" class="text-green-500 hover:text-green-700">Browse our categories and discover the best prosucts for you.</a></strong>
-        </h3>
+        <p class="text-green-500 text-sm lg:text-lg hover:text-green-700">Browse our categories and discover the best prosucts for you.</p>
+        <a href="{% url 'jumia:items' %}" class="btn btn-block rounded-lg text-xl btn-success my-3 py-2 lg:py-3 w-full">Start shopping here.</a>
     </div>
 {% endif %}
 

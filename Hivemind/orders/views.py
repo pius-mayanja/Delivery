@@ -23,6 +23,7 @@ from jumia.models import Type
 def order_create(request):  
     user = request.user
     if user.is_authenticated:
+        customer = Customer.objects.get(user=user)
         cart = Cart(request)
         if request.method == 'POST':      
             form = OrderCreateForm(request.POST)
@@ -42,7 +43,7 @@ def order_create(request):
             return render(request,'order/created.html', {'order': order})    
         else:        
             form = OrderCreateForm()    
-        return render(request, 'jumia/checkout.html',{'cart': cart,'form': form,})
+        return render(request, 'jumia/checkout.html',{'cart': cart,'form': form,'customer':customer})
 
 @login_required
 def delete_order(request,id):
@@ -57,8 +58,9 @@ def delete_order(request,id):
         
 @customer_required
 def orders(request):
+    customer = Customer.objects.get(user=request.user)
     orders = Order.objects.filter(user=request.user)
-    return render(request, 'order/orders.html', {'orders':orders})
+    return render(request, 'order/orders.html', {'orders':orders,'customer':customer})
 
 @customer_required
 def order_details(request, id):

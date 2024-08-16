@@ -5,9 +5,7 @@ from decimal import Decimal, ROUND_HALF_UP
 
 
 class Order(models.Model):  
-    user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE, null=True)
-    first_name = models.CharField(max_length=50)    
-    last_name = models.CharField(max_length=50)    
+    user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE, null=True)   
     address = models.CharField(max_length=250) 
     phone_number = models.CharField(max_length=20) 
     created = models.DateTimeField(auto_now_add=True)    

@@ -111,7 +111,7 @@
             </a>
 
             <div class="collapse navbar-collapse" id="navbarContent">
-                <div class="navbar-nav">
+                <div class="navbar-nav lg:hidden">
                     {% if request.user.is_authenticated %}
                     <ul class="flex justify-between mt-2">
                         <li><a href="{% url 'chart:inbox' %}" class="">
