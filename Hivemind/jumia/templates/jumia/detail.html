@@ -29,20 +29,6 @@
         <hr class="pb-2">
         <p class="text-sm">From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
       </div>
-        <!-- <div class="flex justify-start space-x-8">
-          <div class="block mb-3">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.0" stroke="currentColor" class="w-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
-            </svg>
-            <h1 class="font-bold text-lg text-center">88%</h1>                
-          </div>
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.0" stroke="currentColor" class="w-10">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-            <h1 class="font-bold text-lg text-center">10-20'</h1>   
-          </div>
-        </div> -->
         <div class="lg:hidden block lg:flex lg:items-center  flex justify-center items-center space-x-8 inline-block boder mx-0 shadow-md bg-white p-2 mt-1 rounded-xl">
             <div class="quantity-controls inline-block flex justify-center items-center lg:mt-3">
                 <button type="button" class="btn btn-success rounded" onclick="decreaseQuantity()">-</button>
@@ -80,11 +66,11 @@
       <p class="text-sm lg:text-lg">For only UGX 2,000 on Delivery fees, estimated delivery time is within the next 30mins. Our delivery agent will contact you as soon as they reach your location.</p>
       <div class="grid grid-cols-5 inline-block gap-2">
         <div class="col-span-2">
-          <a href="" class="justify-center text-center w-full mt-3 btn btn-success lg:px-4 border lg:ml-2 text-bold rounded-xl"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" inline-block w-5 lg:w-6 mb-1">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+          <a href="{% url 'chart:new' item.id %}" class="justify-center text-center w-full mt-3 btn btn-success lg:px-4 border lg:ml-2 text-bold rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
           </svg>
-          Seller
-          </a>
+            Seller</a>
         </div>
         <!-- <div class="col-span-4">
           <a href="{% url 'chart:new' item.id %}"><button class="w-full mt-3 btn btn-success px-4 border ml-2 text-bold rounded-xl">Send message</button></a>
@@ -98,21 +84,21 @@
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-dialog-rounded" role="document">
-            <div class="modal-content">
+            <div class="modal-content rounded-lg">
               <div class="modal-header">
-                <h5 class="modal-title text-center text-xl font-semibold" id="exampleModalLabel">Choose Delivery Location</h5>
+                <h5 class="modal-title text-center text-lg lg:text-xl font-semibold" id="exampleModalLabel">Choose Delivery Location</h5>
               </div>
               <div class="modal-body">
                 <div class="mb-3">
-                  <form action="" method="post">
+                  <form action="{% url 'orders:order_create' %}" method="post">
                     {% csrf_token %}
                     <div class="flex justify-content-between">
-                      <h1 class="font-semibold text-xl">Product: </h1>
-                      <h1 class="font-bold text-xl">{{item.name}}</h1>
+                      <h1 class="font-semibold text-md lg:text-xl">Product: </h1>
+                      <h1 class="font-bold text-lg lg:text-xl">{{item.name}}</h1>
                     </div>
                     <div class="flex justify-content-between">
-                      <h1 class="font-semibold text-xl">Order Total: </h1>
-                      <h1 class="font-bold text-xl">UGX {{item.price}}</h1>
+                      <h1 class="font-semibold text-md lg:text-xl">Order Total: </h1>
+                      <h1 class="font-bold text-lg lg:text-xl">UGX {{item.price}}</h1>
                     </div>
                     <br>
                     <div class="mb-3">
@@ -147,9 +133,6 @@
     <div class="mt-2 relative">
       <div class="overflow-hidden shadow-md relative transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
         <a href="{%url 'jumia:detail' item.pk %}" class="transition ease-in-out duration-700"><img src="{{item.image.url}}" alt="" class="w-full h-48 object-cover mt-2 rounded-xl transition duration-150 ease-in-out"></a>
-        <!-- <div class="bg-yellow-300 text-secondary-200 text-sm uppercase font-bold rounded-t-none rounded-b-2xl p-2 absolute top-0 right-0 mb-2 mr-2">
-          <span>-40%</span>
-        </div> -->
         <div class="text-white font-bold bg-gray-900 bg-opacity-50 px-3 rounded-lg absolute bottom-0 left-0 mb-2 m-2">
           <span>{{item.category}}</span>
         </div>
@@ -168,7 +151,7 @@
         var currentValue = parseInt(quantityDisplay.innerText);
         if (currentValue > 1) {
             quantityDisplay.innerText = currentValue - 1;
-            quantityInput.value = currentValue - 1;  // Update the hidden input field
+            quantityInput.value = currentValue - 1; 
         }
     }
 
@@ -177,7 +160,7 @@
         var quantityInput = document.getElementById('quantity');
         var currentValue = parseInt(quantityDisplay.innerText);
         quantityDisplay.innerText = currentValue + 1;
-        quantityInput.value = currentValue + 1;  // Update the hidden input field
+        quantityInput.value = currentValue + 1;  
     }
 </script>
 

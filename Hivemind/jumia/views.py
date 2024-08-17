@@ -6,6 +6,7 @@ from user.decorators import customer_required,business_required
 from django.db.models import Q
 from cart.forms import CartAddProductForm
 from .forms import SearchForm
+from orders.forms import OrderCreateForm
 
 
 def items(request):
@@ -23,11 +24,13 @@ def detail(request, id):
     item = get_object_or_404(Type, pk=id)
     related_items = Type.objects.filter(category=item.category).exclude(pk=id)
     cart_product_form = CartAddProductForm()
+    form = OrderCreateForm()
 
     return render(request, 'jumia/detail.html', {
         'item': item,
         'related_items': related_items,
         'cart_product_form':cart_product_form,
+        'form':form,
     })
 
 
