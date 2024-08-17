@@ -29,7 +29,7 @@
                 <h1 class="text-md lg:text-lg px-3">{{item.product.name}} | <span class="text-sm"><a href="{% url 'jumia:category' item.product.category.id%}">{{item.product.category}}</a></span></h1>
                 <h1 class="text-sm lg:text-lg px-3">Quantity: {{item.quantity}}</h1>
                 <div class="block">
-                    <h1 class="text-lg font-bold px-3">UGX {{item.get_cost|intcomma}}</h1>
+                    <h1 class="text-lg font-semibold px-3">UGX {{item.get_cost|intcomma}}</h1>
                 </div>
             </div>
         </div>
@@ -123,70 +123,7 @@
     </form>
   </div>
 </div>
-    <!-- <div class="row px-xl-4 pb-2">
-      
-      <table class="table table-bordered text-center mb-0">
-        <thead class="bg-secondary text-dark">
-            <tr>      
-                <th>Product Image</th>      
-                <th>Product Name</th>        
-                <th>Quantity</th>      
-                <th>Price</th>  
-                <th>Delivery Address</th>            
-                <th>Status</th> 
-            </tr>
-        </thead>
-        <tbody class="align-middle"> 
-          
-          {% for item in product %}    
-          <tr class="font-semibold font-sans">
-              <td><img src="{{item.product.image.url}}" alt="" style="max-width: 100px;max-height: 100px"></td>  
-              <td>{{item.product.name}}</td>
-              <td>{{item.quantity}}</td>
-              <td>{{item.get_cost|intcomma}}</td>
-              <td>{{item.order.address}}</td>
-              <td>
-                <button class="rounded-full btn btn-info px-4 border border-red-900 text-bold">Pending</button>
-              </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-        <br>
-        <br>
-      <div class="col-lg-4">
-        <div class="card border-secondary mt-5">
-          <div class="card-header bg-blue-200 border-0">
-              <h4 class="font-weight-semi-bold m-0 text-center">Order Total</h4>
-          </div>
-          <div class="card-body">
-          <div class="d-flex justify-content-between">
-            <p>Total: </p>
-            <p>shs. {{orders.get_total_cost|intcomma}}</p> 
-          </div> 
-          <div class="d-flex justify-content-between">
-            <p>Delivery: </p>
-            <p>shs. {{orders.delivery|intcomma}}</p> 
-          </div> 
-          <hr class="mt-2">
-          <div class="d-flex justify-content-between">
-           <strong><p>Cost: </p></strong>
-           <strong>shs. {{orders.cost|intcomma}}</strong>
-          </div> 
-          <form id="paymentForm" action="{% url 'orders:payment' orders.id%}" method="post">
-            {% csrf_token %}
-            <button type="submit" id="submitButton" class="btn btn-block btn-success my-3 py-2 font-semibold rounded-lg">Pay for Order</button>
-        </form>        
-          <form action="{% url 'orders:delete_order' orders.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-block btn-danger my-3 py-2 font-semibold rounded-lg">Delete Order</button>
-          </form>
-          </div>
-        </div>
-      </div>
-    </div>
-</div> -->
-<!-- Modal Structure -->
+
 <div id="paymentModal" class="modal justify-center align-center" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered rounded-full" role="document">
     <div class="modal-content rounded-lg">

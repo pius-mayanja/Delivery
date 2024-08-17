@@ -51,7 +51,7 @@
                    Remove</button>
                 {% csrf_token %}              
             </form>
-            <div class="block lg:flex lg:items-center flex items-end lg:space-x-8 inline-block">
+            <div class=" hidden block lg:flex lg:items-center flex items-end lg:space-x-8 inline-block">
               <a href="{% url 'jumia:detail' product.id %}"><button class="px-3 rounded btn btn-danger">Update Quantity</button></a>
             </div>
         </div>
