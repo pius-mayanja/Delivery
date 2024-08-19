@@ -27,3 +27,13 @@ def cart_detail(request):
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={'quantity': item['quantity'],'update': True})
     return render(request, 'jumia/cart.html', {'cart': cart})
+
+
+
+def cart_update(request, product_id):
+    cart = Cart(request)
+    quantity = int(request.POST.get('quantity', 1))
+    product = get_object_or_404(Type, id=product_id)
+    cart.add(product=product, quantity=quantity, override_quantity=True)
+    return redirect('cart:cart_detail')
+

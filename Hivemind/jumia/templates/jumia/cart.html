@@ -33,7 +33,7 @@
                 <img class="rounded-lg" src="{{product.image.url}}" alt="{{product.name}}" style="max-width: 100px;max-height: 100px">
                 <div class="block">
                     <h1 class="text-md lg:text-lg px-3">{{product.name}} | <span class="text-sm"><a href="{% url 'jumia:category' product.category.id%}">{{product.category}}</a></span></h1>
-                    <h1 class="text-sm lg:text-lg px-3">Quantity: {{item.quantity}}</h1>
+                    <!-- <h1 class="text-sm lg:text-lg px-3">Quantity: {{item.quantity}}</h1> -->
                     <div class="block lg:hidden">
                         <h1 class="text-lg font-bold px-3">UGX {{product.price|intcomma}}</h1>
                     </div>
@@ -51,8 +51,17 @@
                    Remove</button>
                 {% csrf_token %}              
             </form>
-            <div class=" hidden block lg:flex lg:items-center flex items-end lg:space-x-8 inline-block">
-              <a href="{% url 'jumia:detail' product.id %}"><button class="px-3 rounded btn btn-danger">Update Quantity</button></a>
+            <div class="block lg:flex lg:items-center flex items-end lg:space-x-8 inline-block">
+                <div class="quantity-controls inline-block flex justify-center items-center lg:mt-3">
+                    <form action="{% url 'cart:cart_update' product.id %}" method="post" id="updateForm-{{ product.id }}">
+                        {% csrf_token %}
+                        <button type="button" class="btn btn-success rounded" onclick="decreaseQuantity('{{ product.id }}')">-</button>
+                        <span id="quantityDisplay-{{ product.id }}" class="mx-4">{{ item.quantity }}</span>
+                        <button type="button" class="btn btn-success rounded" onclick="increaseQuantity('{{ product.id }}')">+</button>
+                        <input type="hidden" name="quantity" id="quantity-{{ product.id }}" value="{{ item.quantity }}">
+                    </form>
+                </div>                
+            </div>
             </div>
         </div>
     </div>
@@ -64,86 +73,98 @@
 </div>
 
 
-<div class="hidden lg:grid lg:grid-cols-12 gap-5 mt-4">
-    <div class="lg:col-span-9 border shadow-md">
-        <h1 class="text-start text-2xl font-bold p-3">Cart 
-            {% with total_items=cart|length %}
-            {% if total_items > 0 %}
-                ({{ total_items }})     
-            {% else %}      
-                (0)
-            {% endif %}  
-            {% endwith %} 
-        </h1>
-        <hr class="w-full">
-            {% for item in cart %}        
-                {% with product=item.product %}
-                <div class="p-3 flex flex-col lg:flex-row justify-between">
-                    <div class="flex inline-block">
-                        <img class="mt-4 rounded-lg" src="{{product.image.url}}" alt="{{product.name}}" style="max-width: 100px;max-height: 100px">
-                        <div class="block">
-                            <h1 class="text-md lg:text-lg mt-3 px-3">{{product.name}}</h1>
-                            <h1 class="text-sm lg:text-sm px-3">{{product.category}}</h1>
-                            <h1 class="text-sm lg:text-lg px-3">Quantity: {{item.quantity}}</h1>
-                            <div class="block lg:hidden">
-                                <h1 class="text-lg font-bold px-3">UGX {{product.price|intcomma}}</h1>
+<div class="container-fluid">
+    <div class="hidden lg:grid lg:grid-cols-12 gap-5 mt-4">
+        <div class="lg:col-span-9 border shadow-md">
+            <h1 class="text-start text-2xl font-bold p-3">Cart 
+                {% with total_items=cart|length %}
+                {% if total_items > 0 %}
+                    ({{ total_items }})     
+                {% else %}      
+                    (0)
+                {% endif %}  
+                {% endwith %} 
+            </h1>
+            <hr class="w-full">
+                {% for item in cart %}        
+                    {% with product=item.product %}
+                    <div class="p-3 flex flex-col lg:flex-row justify-between">
+                        <div class="flex inline-block">
+                            <img class="mt-4 rounded-lg" src="{{product.image.url}}" alt="{{product.name}}" style="max-width: 100px;max-height: 100px">
+                            <div class="block">
+                                <h1 class="text-md lg:text-lg mt-3 px-3">{{product.name}}</h1>
+                                <h1 class="text-sm lg:text-sm px-3">{{product.category}}</h1>
+                                <h1 class="text-sm lg:text-lg px-3">Quantity: {{item.quantity}}</h1>
+                                <div class="block lg:hidden">
+                                    <h1 class="text-lg font-bold px-3">UGX {{product.price|intcomma}}</h1>
+                                </div>
                             </div>
                         </div>
+                        <div class="hidden lg:flex lg:justify-end">
+                            <h1 class="text-lg font-semibold lg:text-xl mt-3">UGX {{product.price|intcomma}}</h1>
+                        </div>
+                    </div>                
+                    <div class="px-3 flex justify-content-between inline-block mb-2">
+                        <form action="{% url 'cart:cart_remove' product.id %}" method="post">               
+                            <button type="submit" class="px-3 rounded btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                              </svg> Remove</button>
+                            {% csrf_token %}              
+                        </form>
+                        <div class="block lg:flex lg:items-center flex items-end lg:space-x-8 inline-block">
+                            <div class="quantity-controls inline-block flex justify-center items-center lg:mt-3">
+                                <form action="{% url 'cart:cart_update' product.id %}" method="post" id="updateForm-{{ product.id }}">
+                                    {% csrf_token %}
+                                    <button type="button" class="btn btn-success rounded" onclick="decreaseQuantity('{{ product.id }}')">-</button>
+                                    <span id="quantityDisplay-{{ product.id }}" class="mx-4">{{ item.quantity }}</span>
+                                    <button type="button" class="btn btn-success rounded" onclick="increaseQuantity('{{ product.id }}')">+</button>
+                                    <input type="hidden" name="quantity" id="quantity-{{ product.id }}" value="{{ item.quantity }}">
+                                </form>
+                            </div> 
+                        </div>
                     </div>
-                    <div class="hidden lg:flex lg:justify-end">
-                        <h1 class="text-lg font-semibold lg:text-xl mt-3">UGX {{product.price|intcomma}}</h1>
-                    </div>
-                </div>                
-                <div class="px-3 flex justify-content-between inline-block mb-2">
-                    <form action="{% url 'cart:cart_remove' product.id %}" method="post">               
-                        <button type="submit" class="px-3 rounded btn btn-secondary"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                          </svg> Remove</button>
-                        {% csrf_token %}              
-                    </form>
-                    <div class="block lg:flex lg:items-center flex items-end lg:space-x-8 inline-block">
-                      <a href="{% url 'jumia:detail' product.id %}"><button class="px-3 rounded btn btn-danger">Update Quantity</button></a>
-                    </div>
-                </div>
-                {% endwith %}      
-            {% endfor %}
-    </div>
-    <div class="hidden lg:block lg:col-span-3 lg:mt-4 border shadow-md p-3 h-48">
-        <h1 class="text-start font-bold text-xl">CART SUMMARY</h1>
-        <hr>
-        <div class="flex justify-between p-3 font-semibold">
-            <p class="text-xl">Total: </p>
-            <h1 class="text-2xl">UGX {{ cart.get_total_price|intcomma }}</h1>
+                    {% endwith %}      
+                {% endfor %}
         </div>
-        <hr>
-        <a href="{% url 'orders:order_create' %}" class="btn btn-block rounded-lg text-xl btn-success my-3 py-2 lg:py-3 w-full">Checkout</a>
-    </div>    
+        <div class="hidden lg:block lg:col-span-3 lg:mt-4 border shadow-md p-3 h-48">
+            <h1 class="text-start font-bold text-xl">CART SUMMARY</h1>
+            <hr>
+            <div class="flex justify-between p-3 font-semibold">
+                <p class="text-xl">Total: </p>
+                <h1 class="text-2xl">UGX {{ cart.get_total_price|intcomma }}</h1>
+            </div>
+            <hr>
+            <a href="{% url 'orders:order_create' %}" class="btn btn-block rounded-lg text-xl btn-success my-3 py-2 lg:py-3 w-full">Checkout</a>
+        </div>    
+    </div>
 </div>
 {% else %}
     <div class="col-12 text-center font-mono mt-5">
         <h3 class="py-2 text-lg lg:text-2xl text-gray-700">You Cart is empty!!</h3>
-        <p class="text-green-500 text-sm lg:text-lg hover:text-green-700">Browse our categories and discover the best prosucts for you.</p>
+        <p class="text-sm lg:text-lg">Browse our categories and discover the best prosucts for you.</p>
         <a href="{% url 'jumia:items' %}" class="btn btn-block rounded-lg text-xl btn-success my-3 py-2 lg:py-3 w-full">Start shopping here.</a>
     </div>
 {% endif %}
 
 <script>
-    function decreaseQuantity() {
-        var quantityDisplay = document.getElementById('quantityDisplay');
-        var quantityInput = document.getElementById('quantity');
+    function decreaseQuantity(productId) {
+        var quantityDisplay = document.getElementById('quantityDisplay-' + productId);
+        var quantityInput = document.getElementById('quantity-' + productId);
         var currentValue = parseInt(quantityDisplay.innerText);
         if (currentValue > 1) {
             quantityDisplay.innerText = currentValue - 1;
-            quantityInput.value = currentValue - 1;  // Update the hidden input field
+            quantityInput.value = currentValue - 1;
+            document.getElementById('updateForm-' + productId).submit();  // Auto-submit form
         }
     }
 
-    function increaseQuantity() {
-        var quantityDisplay = document.getElementById('quantityDisplay');
-        var quantityInput = document.getElementById('quantity');
+    function increaseQuantity(productId) {
+        var quantityDisplay = document.getElementById('quantityDisplay-' + productId);
+        var quantityInput = document.getElementById('quantity-' + productId);
         var currentValue = parseInt(quantityDisplay.innerText);
         quantityDisplay.innerText = currentValue + 1;
-        quantityInput.value = currentValue + 1;  // Update the hidden input field
+        quantityInput.value = currentValue + 1;
+        document.getElementById('updateForm-' + productId).submit();  // Auto-submit form
     }
 </script>
 {% endblock %}
