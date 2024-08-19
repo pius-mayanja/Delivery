@@ -31,12 +31,12 @@ def order_create(request):
                 order = form.save(commit=False)
                 order.user = request.user  
                 order = form.save()     
-                # accountSID = 'ACe6d928ec56d8f0c7bce4f4301f592d45'
-                # authToken = '59519c547005d51047167550327627e5'
-                # twilioCli = Client(accountSID, authToken)
-                # myTwilioNumber = '+13345083970'
-                # myCellPhone = '+256761420297'
-                # message = twilioCli.messages.create(body=f'Order was created by {user.first_name}', from_=myTwilioNumber, to=myCellPhone)
+                accountSID = 'ACe6d928ec56d8f0c7bce4f4301f592d45'
+                authToken = '59519c547005d51047167550327627e5'
+                twilioCli = Client(accountSID, authToken)
+                myTwilioNumber = '+13345083970'
+                myCellPhone = '+256761420297'
+                message = twilioCli.messages.create(body=f'Order was created by {customer.first_name}', from_=myTwilioNumber, to=myCellPhone)
                 for item in cart:                
                     OrderItem.objects.create(order=order, product=item['product'], price=item['price'],quantity=item['quantity'])        
                 cart.clear()
@@ -127,3 +127,36 @@ def payment_callback(request):
         return JsonResponse({'status': 'success'})
 
     return JsonResponse({'status': 'error'}, status=400)
+
+
+def direct_order(request, item_id):
+    item = get_object_or_404(Type, id=item_id)
+    user = request.user
+    if user.is_authenticated:
+        customer = Customer.objects.get(user=user)
+        if request.method == 'POST':
+            form = OrderCreateForm(request.POST)
+            if form.is_valid():
+                order = form.save(commit=False)
+                order.user = request.user  
+                order.save()
+                
+                accountSID = 'ACe6d928ec56d8f0c7bce4f4301f592d45'
+                authToken = '59519c547005d51047167550327627e5'
+                twilioCli = Client(accountSID, authToken)
+                myTwilioNumber = '+13345083970'
+                myCellPhone = '+256761420297'
+                message = twilioCli.messages.create(body=f'Order was created by {customer.first_name}', from_=myTwilioNumber, to=myCellPhone)
+                
+                order_item = OrderItem(
+                    order=order,
+                    product=item,
+                    price=item.price,
+                    quantity=request.POST.get('quantity', 1)
+                )
+                order_item.save()
+                return render(request,'order/created.html', {'order': order})
+        else:
+            form = OrderCreateForm()
+
+        return render(request, 'jumia/detail.html', {'form': form, 'item': item})

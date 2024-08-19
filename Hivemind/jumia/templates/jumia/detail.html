@@ -29,36 +29,21 @@
         <hr class="pb-2">
         <p class="text-sm">From the iconic checkerboard slip-on to the legendary Old Skool, Vans offers timeless styles for men, women, and kids.  Built with comfort and durability in mind, Vans are perfect for skating, everyday wear, or expressing your unique style.  Shop their wide variety of colors, patterns, and materials to find the perfect Vans for you.</p>
       </div>
-        <div class="lg:hidden block lg:flex lg:items-center  flex justify-center items-center space-x-8 inline-block boder mx-0 shadow-md bg-white p-2 mt-1 rounded-xl">
+        <div class="lg:flex lg:items-start lg:justify-start flex justify-center items-center space-x-8 inline-block boder mx-0 lg:shadow-none shadow-md bg-white p-2 lg:mt-2 mt-1 rounded-xl">
             <div class="quantity-controls inline-block flex justify-center items-center lg:mt-3">
                 <button type="button" class="btn btn-success rounded" onclick="decreaseQuantity()">-</button>
                 <span id="quantityDisplay" class="mx-4">1</span>  <!-- Display the quantity -->
                 <button type="button" class="btn btn-success rounded" onclick="increaseQuantity()">+</button>
             </div>
             <div class="">
-              <form action="{% url 'cart:cart_add' item.id %}" method="post">
+              <form action="{% url 'cart:cart_add' item.id %}" method="post" class="lg:mt-2">
                 {% csrf_token %}
                 <input type="hidden"  name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
                 <input type="hidden" name="override" value="False">
-                <button type="submit" class="btn btn-danger rounded-xl w-full"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                <button type="submit" class="btn btn-danger rounded-xl w-full"><i class="fa fa-shopping-cart mr-1 lg:mt-2"></i> Add To Cart</button>
             </form>
             </div>
         </div>
-        <div class="hidden block lg:flex lg:items-center space-x-8 inline-block">
-          <div class="quantity-controls inline-block flex justify-center items-center lg:mt-3">
-              <button type="button" class="btn btn-success rounded" onclick="decreaseQuantity()">-</button>
-              <span id="quantityDisplay" class="mx-4">1</span>  <!-- Display the quantity -->
-              <button type="button" class="btn btn-success rounded" onclick="increaseQuantity()">+</button>
-          </div>
-          <div class="mt-3">
-            <form action="{% url 'cart:cart_add' item.id %}" method="post">
-              {% csrf_token %}
-              <input type="hidden"  name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
-              <input type="hidden" name="override" value="False">
-              <button type="submit" class="btn btn-danger rounded-xl w-full"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
-          </form>
-          </div>
-      </div>
     </div>
     <div class="col-span-5 mt-2 lg:ml-5 lg:h-48 border bg-white rounded-xl p-2 shadow-sm">
       <h1 class="text-center font-semibold text-lg lg:text-xl">Order for product now</h1>
@@ -90,27 +75,37 @@
               </div>
               <div class="modal-body">
                 <div class="mb-3">
-                  <form action="{% url 'orders:order_create' %}" method="post">
+                  <form action="{% url 'orders:direct_order' item.id%}" method="post">
                     {% csrf_token %}
                     <div class="flex justify-content-between">
-                      <h1 class="font-semibold text-md lg:text-xl">Product: </h1>
-                      <h1 class="font-bold text-lg lg:text-xl">{{item.name}}</h1>
+                      <h1 class="font-semibold text-md lg:text-xl">Product:</h1>
+                      <h1 class="font-bold text-lg lg:text-xl">{{ item.name }}</h1>
                     </div>
                     <div class="flex justify-content-between">
-                      <h1 class="font-semibold text-md lg:text-xl">Order Total: </h1>
-                      <h1 class="font-bold text-lg lg:text-xl">UGX {{item.price}}</h1>
+                      <h1 class="font-semibold text-md lg:text-xl">Order Total:</h1>
+                      <h1 class="font-bold text-lg lg:text-xl">UGX {{ item.price }}</h1>
                     </div>
                     <br>
+                    <div class="mb-3 flex justify-between">
+                      <label class="inline-block mb-2">Quantity</label>
+                      <div class="quantity-controls flex items-center">
+                        <button type="button" class="btn btn-success rounded" onclick="decreaseModalQuantity()">-</button>
+                        <span id="modalQuantityDisplay" class="mx-4">1</span>
+                        <button type="button" class="btn btn-success rounded" onclick="increaseModalQuantity()">+</button>
+                      </div>
+                      <input type="hidden" name="quantity" id="modalQuantityInput" value="1">
+                    </div>
+        
                     <div class="mb-3">
                       <label for="id_phone_number" class="inline-block mb-2">Mobile</label>
                       {{ form.phone_number }}
                     </div>
-
+        
                     <div class="mb-3">
                       <label class="inline-block mb-2">Address</label>
-                      {{form.address}}
+                      {{ form.address }}
                     </div>
-    
+        
                     <div class="flex justify-end">
                       <button type="submit" class="btn btn-success rounded-lg">Order now...</button>
                     </div>
@@ -120,6 +115,27 @@
             </div>
           </div>
         </div>
+        
+        <script>
+          function decreaseModalQuantity() {
+            var quantityDisplay = document.getElementById('modalQuantityDisplay');
+            var quantityInput = document.getElementById('modalQuantityInput');
+            var currentValue = parseInt(quantityDisplay.innerText);
+            if (currentValue > 1) {
+              quantityDisplay.innerText = currentValue - 1;
+              quantityInput.value = currentValue - 1;
+            }
+          }
+        
+          function increaseModalQuantity() {
+            var quantityDisplay = document.getElementById('modalQuantityDisplay');
+            var quantityInput = document.getElementById('modalQuantityInput');
+            var currentValue = parseInt(quantityDisplay.innerText);
+            quantityDisplay.innerText = currentValue + 1;
+            quantityInput.value = currentValue + 1;
+          }
+        </script>
+        
       </div>
     </div>
 </div>

@@ -27,7 +27,7 @@
     </div>
     {% for item in cart %}        
     {% with product=item.product %}
-    <div class="border p-3 mt-1 bg-white">
+    <div class="lg:hidden border p-3 mt-1 bg-white">
         <div class="flex flex-col lg:flex-row justify-between">
             <div class="flex inline-block">
                 <img class="rounded-lg" src="{{product.image.url}}" alt="{{product.name}}" style="max-width: 100px;max-height: 100px">
@@ -68,7 +68,7 @@
     {% endwith %}      
     {% endfor %}
     <div class="lg:hidden">
-        <a href="{% url 'orders:order_create' %}" class="btn btn-block rounded-lg text-xl btn-success my-3 py-2 lg:py-3 w-full">Checkout (UGX {{ cart.get_total_price|intcomma }})</a>
+        <a href="{% url 'orders:order_create' %}" class="btn btn-block text-xl btn-success my-3 py-2 lg:py-3 w-full">Checkout (UGX {{ cart.get_total_price|intcomma }})</a>
     </div>    
 </div>
 
