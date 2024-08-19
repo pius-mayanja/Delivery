@@ -132,8 +132,8 @@
                     </ul>
                     {% else %}
                     <div class="flex space-x-4 justify-center items-center mt-3 lg:hidden">
-                        <a href="{% url 'user:login' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">Login</a>
-                        <a href="{% url 'user:signup' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">Signup</a>
+                        <a href="{% url 'user:login' %}" class="hover:bg-red-400 hover:text-white bg-red-400 text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">Login</a>
+                    <a href="{% url 'user:signup' %}" class="hover:bg-red-400 hover:text-white bg-red-400 text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">Signup</a>
                     </div>
                     {% endif %}
                 </div>
@@ -176,8 +176,8 @@
                         </div>
                     </div>
                     {% else %}
-                    <a href="{% url 'user:login' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">Login</a>
-                    <a href="{% url 'user:signup' %}" class="btn btn-secondary text-md font-semibold hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-1">Signup</a>
+                    <a href="{% url 'user:login' %}" class="hover:bg-red-400 hover:text-white bg-red-400 text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">Login</a>
+                    <a href="{% url 'user:signup' %}" class="hover:bg-red-400 hover:text-white bg-red-400 text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">Signup</a>
                     {% endif %}
                 </div>
             </div>
