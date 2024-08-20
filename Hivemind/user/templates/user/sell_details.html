@@ -4,8 +4,8 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="w-1/2 my-6 mx-auto p-6 bg-gray-200  rounded-xl">
-    <h1 class="mb-6 text-4xl text-center">Product details</h1>
+<div class="w-full lg:w-1/2 my-6 mx-auto p-6 bg-gray-200  rounded-xl">
+    <h1 class="mb-6 text-3xl lg:text-4xl text-center">Product details</h1>
 
     <form method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}

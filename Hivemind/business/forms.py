@@ -12,15 +12,7 @@ class BusinessForm(forms.ModelForm):
 
 
 
-class BusinessSignUpForm(UserCreationForm):
-    name = forms.CharField(widget=forms.TextInput(attrs={
-        'label':'Business Name',
-        'placeholder': 'Your business name',
-        'class': 'w-full py-4 px-6 rounded-xl'
-    }))  
-
-    logo = forms.ImageField()
-    
+class BusinessSignUpForm(UserCreationForm):    
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',
         'class': 'w-full py-4 px-6 rounded-xl'
@@ -51,7 +43,7 @@ class BusinessSignUpForm(UserCreationForm):
         user.is_business = True
         if commit:
             user.save()
-        business = Business.objects.create(user=user, name=self.cleaned_data.get('name'), logo=self.cleaned_data.get('logo'))
+        business = Business.objects.create(user=user, username=self.cleaned_data.get('username'), email=self.cleaned_data.get('email'), phone_number=self.cleaned_data.get('phone_number'))
         return user
     
 class ConversationMessageForm(forms.ModelForm):

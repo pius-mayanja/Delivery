@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="container-fluid pt-5">
-    <h1 class="text-center py-4 text-3xl font-bold">YOUR PRODUCTS ON MARKET</h1>
+    <h1 class="text-center py-4 text:xl lg:text-3xl font-bold">PRODUCTS CURRENT ON MARKET</h1>
     <div class="row px-xl-4 pb-2">
         {% for item in items %}
         {% if request.user == item.product_by %}
