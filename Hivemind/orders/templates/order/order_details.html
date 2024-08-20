@@ -43,6 +43,10 @@
     <hr>
     <h1 class="flex justify-between font-bold pt-3">Total: <span class="text-xl">UGX {{orders.cost|intcomma}}</span></h1>
   {% if orders.id %}
+    <form id="paymentForm" action="{% url 'orders:payment' orders.id%}" method="post">
+      {% csrf_token %}
+      <button type="submit" id="submitButton" class="btn btn-block rounded-lg text-xl btn-success lg:mt-1 w-full">Pay For Order</button>
+    </form>
     <form action="{% url 'orders:delete_order' orders.id %}" method="post" class="mt-2">
       {% csrf_token %}
       <button type="submit" class="btn btn-block btn-danger font-semibold rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 inline-block mb-1">
