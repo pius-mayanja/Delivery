@@ -33,7 +33,7 @@
                 <img class="rounded-lg" src="{{product.image.url}}" alt="{{product.name}}" style="max-width: 100px;max-height: 100px">
                 <div class="block">
                     <h1 class="text-md lg:text-lg px-3">{{product.name}} | <span class="text-sm"><a href="{% url 'jumia:category' product.category.id%}">{{product.category}}</a></span></h1>
-                    <!-- <h1 class="text-sm lg:text-lg px-3">Quantity: {{item.quantity}}</h1> -->
+                    <h1 class="text-sm lg:text-lg px-3">Quantity: {{item.quantity}}</h1>
                     <div class="block lg:hidden">
                         <h1 class="text-lg font-bold px-3">UGX {{product.price|intcomma}}</h1>
                     </div>
