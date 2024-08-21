@@ -31,12 +31,18 @@ def order_create(request):
                 order = form.save(commit=False)
                 order.user = request.user  
                 order = form.save()     
+                
                 accountSID = 'ACe6d928ec56d8f0c7bce4f4301f592d45'
                 authToken = '59519c547005d51047167550327627e5'
                 twilioCli = Client(accountSID, authToken)
                 myTwilioNumber = '+13345083970'
                 myCellPhone = '+256761420297'
-                message = twilioCli.messages.create(body=f'Order was created by {customer.first_name}. Follow url to see details https://piusDev.pythonanywhere.com/business.', from_=myTwilioNumber, to=myCellPhone)
+                twilioCli.messages.create(
+                    body=f'Order was created by {customer.first_name}. Follow url to see details https://piusDev.pythonanywhere.com/business/ordered/', 
+                    from_=myTwilioNumber, 
+                    to=myCellPhone
+                    )
+                
                 for item in cart:                
                     OrderItem.objects.create(order=order, product=item['product'], price=item['price'],quantity=item['quantity'])        
                 cart.clear()
@@ -146,7 +152,10 @@ def direct_order(request, item_id):
                 twilioCli = Client(accountSID, authToken)
                 myTwilioNumber = '+13345083970'
                 myCellPhone = '+256761420297'
-                message = twilioCli.messages.create(body=f'Order was created by {customer.first_name}', from_=myTwilioNumber, to=myCellPhone)
+                twilioCli.messages.create(body=f'Order was created by {customer.first_name}', 
+                                          from_=myTwilioNumber, 
+                                          to=myCellPhone
+                                          )
                 
                 order_item = OrderItem(
                     order=order,

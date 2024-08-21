@@ -36,12 +36,37 @@
                 <button type="button" class="btn btn-success rounded" onclick="increaseQuantity()">+</button>
             </div>
             <div class="">
-              <form action="{% url 'cart:cart_add' item.id %}" method="post" class="lg:mt-2">
+            <form action="{% url 'cart:cart_add' item.id %}" method="post" class="lg:mt-2" id="addToCartForm">
                 {% csrf_token %}
-                <input type="hidden"  name="quantity" id="quantity" value="1">  <!-- Hidden input field for quantity -->
+                <input type="hidden"  name="quantity" id="quantity" value="1">
                 <input type="hidden" name="override" value="False">
                 <button type="submit" class="btn btn-danger rounded-xl w-full"><i class="fa fa-shopping-cart mr-1 lg:mt-2"></i> Add To Cart</button>
             </form>
+            <script>
+              document.getElementById('addToCartForm').onsubmit = function(event) {
+                event.preventDefault();
+                
+                fetch(this.action, {
+                  method: 'POST',
+                  body: new FormData(this),
+                  headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                  },
+                }).then(response => {
+                  if (response.ok) {
+                    // If the product is successfully added, show the modal
+                    $('#successModal').modal('show');
+                  } else {
+                    // Handle any errors (e.g., show an error message)
+                    alert('There was an issue adding the product to your cart.');
+                  }
+                }).catch(error => {
+                  console.error('Error:', error);
+                  alert('There was an issue adding the product to your cart.');
+                });
+              };
+            </script>
+            
             </div>
         </div>
     </div>
@@ -160,6 +185,25 @@
     {% endfor %}
 </div>
 </div>
+
+<!-- Add this modal at the bottom of your template -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="successModalLabel">Product Added</h5>
+      </div>
+      <div class="modal-body">
+        The product has been successfully added to your cart.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success rounded-xl" data-dismiss="modal">Continue Shopping</button>
+        <a href="{% url 'cart:cart_detail' %}" class="btn btn-secondary rounded-xl">Go to Cart</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     function decreaseQuantity() {
         var quantityDisplay = document.getElementById('quantityDisplay');
