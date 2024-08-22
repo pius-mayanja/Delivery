@@ -76,25 +76,31 @@ def order_details(request, id):
 
 
 def initiate_payment(request, order_id):
-    phone_exp = re.compile(r'(0)(/d{9})')
+    phone_exp = re.compile(r'^(0)(\d{9})$')
+    
     if request.method == 'POST':
-        
         url = 'https://www.easypay.co.ug/api/'
         secret = 'd58fadc8a79ed090'
         client_id = '317caec39c6e050c'
         
         order = get_object_or_404(Order, id=order_id)
         amount = int(order.cost())
-        # if order.phone_number == phone_exp.findall():
-            
+        
+        # Format phone number
+        phone_number = str(order.phone_number)
+        match = phone_exp.match(phone_number)
+        
+        if match:
+            phone_number = '+256' + match.group(2)  # Replace '0' with '+256'
+        
         try:
             payload = {
                 "username": client_id,
                 "password": secret,
-                "action":"mmdeposit",
+                "action": "mmdeposit",
                 'amount': amount,
                 'currency': 'UGX',
-                'phone': str(order.phone_number),
+                'phone': phone_number,
                 'reference': f'order_{order.id}'
             }
             headers = {
@@ -112,7 +118,9 @@ def initiate_payment(request, order_id):
                 return JsonResponse({'status': 'error', 'message': error_message})
         except Exception as e:
             return JsonResponse({'success': False, 'errormsg': str(e)})
+    
     return JsonResponse({'success': False, 'errormsg': 'Invalid request method'})
+
 
     
 @csrf_exempt
