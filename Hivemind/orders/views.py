@@ -160,9 +160,10 @@ def direct_order(request, item_id):
                 twilioCli = Client(accountSID, authToken)
                 myTwilioNumber = '+13345083970'
                 myCellPhone = '+256761420297'
-                twilioCli.messages.create(body=f'Order was created by {customer.first_name}', 
-                                          from_=myTwilioNumber, 
-                                          to=myCellPhone
+                twilioCli.messages.create(
+                    body=f'Order was created by {customer.first_name}. Follow url to see details https://piusDev.pythonanywhere.com/business/ordered/', 
+                    from_=myTwilioNumber, 
+                    to=myCellPhone
                                           )
                 
                 order_item = OrderItem(
