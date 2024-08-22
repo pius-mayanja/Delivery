@@ -8,7 +8,7 @@ class OrderCreateForm(forms.ModelForm):
         fields = ['address', 'phone_number']
         widgets = {
             'address': forms.TextInput(attrs={'id':'address','placeholder': 'Delivery address','class': 'w-full py-1 lg:py-2 px-3 rounded-lg lg:rounded-xl border border-red-900 autocomplete-container'}),
-            'phone_number': forms.TextInput(attrs={'placeholder': 'Phone number eg. 256.....','class': 'w-full py-1 lg:py-22 px-3 rounded-lg lg:rounded-xl border border-red-900'}),
+            'phone_number': forms.TextInput(attrs={'placeholder': 'Number will be used to intiate payments and calls.','class': 'w-full py-1 lg:py-22 px-3 rounded-lg lg:rounded-xl border border-red-900'}),
     
         }
 
