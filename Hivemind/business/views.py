@@ -7,7 +7,7 @@ from jumia.models import Type
 from orders.models import OrderItem, Order
 from .forms import ConversationMessageForm
 from chart.models import Conversation
-from user.models import User
+from user.models import User, Customer
 
 def about(request):
     return render(request, 'bus/about.html' )
@@ -31,7 +31,7 @@ def business_reg(request):
 @business_required
 def manage(request):
     items = Type.objects.all()
-    return render(request, 'user/manage.html', {'items': items} )
+    return render(request, 'bus/manage.html', {'items': items} )
 
 
 @business_required
@@ -45,11 +45,16 @@ def detail(request, id):
         'related_items': related_items,
     })
 
-@login_required
 @business_required
-def ordered(request):
-    ordered_product = OrderItem.objects.all()
-    return render(request, 'bus/ordered.html', {'ordered_product':ordered_product})
+def orders(request):
+    orders = Order.objects.all()
+    return render(request, 'bus/orders.html', {'orders':orders,})
+
+@business_required
+def order_details(request, id):
+    orders = Order.objects.filter(id=id).first()
+    product = OrderItem.objects.filter(order=orders)
+    return render(request, 'bus/ordered.html', {'orders':orders, 'product':product})
 
 
 @login_required

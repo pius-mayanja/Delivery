@@ -5,12 +5,11 @@ from django.contrib.auth.views import *
 app_name = 'business'
 
 urlpatterns = [
-    path('about/', about, name='about'),
-    path('sells/', sell, name='sell'),
-    path('manage/', manage, name='manage'),
+    path('', manage, name='manage'),
     path('detail/<int:id>',detail, name= 'detail'),
-    path('ordered/',ordered, name= 'ordered'),
+    path('orders/',orders, name= 'ordered'),
+    path('order-details/<int:id>',order_details, name= 'order_details'),
     path('products/', business_reg, name='reg'),
-    path('',inbox, name='inbox'),
+    path('inbox/',inbox, name='inbox'),
     path('<int:pk>/',cdetail, name='cdetail'),
 ]

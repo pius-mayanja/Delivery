@@ -1,0 +1,38 @@
+{% extends 'bus/board.html' %}
+
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="flex text-start text-xl lg:text-4xl font-bold text-gray-800 mb-2">Customer Orders</h1>
+    <hr class="mb-8">
+
+    <div class="row px-2">
+        {% if orders %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for order in orders %}
+            <a href="{% url 'business:order_details' order.id %}" class="block transition transform hover:scale-105 bg-white">
+                <div class="border border-gray-100 shadow-md rounded-xl p-6 hover:bg-gray-50">
+                    <div class="text-green-500 mb-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-5 mb-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" />
+                        </svg>
+                        <h2 class="text-sm font-bold inline-block">Order ID: {{ order.id }}</h2>
+                    </div>
+                    <div class="text-sm text-gray-700">
+                        <p><strong>Name:</strong> {{ order.user.customer.first_name }} {{ order.user.customer.last_name }}</p>
+                        <p><strong>Date:</strong> {{ order.created }}</p>
+                        <p><strong>Address:</strong> {{ order.address }}</p>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="col-12 text-center font-mono">
+            <h3 class="py-2 text-lg lg:text-2xl text-gray-700">No orders from customers yet!!</h3>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
