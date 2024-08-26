@@ -70,7 +70,7 @@ class LoginView(auth_views.LoginView):
             if user.is_customer:
                 return reverse('jumia:items')
             elif user.is_business:
-                return reverse('business:sell')
+                return reverse('business:manage')
         else:
             return reverse('user:login')
 
