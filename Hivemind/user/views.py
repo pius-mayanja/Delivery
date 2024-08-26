@@ -65,14 +65,17 @@ class LoginView(auth_views.LoginView):
         return super().get_context_data(**kwargs)
 
     def get_success_url(self):
-        user = self.request.user
-        if user.is_authenticated:
-            if user.is_customer:
-                return reverse('jumia:items')
-            elif user.is_business:
-                return reverse('business:manage')
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
         else:
-            return reverse('user:login')
+            user = self.request.user
+            if user.is_authenticated:
+                if user.is_customer:
+                    return reverse('jumia:items')
+                elif user.is_business:
+                    return reverse('business:manage')
+        return reverse('user:login')
 
 @business_required
 @login_required
