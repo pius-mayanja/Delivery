@@ -53,7 +53,6 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'user.User'
 
-LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 
 LOGOUT_URL = '/logout/'
