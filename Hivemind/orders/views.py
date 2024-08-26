@@ -178,3 +178,5 @@ def direct_order(request, item_id):
             form = OrderCreateForm()
 
         return render(request, 'jumia/detail.html', {'form': form, 'item': item})
+    else:
+        return redirect('user:login')
