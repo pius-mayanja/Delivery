@@ -11,7 +11,7 @@
       <div class="signup-content">
           <div class="signup-form">
               <h2 class="form-title">Sign up</h2>
-              <form action=" . " method="POST" class="register-form" id="register-form">
+              <form action="{% url 'user:signup' %}?next={{ request.GET.next }}" method="POST" class="register-form" id="register-form">
                 {% csrf_token %}
                 <div class="form-group">
                   <label for="fname"><i class="zmdi zmdi-account material-icons-name"></i></label>
