@@ -53,10 +53,10 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'user.User'
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'user:login'
 
-LOGOUT_URL = '/logout/'
-LOGOUT_REDIRECT_URL = 'items'
+LOGOUT_URL = 'user:logout'
+LOGOUT_REDIRECT_URL = 'jumia:items'
 
 
 MIDDLEWARE = [
