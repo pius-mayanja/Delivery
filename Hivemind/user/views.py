@@ -25,7 +25,6 @@ class CustomerSignUpView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
         return redirect('jumia:items')
 
 class BusinessSignUpView(CreateView):
@@ -39,7 +38,6 @@ class BusinessSignUpView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        login(self.request, user)
         return redirect('user:login')
 
 def Logout_view(request):
