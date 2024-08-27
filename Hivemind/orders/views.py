@@ -144,7 +144,7 @@ def payment_callback(request):
 
     return JsonResponse({'status': 'error'}, status=400)
 
-
+@customer_required
 def direct_order(request, item_id):
     item = get_object_or_404(Type, id=item_id)
     user = request.user
