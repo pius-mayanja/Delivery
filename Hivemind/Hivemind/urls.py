@@ -9,7 +9,7 @@ urlpatterns = [
     path('', include('jumia.urls')),
     path('inbox/', include('chart.urls')),
     path('cart/', include('cart.urls')),
-    path('', include('user.urls')),
+    path('account/', include('user.urls')),
     path('order/', include('orders.urls')),
     path('business/', include('business.urls')),
 
