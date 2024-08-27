@@ -38,7 +38,7 @@ def order_create(request):
                 myTwilioNumber = '+13345083970'
                 myCellPhone = '+256761420297'
                 twilioCli.messages.create(
-                    body=f'Order was created by {customer.first_name}. Follow url to see details https://piusDev.pythonanywhere.com/business/ordered/', 
+                    body=f'Order was created by {customer.first_name} {customer.last_name}.\nFollow url to see details https://piusDev.pythonanywhere.com/business/orders/', 
                     from_=myTwilioNumber, 
                     to=myCellPhone
                     )
@@ -77,7 +77,8 @@ def order_details(request, id):
 
 def initiate_payment(request, order_id):
     phone_exp = re.compile(r'^(0)(\d{9})$')
-    
+    intl_phone_exp = re.compile(r'^\+256(\d{9})$')
+
     if request.method == 'POST':
         url = 'https://www.easypay.co.ug/api/'
         secret = 'd58fadc8a79ed090'
@@ -88,11 +89,13 @@ def initiate_payment(request, order_id):
         
         # Format phone number
         phone_number = str(order.phone_number)
-        match = phone_exp.match(phone_number)
         
+        match = phone_exp.match(phone_number)
         if match:
             phone_number = '+256' + match.group(2)  # Replace '0' with '+256'
-        
+        elif not intl_phone_exp.match(phone_number):
+            return JsonResponse({'status': 'error', 'message': 'Invalid phone number format'})
+
         try:
             payload = {
                 "username": client_id,
@@ -120,7 +123,6 @@ def initiate_payment(request, order_id):
             return JsonResponse({'success': False, 'errormsg': str(e)})
     
     return JsonResponse({'success': False, 'errormsg': 'Invalid request method'})
-
 
     
 @csrf_exempt
@@ -161,7 +163,7 @@ def direct_order(request, item_id):
                 myTwilioNumber = '+13345083970'
                 myCellPhone = '+256761420297'
                 twilioCli.messages.create(
-                    body=f'Order was created by {customer.first_name}. Follow url to see details https://piusDev.pythonanywhere.com/business/ordered/', 
+                    body=f'Order was created by {customer.first_name} {customer.last_name}.\nFollow url to see details https://piusDev.pythonanywhere.com/business/orders/', 
                     from_=myTwilioNumber, 
                     to=myCellPhone
                                           )

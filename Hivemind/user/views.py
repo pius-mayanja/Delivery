@@ -14,17 +14,6 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth import views as auth_views
 
 
-def SignUp(request):
-    if request.method == 'POST':
-        form = CustomerSignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/login/')
-    else:
-        form = CustomerSignUpForm()
-
-    return render(request, 'user/signup.html', {'form':form})
-
 class CustomerSignUpView(CreateView):
     model = User
     form_class = CustomerSignUpForm
