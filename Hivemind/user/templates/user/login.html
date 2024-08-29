@@ -6,17 +6,43 @@
 <br>
 <br>
 <br>
+
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+<style>
+    @media only screen and (max-width: 768px) {
+    .login-image {
+        display: none;
+    }
+}
+.toggle-password {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 2;
+}
+
+.form-group {
+    position: relative;
+}
+
+</style>
+
 <section class="sign-in">
     <div class="container">
-        <div class="signin-content">
-            <div class="signin-image">
-                <figure class=""><img src="{%static 'reg/images/signin-image.jpg' %}" alt="sing up image"></figure>
-                <a href="{%url 'user:signup' %}" class="signup-image-link">Create an account</a>
-            </div>
+        <div class="py-5 lg:flex">
+            <div class="login-image hidden lg:block">
+                <figure class=""><img src="{% static 'reg/images/signin-image.jpg' %}" alt="sign up image"></figure>
+                <a href="{% url 'user:signup' %}" class="signup-image-link">Create an account</a>
+            </div>            
 
             <div class="signin-form">
-                <h2 class="form-title">Login</h2>
-                <form method="POST" class="register-form" id="login-form" action="{% url 'user:login' %}?next={{ request.GET.next }}">
+                <!-- <h2 class="text-start mb-4 text-xl">Login</h2> -->
+                <a href="{% url 'jumia:items' %}" class="text-center">
+                    <h1 class="text-2xl lg:text-3xl font-bold">Micheal <span class="text-green-500">& Yolanda</span></h1>
+                    <h5 class="font-semibold text-sm">Fast Delivery Services</h5>
+                </a>
+                <form method="POST" class="pt-10" id="login-form" action="{% url 'user:login' %}?next={{ request.GET.next }}">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
@@ -25,6 +51,9 @@
                     <div class="form-group">
                         <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
                         {{form.password}}
+                        <span class="toggle-password">
+                            <i class="zmdi zmdi-eye" id="toggle-password"></i>
+                        </span>
                     </div>
                     <div class="form-group">
                         <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
@@ -55,5 +84,17 @@
         </div>
     </div>
 </section>
+<script>
+    document.getElementById('toggle-password').addEventListener('click', function () {
+    const passwordField = document.querySelector('input[name="password"]');
+    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField.setAttribute('type', type);
+
+    // Toggle the icon
+    this.classList.toggle('zmdi-eye');
+    this.classList.toggle('zmdi-eye-off');
+});
+
+</script>
 
 {% endblock %}

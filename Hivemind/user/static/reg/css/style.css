@@ -253,7 +253,7 @@ body {
   margin-bottom: 150px; }
 
 .signup-content {
-  padding: 75px 0; }
+  padding: 0px; }
 
 .signup-form, .signup-image, .signin-form, .signin-image {
   width: 50%;
@@ -290,7 +290,7 @@ figure {
     background: #4292dc; }
 
 #signin {
-  margin-top: 16px; }
+  margin-top: 0px; }
 
 .signup-image-link {
   font-size: 14px;
@@ -450,8 +450,8 @@ label.valid {
   font-size: 18px; }
 
 .signin-content {
-  padding-top: 67px;
-  padding-bottom: 87px; }
+  padding-top: 0px;
+  padding-bottom: 0px; }
 
 .social-login {
   align-items: center;

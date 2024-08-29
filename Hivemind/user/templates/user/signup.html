@@ -6,12 +6,37 @@
 <br>
 <br>
 <br>
+
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+<style>
+    @media only screen and (max-width: 768px) {
+    .signin-image {
+        display: none;
+    }
+}
+.toggle-password {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 2;
+}
+
+.form-group {
+    position: relative;
+}
+
+</style>
+
 <section class="signup">
   <div class="container">
       <div class="signup-content">
           <div class="signup-form">
-              <h2 class="form-title">Sign up</h2>
-              <form action="{% url 'user:signup' %}?next={{ request.GET.next }}" method="POST" class="register-form" id="register-form">
+              <a href="{% url 'jumia:items' %}" class="text-center">
+                <h1 class="text-2xl lg:text-3xl font-bold">Micheal <span class="text-green-500">& Yolanda</span></h1>
+                <h5 class="font-semibold text-sm">Fast Delivery Services</h5>
+              </a>
+              <form action="{% url 'user:signup' %}?next={{ request.GET.next }}" method="POST" class="pt-10" id="register-form">
                 {% csrf_token %}
                 <div class="form-group">
                   <label for="fname"><i class="zmdi zmdi-account material-icons-name"></i></label>
@@ -36,27 +61,56 @@
                   <div class="form-group">
                       <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                       {{form.password1}}
+                      <span class="toggle-password">
+                        <i class="zmdi zmdi-eye" id="toggle-password"></i>
+                      </span>
                   </div>
                   <div class="form-group">
                       <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                       {{form.password2}}
+                      <span class="toggle-password">
+                        <i class="zmdi zmdi-eye" id="toggle-confirm-password"></i>
+                      </span>
                   </div>
                   <div class="form-group">
                       <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                      <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                      <label for="agree-term" class="text-sm"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group hidden lg:block">
                     <a href="#">I have an account</a>
                   </div>
                   <div class="form-group form-button">
-                      <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                      <input type="submit" name="signup" id="signup" class="form-submit" value="SignUp"/>
+                  </div>
+                  <div class="form-group lg:hidden text-center text-lg">
+                    <a href="{%url 'user:login' %}">I have an account</a>
                   </div>
               </form>
           </div>
-          <div class="signup-image">
+          <div class="signin-image hidden lg:block">
               <figure><img src="{%static 'reg/images/signup-image.jpg' %}" alt="sing up image"></figure>
           </div>
       </div>
   </div>
 </section>
+<script>
+  document.getElementById('toggle-password').addEventListener('click', function () {
+    const passwordField = document.querySelector('input[name="password1"]');
+    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField.setAttribute('type', type);
+
+    // Toggle the icon
+    this.classList.toggle('zmdi-eye');
+    this.classList.toggle('zmdi-eye-off');
+});
+document.getElementById('toggle-confirm-password').addEventListener('click', function () {
+    const passwordField = document.querySelector('input[name="password2"]');
+    const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordField.setAttribute('type', type);
+
+    // Toggle the icon
+    this.classList.toggle('zmdi-eye');
+    this.classList.toggle('zmdi-eye-off');
+});
+</script>
 {% endblock %}
