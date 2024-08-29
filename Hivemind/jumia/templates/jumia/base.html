@@ -105,37 +105,7 @@
             </a>
 
             <div class="collapse navbar-collapse" id="navbarContent">
-                <div class="navbar-nav lg:hidden">
-                    {% if request.user.is_authenticated %}
-                    <ul class="flex justify-between mt-2">
-                        <li><a href="{% url 'chart:inbox' %}" class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                            </svg> Inbox</a>
-                        </li>
-                        <li><a href="{% url 'orders:order_create' %}" class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-                            </svg> Checkout</a>
-                        </li>
-                        <li><a href="{% url 'user:logout' %}" class="hover:bg-red-400 hover:text-white bg-red-400 text-white rounded-2xl px-4 py-2">
-                             Logout</a>
-                        </li>
-                    </ul>
-                    {% else %}
-                    <a class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                        </svg>                  
-                    </a>
-                    <div class="flex space-x-4 justify-center items-center mt-3 lg:hidden">
-                        <a href="{% url 'user:login' %}" class="hover:bg-red-400 hover:text-white bg-red-400 text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">Login</a>
-                        <a href="{% url 'user:signup' %}" class="hover:bg-red-400 hover:text-white bg-red-400 text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">Signup</a>
-                    </div>
-                    {% endif %}
-                </div>
                 <div class="navbar-nav ml-auto hidden lg:inline-block">
-                    {% if request.user.is_authenticated %}
                     <div class="flex justify-center items-center gap-4">
                         <a href="{% url 'jumia:items' %}" class="hover:bg-green-600 hover:text-white rounded-2xl px-4 py-2 m-2 text-md font-semibold">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
@@ -144,11 +114,6 @@
                         </a>
                         <div class="">
                             <ul class="flex">
-                                <li><a href="{% url 'chart:inbox' %}" class="dropdown-item hover:bg-green-600 hover:text-white rounded-2xl px-2 py-2 m-2 text-md font-semibold">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                                    </svg>Inbox</a>
-                                </li>
                                 <li><a href="{% url 'cart:cart_detail' %}" class="relative dropdown-item hidden lg:block hover:bg-green-600 hover:text-white rounded-2xl px-2 py-2 m-2 text-md font-semibold">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
@@ -160,6 +125,12 @@
                                     {% endif %}
                                     <span>Cart</span>
                                 </a>
+                                </li>
+                                {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'chart:inbox' %}" class="dropdown-item hover:bg-green-600 hover:text-white rounded-2xl px-2 py-2 m-2 text-md font-semibold">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block mb-1 pr-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                                    </svg>Inbox</a>
                                 </li>
                                 <li><a href="{% url 'orders:order_create' %}" class="dropdown-item hover:bg-green-600 hover:text-white rounded-2xl px-2 py-2 m-2 text-md font-semibold">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 inline-block">
@@ -231,7 +202,7 @@
                     </a>
                 </li>
                 <li class="nav-item flex-1 text-center">
-                    <a class="nav-link hover:text-green-500 transition-all duration-300">
+                    <a href="{%url 'chart:inbox' %}" class="nav-link hover:text-green-500 transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
                         class="w-6 h-6 mx-auto mb-1 transform hover:scale-110 transition-all duration-300">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
@@ -250,7 +221,7 @@
                 </li>
                 {% else%}
                 <li class="nav-item flex-1 text-center">
-                    <a href="{%url 'user:login' %}" class="nav-link text-success hover:text-green-500 transition-all duration-300">
+                    <a href="{%url 'user:login' %}" class="nav-link text-danger hover:text-red-500 transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
                         class="w-6 h-6 mx-auto mb-1 transform hover:scale-110 transition-all duration-300">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
@@ -259,7 +230,7 @@
                     </a>
                 </li>
                 <li class="nav-item flex-1 text-center">
-                    <a href="{%url 'user:signup' %}" class="nav-link text-success hover:text-green-500 transition-all duration-300">
+                    <a href="{%url 'user:signup' %}" class="nav-link text-danger hover:text-red-500 transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" 
                         class="w-6 h-6 mx-auto mb-1 transform hover:scale-110 transition-all duration-300">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
