@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from user.decorators import customer_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from twilio.rest import Client
+# from twilio.rest import Client
 import requests
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
@@ -32,16 +32,16 @@ def order_create(request):
                 order.user = request.user  
                 order = form.save()     
                 
-                accountSID = 'ACe6d928ec56d8f0c7bce4f4301f592d45'
-                authToken = '59519c547005d51047167550327627e5'
-                twilioCli = Client(accountSID, authToken)
-                myTwilioNumber = '+13345083970'
-                myCellPhone = '+256761420297'
-                twilioCli.messages.create(
-                    body=f'Order was created by {customer.first_name} {customer.last_name}.\nFollow url to see details https://piusDev.pythonanywhere.com/business/orders/', 
-                    from_=myTwilioNumber, 
-                    to=myCellPhone
-                    )
+                # accountSID = 'ACe6d928ec56d8f0c7bce4f4301f592d45'
+                # authToken = '59519c547005d51047167550327627e5'
+                # twilioCli = Client(accountSID, authToken)
+                # myTwilioNumber = '+13345083970'
+                # myCellPhone = '+256761420297'
+                # twilioCli.messages.create(
+                #     body=f'Order was created by {customer.first_name} {customer.last_name}.\nFollow url to see details https://piusDev.pythonanywhere.com/business/orders/', 
+                #     from_=myTwilioNumber, 
+                #     to=myCellPhone
+                #     )
                 
                 for item in cart:                
                     OrderItem.objects.create(order=order, product=item['product'], price=item['price'],quantity=item['quantity'])        
@@ -157,16 +157,16 @@ def direct_order(request, item_id):
                 order.user = request.user  
                 order.save()
                 
-                accountSID = 'ACe6d928ec56d8f0c7bce4f4301f592d45'
-                authToken = '59519c547005d51047167550327627e5'
-                twilioCli = Client(accountSID, authToken)
-                myTwilioNumber = '+13345083970'
-                myCellPhone = '+256761420297'
-                twilioCli.messages.create(
-                    body=f'Order was created by {customer.first_name} {customer.last_name}.\nFollow url to see details https://piusDev.pythonanywhere.com/business/orders/', 
-                    from_=myTwilioNumber, 
-                    to=myCellPhone
-                                          )
+                # accountSID = 'ACe6d928ec56d8f0c7bce4f4301f592d45'
+                # authToken = '59519c547005d51047167550327627e5'
+                # twilioCli = Client(accountSID, authToken)
+                # myTwilioNumber = '+13345083970'
+                # myCellPhone = '+256761420297'
+                # twilioCli.messages.create(
+                #     body=f'Order was created by {customer.first_name} {customer.last_name}.\nFollow url to see details https://piusDev.pythonanywhere.com/business/orders/', 
+                #     from_=myTwilioNumber, 
+                #     to=myCellPhone
+                #                           )
                 
                 order_item = OrderItem(
                     order=order,
